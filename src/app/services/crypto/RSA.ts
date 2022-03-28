@@ -34,10 +34,21 @@ export class RSA {
     );
   }
 
-  async encrypt(data: string, publicKey: CryptoKey) {
+  importNonce(iv: any) {
+    return Encoder.b64ToAb(iv);
+  }
+
+  async encrypt(data: string, publicKey: CryptoKey, salt?: any) {
     const encoded = this.enc.encode(data)
 
-    // return CryptoJS.enc.Base64.stringify(cipher)
+    if (salt) {
+      return await window.crypto.subtle.encrypt(
+        {name: "RSA-OAEP", iv: salt},
+        publicKey,
+        encoded
+      )
+    }
+
     return await window.crypto.subtle.encrypt(
       {name: "RSA-OAEP"},
       publicKey,
@@ -45,7 +56,16 @@ export class RSA {
     )
   }
 
-  async decrypt(cipher: ArrayBuffer, privateKey: CryptoKey) {
+  async decrypt(cipher: ArrayBuffer, privateKey: CryptoKey, salt?: any) {
+    if (salt) {
+      const decrypted = await window.crypto.subtle.decrypt(
+        {name: "RSA-OAEP", iv: salt},
+        privateKey,
+        cipher
+      )
+
+      return this.dec.decode(decrypted)
+    }
     const decrypted = await window.crypto.subtle.decrypt(
       {name: "RSA-OAEP"},
       privateKey,
@@ -55,8 +75,8 @@ export class RSA {
     return this.dec.decode(decrypted)
   }
 
-  async generateKeys(){
-    const keys =  await window.crypto.subtle.generateKey(
+  async generateKeys() {
+    const keys = await window.crypto.subtle.generateKey(
       {
         name: "RSA-OAEP",
         modulusLength: 4096,
@@ -71,5 +91,11 @@ export class RSA {
       privateKey: await PEM.privateKey(keys.privateKey),
       publicKey: await PEM.publicKey(keys.publicKey)
     }
+  }
+
+  generateNonce() {
+    const array = new Uint32Array(10)
+
+    return Encoder.abToB64(window.crypto.getRandomValues(array))
   }
 }

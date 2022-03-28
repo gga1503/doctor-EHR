@@ -5,10 +5,8 @@ import {HomeComponent} from './home/home.component';
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  {
-    path: 'records',
-    loadChildren: () => import('./records/records.module').then(m => m.RecordsModule)
-  }];
+  {path: 'records', loadChildren: () => import('./records/records.module').then(m => m.RecordsModule)}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

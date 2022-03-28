@@ -6,7 +6,7 @@ import {RecordsShowComponent} from './records-show/records-show.component';
 
 const routes: Routes = [
   { path: '', component: RecordsComponent},
-  { path: 'create', component: RecordsCreateComponent},
+  { path: 'write', component: RecordsCreateComponent},
   { path: ':record', component: RecordsShowComponent},
 ];
 

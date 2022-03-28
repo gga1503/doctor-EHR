@@ -53,6 +53,7 @@ export class ECDH {
       privateKey,
       256
     )
+
     return Encoder.abToB64(sharedSecret);
   }
 
@@ -70,5 +71,11 @@ export class ECDH {
       privateKey: await PEM.privateKey(keys.privateKey),
       publicKey: await PEM.publicKey(keys.publicKey)
     }
+  }
+
+  async generateSessionKey(master_key: string, hash: string){
+    const temp = master_key.concat(hash)
+
+    return CryptoJS.SHA512(temp);
   }
 }
