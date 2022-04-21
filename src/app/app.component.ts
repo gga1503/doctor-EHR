@@ -6,15 +6,5 @@ import { Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent{
-  qrResultString:any;
-
-  clearResult(): void {
-    this.qrResultString = null;
-  }
-
-  onCodeResult(resultString: string) {
-    this.qrResultString = resultString;
-  }
-
-  title = 'patient-EHR';
+  title = 'Doctor-EHR';
 }

@@ -1,0 +1,79 @@
+.arrow-right{
+  //right: -20px;
+  float: right;
+}
+
+.mat-card{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 15px;
+}
+
+.column {
+  float: left;
+  width: 25%;
+  position: relative;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.most-left{
+  width: 10%;
+}
+
+.left{
+  width: 30%;
+}
+
+.middle{
+  width: 20%;
+}
+
+.right{
+  width: 30%;
+}
+
+.most-left,.left,.middle,.right{
+  margin: 1vw;
+}
+
+.mat-card img{
+  width: 100%;
+  margin: 1px 8px 1px 3px;
+}
+
+.patient-detail-key{
+  justify-content: space-between;
+  font-size: 3.0vh;
+  margin: auto 4vh auto auto;
+}
+
+.patient-title{
+  margin-top:0.5vh;
+  font-size: 5vh;
+  margin-bottom: 5vh;
+}
+
+.patient-detail{
+  font-size: 3.5vh;
+}
+
+.line{
+  border-left: 3px solid lightgray;
+  height: 15vh;
+  position: absolute;
+  transform: translateY(-90%);
+  right: 20px;
+}
+
+.line2{
+  border-left: 3px solid lightgray;
+  height: 15vh;
+  position: absolute;
+  transform: translateY(-105%);
+  right: 20px;
+}
