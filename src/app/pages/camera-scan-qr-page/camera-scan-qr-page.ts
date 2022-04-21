@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-camera-scan-qr-page',
+  templateUrl: './camera-scan-qr-page.component.html',
+  styleUrls: ['./camera-scan-qr-page.scss']
 })
-export class HomeComponent implements OnInit {
+export class CameraScanQrPageComponent implements OnInit {
 
   qrResultString:any;
 
