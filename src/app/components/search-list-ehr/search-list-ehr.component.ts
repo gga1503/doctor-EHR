@@ -3,11 +3,11 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-table-list-ehr',
-  templateUrl: './table-list-ehr.component.html',
-  styleUrls: ['./table-list-ehr.component.scss']
+  selector: 'app-search-list-ehr',
+  templateUrl: './search-list-ehr.component.html',
+  styleUrls: ['./search-list-ehr.component.scss']
 })
-export class TableListEhrComponent implements OnInit {
+export class SearchListEhrComponent implements OnInit {
 
   placeHolders: string = "Search Disease";
 

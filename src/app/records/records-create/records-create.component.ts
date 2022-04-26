@@ -8,6 +8,74 @@ import {CryptoService} from '../../services/crypto/crypto.service';
 })
 export class RecordsCreateComponent implements OnInit {
 
+  patient = {}
+
+  diseases = [
+    {
+      name: "Covid19",
+      records: [
+        {
+          "_id": "62605e04c1942e0a3e614745",
+          "data": {
+            "disease_id": "62605a4ba5d4a874cfe0661a",
+            "diagnose": "Sore Throat",
+            "bc_tx_address": "tx_12345",
+            "model": "Record",
+            "_id": "62605e040e62c921a635e3a1"
+          },
+          "id": "719544f76c0e8540b96621228764377852ecafc1f12aac2c3bb25124f33d6cb6"
+        },
+        {
+          "_id": "62606005c1942e0a3e61474a",
+          "data": {
+            "disease_id": "62605a4ba5d4a874cfe0661a",
+            "diagnose": "Fever",
+            "bc_tx_address": "tx_12345",
+            "model": "Record",
+            "_id": "62606005ad9ee6272718a477"
+          },
+          "id": "9ac168b7986c5bf48d02ff8d78733ee101cad8714f456ef0acd55a1f302b5e19"
+        },
+        {
+          "_id": "62606041c1942e0a3e61474f",
+          "data": {
+            "disease_id": "62605a4ba5d4a874cfe0661a",
+            "diagnose": "Sore throat & Fever",
+            "bc_tx_address": "tx_12345",
+            "model": "Record",
+            "_id": "62606041efaa4561ee8a31ff"
+          },
+          "id": "c6e47f524d9339e8d3463dd20904027e5a47dc702b92eb0bc2e31b15428ff1fd"
+        },
+        {
+          "_id": "6261af14453121e6527c09b9",
+          "data": {
+            "disease_id": "62605a4ba5d4a874cfe0661a",
+            "diagnose": "Omicron type",
+            "bc_tx_address": "tx_12345",
+            "date": "2022-04-21T19:22:28.585Z",
+            "model": "Record",
+            "_id": "6261af12619902af5d273e9e"
+          },
+          "id": "d23ee16e192d3d648b2ac19f0a77f04d1e6019e73c0bf34aa84dc5113705c6ae"
+        },
+        {
+          "_id": "6261afeb453121e6527c09be",
+          "data": {
+            "disease_id": "62605a4ba5d4a874cfe0661a",
+            "diagnose": "Delta type",
+            "bc_tx_address": "tx_12345",
+            "model": "Record",
+            "_id": "6261afe9eb6568270e1adf40"
+          },
+          "id": "be6be6a130be49a019647b805636c8a4e1d1d0c2f21942f4af94ed79373fa9f0"
+        }
+      ]
+    }
+  ]
+
+  // diseases[0].name -> kalo mau akses nama
+  // diseases[0].records[i].data.diagnose
   sampleData = {
     patients: [
       {
