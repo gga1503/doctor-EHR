@@ -7,12 +7,12 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { NgQrScannerModule } from 'angular2-qrscanner';
 import { CameraScanQrPageComponent } from './pages/camera-scan-qr-page/camera-scan-qr-page';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CardPatientDataComponent } from './card-patient-data/card-patient-data.component';
-import { TableDropdownComponent } from './table-dropdown/table-dropdown.component';
-import { HeaderLogoutComponent } from './header-logout/header-logout.component';
+import { CardPatientDataComponent } from './components/card-patient-data/card-patient-data.component';
+import { TableDropdownComponent } from './components/table-dropdown/table-dropdown.component';
+import { HeaderLogoutComponent } from './components/header-logout/header-logout.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
-import { TableListEhrComponent } from './table-list-ehr/table-list-ehr.component';
+import { SearchListEhrComponent } from './components/search-list-ehr/search-list-ehr.component';
 import {FormsModule} from "@angular/forms";
 import {MatTableModule} from '@angular/material/table';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -29,7 +29,7 @@ import { ListEhrPageComponent } from './pages/list-ehr-page/list-ehr-page.compon
         CardPatientDataComponent,
         TableDropdownComponent,
         HeaderLogoutComponent,
-        TableListEhrComponent,
+        SearchListEhrComponent,
         WelcomePageComponent,
         LoginPageComponent,
         DashboardScanQrPageComponent,

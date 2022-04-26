@@ -4,7 +4,7 @@ import { RecordsComponent } from './records/records.component';
 import {RecordsCreateComponent} from './records-create/records-create.component';
 import {RecordsShowComponent} from './records-show/records-show.component';
 import {AppRoutingModule} from "../app-routing.module";
-import {HeaderLogoutComponent} from "../header-logout/header-logout.component";
+import {HeaderLogoutComponent} from "../components/header-logout/header-logout.component";
 
 const routes: Routes = [
   { path: '', component: RecordsComponent},

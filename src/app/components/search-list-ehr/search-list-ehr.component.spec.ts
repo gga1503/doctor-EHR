@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableListEhrComponent } from './table-list-ehr.component';
+import { SearchListEhrComponent } from './search-list-ehr.component';
 
-describe('TableListEhrComponent', () => {
-  let component: TableListEhrComponent;
-  let fixture: ComponentFixture<TableListEhrComponent>;
+describe('SearchListEhrComponent', () => {
+  let component: SearchListEhrComponent;
+  let fixture: ComponentFixture<SearchListEhrComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TableListEhrComponent ]
+      declarations: [ SearchListEhrComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableListEhrComponent);
+    fixture = TestBed.createComponent(SearchListEhrComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
