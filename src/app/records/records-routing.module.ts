@@ -8,7 +8,7 @@ import {HeaderLogoutComponent} from "../components/header-logout/header-logout.c
 
 const routes: Routes = [
   { path: '', component: RecordsComponent},
-  { path: 'write', component: RecordsCreateComponent},
+  { path: 'create', component: RecordsCreateComponent},
   { path: ':record', component: RecordsShowComponent},
   { path: 'show', component: RecordsShowComponent},
 ];
