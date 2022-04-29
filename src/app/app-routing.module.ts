@@ -1,25 +1,19 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {CameraScanQrPageComponent} from './pages/camera-scan-qr-page/camera-scan-qr-page';
-import {HeaderLogoutComponent} from "./components/header-logout/header-logout.component";
-import {CardPatientDataComponent} from "./components/card-patient-data/card-patient-data.component";
-import {SearchListEhrComponent} from "./components/search-list-ehr/search-list-ehr.component";
-import {TableDropdownComponent} from "./components/table-dropdown/table-dropdown.component";
-import {WelcomePageComponent} from "./pages/welcome-page/welcome-page.component";
-import {LoginPageComponent} from "./pages/login-page/login-page.component";
-import {DashboardScanQrPageComponent} from "./pages/dashboard-scan-qr-page/dashboard-scan-qr-page.component";
-import {ListEhrPageComponent} from "./pages/list-ehr-page/list-ehr-page.component";
+import {CameraScanQrPageComponent} from './pages/qr-scanner/qr-scanner.component';
+import {WelcomeComponent} from "./pages/welcome/welcome.component";
+import {LoginComponent} from "./pages/login/login.component";
+import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/welcome', pathMatch: 'full'},
-  {path: 'welcome', component: WelcomePageComponent},
-  {path: 'login', component: LoginPageComponent},
-  {path: 'dashboard', component: DashboardScanQrPageComponent},
+  {path: 'welcome', component: WelcomeComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'dashboard', component: DashboardComponent},
   {path: 'scan-qr', component: CameraScanQrPageComponent},
-  {path: 'list-ehr', component: ListEhrPageComponent},
   {
     path: 'records',
-    loadChildren: () => import('./records/records.module').then(m => m.RecordsModule)
+    loadChildren: () => import('./pages/records/records.module').then(m => m.RecordsModule)
   }];
 
 @NgModule({
