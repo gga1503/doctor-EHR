@@ -1,0 +1,87 @@
+.show-patient-data{
+  padding: 2rem;
+  width: 100vw;
+  height: 25vh;
+  position: relative;
+}
+
+.mat-card {
+  border-radius: 1rem;
+  background: rgba(96,164,245,255);
+  box-shadow: 0px 11px 20px rgb(179, 212, 255);
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.most-left{
+  width: 15%;
+}
+
+.left{
+  width: 25%;
+}
+
+.middle{
+  width: 20%;
+}
+
+.right{
+  width: 20%;
+}
+
+.left,.middle,.right{
+  margin: 1rem;
+}
+
+.mat-card img{
+  max-width: 50%;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  transform: translateX(60%);
+}
+
+.patient-detail-key{
+  font-family: "SF Pro";
+  justify-content: space-between;
+  font-size: 1.3vw;
+  margin: auto 3rem auto auto;
+}
+
+.patient-title{
+  font-family: "SF Pro";
+  margin-top:1rem;
+  font-size: 1.6vw;
+  margin-bottom: 2rem;
+}
+
+.patient-detail{
+  font-size: 1vw;
+  font-family: "SF Pro Rounded";
+}
+
+
+
+//.line{
+//  border-left: 3px solid black;
+//  height: 65%;
+//  position: absolute;
+//  transform: translateY(-50%);
+//  top: 5.3rem;
+//  left: 42rem;
+//}
+//
+//.line2{
+//  border-left: 3px solid black;
+//  height: 65%;
+//  position: absolute;
+//  transform: translateY(-50%);
+//  top: 5.3rem;
+//  right: 42rem;
+//}
