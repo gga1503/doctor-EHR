@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableDropdownComponent } from './table-dropdown.component';
+import { DiseasesTableComponent } from './diseases-table.component';
 
 describe('TableDropdownComponent', () => {
-  let component: TableDropdownComponent;
-  let fixture: ComponentFixture<TableDropdownComponent>;
+  let component: DiseasesTableComponent;
+  let fixture: ComponentFixture<DiseasesTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TableDropdownComponent ]
+      declarations: [ DiseasesTableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableDropdownComponent);
+    fixture = TestBed.createComponent(DiseasesTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

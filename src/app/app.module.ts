@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ZXingScannerModule} from '@zxing/ngx-scanner';
 import {NgQrScannerModule} from 'angular2-qrscanner';
-import {CameraScanQrPageComponent} from './pages/qr-scanner/qr-scanner.component';
+import {QrScanner} from './pages/qr-scanner/qr-scanner.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from "@angular/forms";
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -14,15 +14,17 @@ import {LoginComponent} from './pages/login/login.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from './shared/shared.module';
+import {HttpClientModule} from "@angular/common/http";
+import {ApiService} from "./shared/services/api/api.service";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CameraScanQrPageComponent,
+    QrScanner,
     WelcomeComponent,
     LoginComponent,
-    DashboardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +34,10 @@ import {SharedModule} from './shared/shared.module';
     BrowserAnimationsModule,
     FormsModule,
     FontAwesomeModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ApiService],
   exports: [
     CommonModule,
   ],

@@ -5,33 +5,34 @@
         <img mat-card-image src="../../../../assets/images/qrscan.png" alt="QrScanner">
       </div>
       <div class="column left">
-        <mat-card-title class="patient-title">Patient's name</mat-card-title>
-<!--        <mat-card-title class="patient-title">{{patients.name}}</mat-card-title>-->
+<!--        <mat-card-title class="patient-title">Patient's name</mat-card-title>-->
+        <mat-card-title class="patient-title">{{patient.data.name}}</mat-card-title>
         <div class="patient-detail">
           <span class="patient-detail-key">
-            <span class="fw-bold">Age: </span> <span>23</span>
-<!--            <span>{{patients.age}}</span>-->
+            <span class="fw-bold">Dob: </span>
+<!--            <span>23</span>-->
+            <span>{{patient.data.dob}}</span>
           </span>
           <span class="patient-detail-key">
-            <span class="fw-bold">Gender: </span> <span>Male</span>
-<!--            <span>{{patients.gender}}</span>-->
+            <span class="fw-bold">Gender: </span>
+<!--            <span>Male</span>-->
+            <span>{{patient.data.gender}}</span>
           </span>
         </div>
-<!--        <div class="line"></div>-->
       </div>
       <div class="column middle">
         <mat-card-title class="patient-title">Id</mat-card-title>
         <mat-card-content>
-          <div class="patient-detail-key">7798199</div>
-<!--          <div class="patient-detail-key">{{patients.id}}</div>-->
+<!--          <div class="patient-detail-key">7798199</div>-->
+          <div class="patient-detail-key">{{patient.data._id}}</div>
         </mat-card-content>
 <!--        <div class="line2"></div>-->
       </div>
       <div class="column right">
         <mat-card-title class="patient-title">Blockchain</mat-card-title>
         <mat-card-content>
-          <div class="patient-detail-key">#127798122</div>
-<!--          <div class="patient-detail-key">{{patients.blockchain_id}}</div>-->
+<!--          <div class="patient-detail-key">#127798122</div>-->
+          <div class="patient-detail-key">{{patient.data.bc_address}}</div>
         </mat-card-content>
       </div>
     </div>

@@ -5,22 +5,25 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './qr-scanner.component.html',
   styleUrls: ['./qr-scanner.component.scss']
 })
-export class CameraScanQrPageComponent implements OnInit {
+export class QrScanner implements OnInit {
 
-  qrResultString:any;
+  qr_data:any;
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
   clearResult(): void {
-    this.qrResultString = null;
+    this.qr_data = null;
   }
 
   onCodeResult(resultString: string) {
-    this.qrResultString = resultString;
+    this.qr_data = resultString;
   }
+
+
 
   title = 'patient-EHR';
 
