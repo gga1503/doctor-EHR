@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CameraScanQrPageComponent } from './qr-scanner.component';
+import { QrScanner } from './qr-scanner.component';
 
-describe('HomeComponent', () => {
-  let component: CameraScanQrPageComponent;
-  let fixture: ComponentFixture<CameraScanQrPageComponent>;
+describe('QrScanner', () => {
+  let component: QrScanner;
+  let fixture: ComponentFixture<QrScanner>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CameraScanQrPageComponent ]
+      declarations: [ QrScanner ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CameraScanQrPageComponent);
+    fixture = TestBed.createComponent(QrScanner);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,11 +2,11 @@
 
   <div class="glass">
     <app-header></app-header>
-    <app-patient-card></app-patient-card>
+    <app-patient-card [patient]="patient"></app-patient-card>
 
     <div class="content mt-3">
       <app-record-search></app-record-search>
-      <app-table-dropdown></app-table-dropdown>
+      <app-diseases-table [records]="records"></app-diseases-table>
     </div>
 
     <div class="scan-qr-code-background" id="scan-qr-code">
@@ -14,7 +14,6 @@
         <div class="card-close-section">
           <a routerLink="/list-ehr" class="close-button"></a>
         </div>
-
 
         <div class="card-details">
           <img src="../../../../assets/images/qrscan.png" alt="QrScanner">

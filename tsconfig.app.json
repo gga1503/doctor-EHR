@@ -9,6 +9,9 @@
     "src/main.ts",
     "src/polyfills.ts"
   ],
+  "exclude": [
+    "src/app/simulation/"
+  ],
   "include": [
     "src/**/*.d.ts"
   ]

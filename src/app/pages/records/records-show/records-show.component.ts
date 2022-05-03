@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from "../../../shared/services/api/api.service";
 
 @Component({
   selector: 'app-records-show',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./records-show.component.scss']
 })
 export class RecordsShowComponent implements OnInit {
+  record: String = "";
 
-  constructor() { }
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
+
   }
 
 }

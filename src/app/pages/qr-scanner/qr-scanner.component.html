@@ -10,10 +10,10 @@
 
 
 
-  <section class="results" *ngIf="qrResultString">
+  <section class="results" *ngIf="qr_data">
     <div>
       <small>Result</small>
-      <strong>{{ qrResultString }}</strong>
+      <strong>{{ qr_data }}</strong>
     </div>
     <button mat-icon-button (click)="clearResult()">&times;</button>
   </section>

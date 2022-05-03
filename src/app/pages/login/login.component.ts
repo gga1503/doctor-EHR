@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ApiService} from "../../shared/services/api/api.service";
+import {tap} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private api: ApiService) {
   }
+
+  doctor: any = null
+
+  async ngOnInit(): Promise<void> {
+    const destination = 'doctors?email=angeline@gmail.com&password=doctor123'
+    const result = await this.api.get(destination)
+
+    console.log(result)
+  }
+
 
 }
