@@ -6,7 +6,7 @@ export class AES {
 
   encrypt(data: string, secret: string, salt?: string) {
     if (salt) {
-      const iv = CryptoJS.enc.Hex.parse("AT8jTu6lyuG+fg==")
+      const iv = CryptoJS.enc.Hex.parse(salt)
       const key = CryptoJS.enc.Hex.parse(secret)
 
       return CryptoJS.AES.encrypt(data, key, {iv: iv}).toString()
@@ -18,7 +18,7 @@ export class AES {
   decrypt(cipher: string | CryptoJS.lib.CipherParams, secret: string, salt?: string) {
     if (salt) {
       const key = CryptoJS.enc.Hex.parse(secret)
-      const iv = CryptoJS.enc.Hex.parse("AT8jTu6lyuG+fg==")
+      const iv = CryptoJS.enc.Hex.parse(salt)
       const decrypted = CryptoJS.AES.decrypt(cipher, key, {iv: iv})
 
       return CryptoJS.enc.Utf8.stringify(decrypted)

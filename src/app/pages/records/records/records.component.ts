@@ -13,30 +13,6 @@ export class RecordsComponent implements OnInit {
   patient: any;
   records: any = []
 
-  sample_records = [
-    {
-      "_id": "626ad668cb213fb4a79a4795",
-      "data": {
-        "patient_bc_address": "0xafeEb9069Aafc36473234829d00061502bB21ED9",
-        "hospital_bc_address": "0x8BCba326411a21BCC3B4D7Fe062b9F59Eda15413",
-        "name": "laksjdghfqoierghflaksjhfgalskghjfa",
-        "model": "Disease",
-        "_id": "626ad668e818f9c83898f546"
-      },
-      "id": "dd16cb619c2c097682cf2068bb4a7f19bb9042e0edc98cb1e0b0dab0d0969934"
-    },
-    {
-      "_id": "626adcf1cb213fb4a79a47a8",
-      "data": {
-        "patient_bc_address": "0xafeEb9069Aafc36473234829d00061502bB21ED9",
-        "hospital_bc_address": "0x8BCba326411a21BCC3B4D7Fe062b9F59Eda15413",
-        "name": "halksjfdhoiquerhfklajhgfliutglkjh",
-        "model": "Disease",
-        "_id": "626adcf02c132cdaeb923941"
-      },
-      "id": "2132a44434e2047bb0d88d3e9b80f096f0449588b71c26f7cb54503dfcc50598"
-    }
-  ]
 
   constructor(private api: ApiService) {
   }

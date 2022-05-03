@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
   doctor: any = null
 
   async ngOnInit(): Promise<void> {
-    const destination = 'doctors?email=angeline@gmail.com&password=doctor123'
-    const result = await this.api.get(destination)
+    const url = 'doctors?email=angeline@gmail.com&password=doctor123'
+    const result = await this.api.get(url)
 
     console.log(result)
   }

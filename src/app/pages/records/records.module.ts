@@ -8,6 +8,8 @@ import { RecordsShowComponent } from './records-show/records-show.component';
 
 import {RouterModule} from "@angular/router";
 import {SharedModule} from '../../shared/shared.module';
+import {SimulationModule} from "../../simulation/simulation.module";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -20,7 +22,10 @@ import {SharedModule} from '../../shared/shared.module';
     CommonModule,
     RecordsRoutingModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    SimulationModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     RecordsComponent,

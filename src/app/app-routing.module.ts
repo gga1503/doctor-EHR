@@ -6,7 +6,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: '/welcome', pathMatch: 'full'},
+  {path: '', redirectTo: '/simulations', pathMatch: 'full'},
   {path: 'welcome', component: WelcomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent},
@@ -14,6 +14,9 @@ const routes: Routes = [
   {
     path: 'records',
     loadChildren: () => import('./pages/records/records.module').then(m => m.RecordsModule)
+  }, {
+    path: 'simulations',
+    loadChildren: () => import('./simulation/simulation.module').then(m => m.SimulationModule)
   }];
 
 @NgModule({

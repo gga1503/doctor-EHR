@@ -10,9 +10,15 @@ export class ApiService {
 
   root = 'http://localhost:3000/'
 
-  response: any = null
-
   constructor(private http: HttpClient) {
+  }
+
+  get(destination: String): Observable<any> {
+    return this.http.get<any>(this.root + destination)
+  }
+
+  post(target: String, data: any): Observable<any> {
+    return this.http.post<any>(this.root + target, data);
   }
 
   // async get(destination: String) {
@@ -24,24 +30,17 @@ export class ApiService {
   //   return response
   // }
 
-  get(destination: String) {
-    // let response = null
 
-    return this.http.get<any>(this.root + destination)
-
-    // return response
-  }
-
-  async post(destination: String, data: any) {
-    let response = null
-
-    await this.http.post(this.root + destination, data).toPromise()
-      .then(resp => response = resp)
-      .catch((e) => {
-        console.error('Function error: on postUserLogin => ' + e);
-      }
-    );
-
-    return response;
-  }
+  // async post(destination: String, data: any) {
+  //   let response = null
+  //
+  //   await this.http.post(this.root + destination, data).toPromise()
+  //     .then(resp => response = resp)
+  //     .catch((e) => {
+  //         console.error('Function error: on postUserLogin => ' + e);
+  //       }
+  //     );
+  //
+  //   return response;
+  // }
 }
