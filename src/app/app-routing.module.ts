@@ -6,7 +6,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: '/simulations', pathMatch: 'full'},
+  {path: '', redirectTo: '/records/create', pathMatch: 'full'},
   {path: 'welcome', component: WelcomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent},
