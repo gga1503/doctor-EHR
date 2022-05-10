@@ -27,7 +27,7 @@ export class RecordsComponent implements OnInit {
 
   ngOnInit(): void {
     this.get_patient(this.qrResult)
-    this.get_records()
+    // this.get_records()
 
     // this.generateKeys()
 
@@ -44,7 +44,7 @@ export class RecordsComponent implements OnInit {
 
   get_patient(address: String): void {
     this.api.get('patients/' + address).subscribe(
-      patient => sessionStorage.setItem('patient', JSON.stringify(patient.data))
+      patient => sessionStorage.setItem('patient', JSON.stringify(patient))
     )
 
     this.patient = JSON.parse(<string>sessionStorage.getItem('patient'))

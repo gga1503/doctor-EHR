@@ -57,7 +57,7 @@ export class ECDH {
     return Encoder.abToB64(sharedSecret);
   }
 
-  async generateKeys(){
+  async generateKeys() {
     const keys = await window.crypto.subtle.generateKey(
       {
         name: "ECDH",
@@ -73,7 +73,7 @@ export class ECDH {
     }
   }
 
-  async generateSessionKey(master_key: string, hash: string){
+  async generateSessionKey(master_key: string, hash: string) {
     const temp = master_key.concat(hash)
 
     return CryptoJS.SHA512(temp);
