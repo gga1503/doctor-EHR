@@ -1,18 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { RecordsRoutingModule } from './records-routing.module';
-import { RecordsComponent } from './records/records.component';
-import { RecordsCreateComponent } from './records-create/records-create.component';
-import { RecordsShowComponent } from './records-show/records-show.component';
+import {RecordsRoutingModule} from './records-routing.module';
+import {RecordsComponent} from './records/records.component';
+import {RecordsCreateComponent} from './records-create/records-create.component';
+import {RecordsShowComponent} from './records-show/records-show.component';
 
 import {RouterModule} from "@angular/router";
 import {SharedModule} from '../../shared/shared.module';
-import {SimulationModule} from "../../simulation/simulation.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { MatDialogModule } from '@angular/material/dialog';
-import { RecordsDiseaseComponent } from './records-disease/records-disease.component';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import {RecordsDiseaseComponent} from './records-disease/records-disease.component';
 
 
 @NgModule({
@@ -27,7 +25,6 @@ import { RecordsDiseaseComponent } from './records-disease/records-disease.compo
     RecordsRoutingModule,
     RouterModule,
     SharedModule,
-    SimulationModule,
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule
@@ -39,4 +36,5 @@ import { RecordsDiseaseComponent } from './records-disease/records-disease.compo
     RecordsDiseaseComponent
   ]
 })
-export class RecordsModule { }
+export class RecordsModule {
+}
