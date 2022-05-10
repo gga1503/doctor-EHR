@@ -1,8 +1,7 @@
 .show-patient-data{
   padding: 2rem;
-  width: 100vw;
-  height: 25vh;
-  position: relative;
+  width: 100%;
+  height: 25%;
 }
 
 .mat-card {
@@ -23,65 +22,42 @@
 }
 
 .left{
-  width: 25%;
-}
-
-.middle{
-  width: 20%;
+  width: 30%;
 }
 
 .right{
-  width: 20%;
+  width: 50%;
 }
 
-.left,.middle,.right{
+.left, .right{
   margin: 1rem;
 }
 
 .mat-card img{
-  max-width: 50%;
+  max-width: 110px;
   margin-top: 0;
   margin-bottom: 0;
-  padding-top: 0.5rem;
+  padding-top: 0.7rem;
   padding-bottom: 0.5rem;
-  transform: translateX(60%);
+  margin-left: 3rem;
 }
 
 .patient-detail-key{
-  font-family: "SF Pro";
-  justify-content: space-between;
-  font-size: 1.3vw;
+  font-family: "Roboto";
+  font-size: 16pt;
   margin: auto 3rem auto auto;
 }
 
-.patient-title{
-  font-family: "SF Pro";
+.patient-name{
+  font-family: "Helvetica Neue";
   margin-top:1rem;
-  font-size: 1.6vw;
+  font-size: 27pt;
   margin-bottom: 2rem;
 }
 
-.patient-detail{
-  font-size: 1vw;
-  font-family: "SF Pro Rounded";
+.blockchain-title{
+  font-family: "Roboto";
+  margin-top:1rem;
+  font-size: 18pt;
+  margin-bottom: 2rem;
 }
-
-
-
-//.line{
-//  border-left: 3px solid black;
-//  height: 65%;
-//  position: absolute;
-//  transform: translateY(-50%);
-//  top: 5.3rem;
-//  left: 42rem;
-//}
-//
-//.line2{
-//  border-left: 3px solid black;
-//  height: 65%;
-//  position: absolute;
-//  transform: translateY(-50%);
-//  top: 5.3rem;
-//  right: 42rem;
-//}

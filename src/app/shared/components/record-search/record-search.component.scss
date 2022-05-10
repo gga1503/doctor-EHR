@@ -1,18 +1,14 @@
-.content-search{
-  position: relative;
-}
-
 .search{
   &-container {
     align-items: center;
   }
 
   &-listEhr{
-    font-size: 1.6vw;
+    font-size: 20pt;
     padding-right: 0;
-    font-weight: 500;
+    font-weight: 400;
     letter-spacing: 2px;
-    font-family: "SF Pro Rounded";
+    font-family: "Helvetica Neue";
   }
 }
 
@@ -23,15 +19,14 @@
 
 .add-ehr-btn{
   border-radius: 0.5rem;
-  color: #013b84;
+  color: white;
   cursor: pointer;
-  font-family: "SF Pro Rounded";
-  background: rgb(179, 212, 255, 0.7);
+  font-family: "Helvetica Neue";
+  background-color: #013b84;
   max-width: 7.5vw;
 
   &:hover {
-    color: white;
-    background-color: #013b84;
+    box-shadow: 0 0 11px rgba(5,117,230,100);
     transition-duration: 0.4s;
   }
 }

@@ -1,5 +1,6 @@
 <a class="app-logo" href="#">
-  <img src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+  <img src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24"
+       class="d-inline-block align-text-top">
   App's Name
 </a>
 
@@ -8,36 +9,39 @@
   <div class="blob-1"></div>
   <div class="circle"></div>
 
-  <div class = "glass">
+  <div class="glass">
     <section class="content">
       <div class="content-text">
         <h1 class="title">LOG IN</h1>
 
-        <div class="mb-3 input-content">
-          <label for="inputEmail" class="form-label input-label">Email</label>
-          <div class="input-field">
-            <i class="material-icons icon">person</i>
-            <input type="email" class="form-control shadow-none" id="inputEmail" placeholder="Enter your email address">
+        <form [formGroup]="login" (ngSubmit)="submit()">
+          <div class="mb-3 input-content">
+            <label for="inputEmail" class="form-label input-label">Email</label>
+            <div class="input-field">
+             <i class="material-icons icon">person</i>
+              <input type="email" class="form-control shadow-none" id="inputEmail"
+                     placeholder="Enter your email address" formControlName="email">
+            </div>
           </div>
-        </div>
 
-        <div class="mb-3 input-content">
-          <label for="inputPassword" class="form-label input-label">Password</label>
-          <div class="input-field">
-            <i class="material-icons icon">lock</i>
-            <input type="password" class="form-control shadow-none" id="inputPassword" placeholder="Enter your password">
+          <div class="mb-3 input-content">
+            <label for="inputPassword" class="form-label input-label">Password</label>
+            <div class="input-field">
+              <i class="material-icons icon">lock</i>
+              <input type="password" class="form-control shadow-none" id="inputPassword"
+                     placeholder="Enter your password" formControlName="password">
+            </div>
           </div>
-        </div>
 
-        <a class="btn login-btn btn-lg" routerLink="/dashboard" type="submit">Login</a>
-
+          <button class="btn login-btn btn-lg" type="submit">Login</button>
+        </form>
       </div>
     </section>
   </div>
 
-  <div class="illustration">
-    <img src="../../../assets/images/stethoscope.png" alt="stethoscopeIllustration" class="illustration-img">
-  </div>
+<!--  <div class="illustration">-->
+<!--    <img src="../../../assets/images/stethoscope.png" alt="stethoscopeIllustration" class="illustration-img">-->
+<!--  </div>-->
 
   <div>{{doctor}}</div>
 </div>

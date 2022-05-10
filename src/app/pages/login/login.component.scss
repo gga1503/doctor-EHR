@@ -74,23 +74,22 @@
     margin-top: 1rem;
     margin-bottom: 5rem;
     text-align: center;
-    font-weight: 500;
     line-height: 1.2;
-    font-family: "SF Pro Rounded";
+    font-family: "Arial Rounded MT Bold";
     letter-spacing: 0.03em;
   }
 }
 
-.illustration-img{
-  width: 20%;
-  right: 38rem;
-  bottom: 6.5rem;
-  z-index: 1;
-  position: absolute;
-  transform: rotate(-3deg);
-  filter: invert(1);
-  opacity: 12%;
-}
+//.illustration-img{
+//  width: 20%;
+//  right: 38rem;
+//  bottom: 6.5rem;
+//  z-index: 1;
+//  position: absolute;
+//  transform: rotate(-3deg);
+//  filter: invert(1);
+//  opacity: 12%;
+//}
 
 .input-content{
   margin-top: 2rem;
@@ -99,11 +98,11 @@
 .input-label{
   color: white;
   margin-left: 2rem;
-  font-size: 1vw;
+  font-size: 13pt;
   margin-bottom: 0.6rem;
   font-weight: 420;
   letter-spacing: 0.05em;
-  font-family: "SF Pro";
+  font-family: "Helvetica Neue";
 }
 
 .input-field{
@@ -143,6 +142,7 @@
 .login-btn{
   margin-top: 3rem;
   background-color: #013b84;
+  z-index: 4;
   width: 100%;
   color: white;
   cursor: pointer;
@@ -150,7 +150,7 @@
   padding: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.1em;
-  font-family: "SF Pro";
+  font-family: "Helvetica Neue";
 
   &:hover{
     box-shadow: 0 0 11px rgba(5,117,230,100);

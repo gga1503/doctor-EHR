@@ -1,18 +1,37 @@
-.table-header{
+.table {
+  &-wrapper {
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 10px;
+  }
 
-  &-title{
-    font-size: 1vw;
-    line-height: 1.7;
-    font-family: "SF Pro Rounded";
-    font-weight: 400;
-    color: grey;
+  &-status{
+    display: flex;
   }
 }
 
-.btn-see-detail{
+
+h1{
+  font-size: 19pt;
+  font-family: "Helvetica Neue";
+  font-weight: 600;
+  color: #013b84;
+}
+
+.table-header{
+  &-title{
+    font-size: 13pt;
+    line-height: 1.7;
+    font-family: "Helvetica Neue";
+    font-weight: 400;
+    color: #b2b2b2;
+  }
+}
+
+.btn-unlock{
   background-color: #013b84;
   color: white;
   border-radius: 0.5rem;
+  width: 200px;
 }
 
 .chevron{
@@ -23,53 +42,31 @@
   cursor: pointer;
 }
 
-.table-collapse-detail{
-  justify-content: center;
-  align-items: center;
-  transform: translateY(8%);
-  font-size: 0.8vw;
-  line-height: 1.5;
-  font-weight: 350;
-  font-family: "Roboto";
+.table-row {
+  border-radius: 8px;
+
+  &-detail {
+    justify-content: center;
+    align-items: center;
+    transform: translateY(8%);
+    font-size: 15pt;
+    line-height: 1.5;
+    font-family: "Helvetica Neue";
+  }
 }
 
-.table-collapse-header{
-  font-size: 0.8vw;
-  line-height: 1.5;
-  font-weight: 450;
-  font-family: "SF Pro Rounded";
+.table tbody td:first-child {
+  border-bottom-left-radius: 0.5rem;
+  border-top-left-radius: 0.5rem
 }
 
-.table-disease-header{
-  background: rgba(96,164,245,255);
-  border-radius: 2rem;
-
+.table tbody td:last-child {
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem
 }
 
-//details {
-//  user-select: none;
-//}
-//
-//details>summary span.icon {
-//  width: 24px;
-//  height: 24px;
-//  transition: all 0.3s;
-//  margin-left: auto;
-//}
-//
-//details[open] summary span.icon {
-//  transform: rotate(180deg);
-//}
-//
-//summary {
-//  display: flex;
-//  cursor: pointer;
-//}
-//
-//summary::-webkit-details-marker {
-//  display: none;
-//}
-//
-//table {
-//  width: 100%;
-//}
+
+.table thead th,
+.table td {
+  border: none
+}
