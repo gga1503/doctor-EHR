@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CryptoService} from '../../../shared/services/crypto/crypto.service';
 import {ApiService} from "../../../shared/services/api/api.service";
-import Hospital from "../../../simulation/data/hospital.json";
 import {FormBuilder} from "@angular/forms";
 
 @Component({
@@ -10,23 +9,17 @@ import {FormBuilder} from "@angular/forms";
   styleUrls: ['./records-create.component.scss']
 })
 export class RecordsCreateComponent implements OnInit {
-  @Input() patient_bc_address: String | undefined = '0xafeEb9069Aafc36473234829d00061502bB21ED9'
-  hospital: any = Hospital
+  @Input() qrResult: string = '0xafeEb9069Aafc36473234829d00061502bB21ED9'
 
-  patient: any;
-  data = {
+  hospital = JSON.parse(<string>localStorage.getItem('hospital'))
+  doctor = JSON.parse(<string>localStorage.getItem('doctor'))
+  patient = JSON.parse(<string>sessionStorage.getItem('patient'))
+
+  data: any = {
     bc_addresses: {
-      doctor: '0xc8f8Bb2E550D8163a3964Fb0A65c92a04646B577',
+      doctor: this.doctor.bc_address,
       hospital: this.hospital.bc_address,
-      patient: '0xafeEb9069Aafc36473234829d00061502bB21ED9',
-    },
-    cipher: {
-      disease: '',
-      diagnose: ''
-    },
-    metadata: {
-      disease: '',
-      diagnose: ''
+      patient: this.patient.bc_address,
     }
   }
 
@@ -35,37 +28,20 @@ export class RecordsCreateComponent implements OnInit {
     diagnose: 'Kebanyakan gula'
   })
 
-  constructor(private formBuilder: FormBuilder, private api: ApiService, private Crypto: CryptoService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private api: ApiService,
+    private Crypto: CryptoService) {
   }
 
   ngOnInit() {
   }
 
-  get_patient(address: String): void {
-    this.api.get('patients/' + address).subscribe(
-      async response => {
-        this.patient = response.data
-        this.patient.ecdh = {}
-        this.patient.ecdh.iv = "AT8jTu6lyuG+fg=="
-
-        const secret_key = await this.generateSecretKey()
-        this.generateCipher(secret_key, this.patient.ecdh.iv)
-
-        await this.generateMetadata()
-
-        this.api.post('records', this.data).subscribe(
-          response => console.log(response)
-        )
-        // console.log(this.decryptCipher(secret_key, this.patient.ecdh.iv))
-      }
-    )
-  }
-
   async generateSecretKey() {
-    this.hospital.ecdh = {}
-
-    this.hospital.ecdh.privateKey = await this.Crypto.ECDH.importPrivateKey(this.hospital.ecdh_private_key, "P-256")
-    this.hospital.ecdh.publicKey = await this.Crypto.ECDH.importPublicKey(this.hospital.ecdh_public_key, "P-256")
+    this.hospital.ecdh = {
+      privateKey: await this.Crypto.ECDH.importPrivateKey(this.hospital.ecdh_private_key, "P-256"),
+      publicKey: await this.Crypto.ECDH.importPublicKey(this.hospital.ecdh_public_key, "P-256")
+    }
 
     this.patient.ecdh.publicKey = await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key, "P-256")
 
@@ -74,26 +50,32 @@ export class RecordsCreateComponent implements OnInit {
     return await this.Crypto.Hash.SHA512(secretKey, true)
   }
 
-  generateCipher(secret_key: string, iv: string){
-    this.data.cipher.disease = this.Crypto.AES.encrypt(this.record.value.disease, secret_key, iv)
-    this.data.cipher.diagnose = this.Crypto.AES.encrypt(this.record.value.diagnose, secret_key)
-  }
-
-  async generateMetadata() {
-    this.data.metadata.disease = await this.Crypto.Hash.SHA512(this.data.cipher.disease, true)
-    this.data.metadata.diagnose = await this.Crypto.Hash.SHA512(this.data.cipher.diagnose, true)
-  }
-
-  decryptCipher(secretKey: string, iv: string){
-    return {
-      disease: this.Crypto.AES.decrypt(this.data.cipher.disease, secretKey, iv),
-      diagnose: this.Crypto.AES.decrypt(this.data.cipher.diagnose, secretKey)
+  generateCipher(secret_key: string, iv: string) {
+    this.data.cipher = {
+      disease: this.Crypto.AES.encrypt(this.record.value.disease, secret_key, iv),
+      diagnose: this.Crypto.AES.encrypt(this.record.value.diagnose, secret_key)
     }
   }
 
-  submit() {
-    if (this.patient_bc_address) {
-      this.get_patient(this.patient_bc_address)
+  async generateMetadata() {
+    this.data.metadata = {
+      disease: await this.Crypto.Hash.SHA512(this.data.cipher.disease, true),
+      diagnose: await this.Crypto.Hash.SHA512(this.data.cipher.diagnose, true)
+    }
+  }
+
+  async submit() {
+    if (this.patient) {
+      this.patient.ecdh = {iv: "AT8jTu6lyuG+fg=="}
+
+      const secret_key = await this.generateSecretKey()
+      this.generateCipher(secret_key, this.patient.ecdh.iv)
+
+      await this.generateMetadata()
+
+      this.api.post('records', this.data).subscribe(
+        response => console.log(response)
+      )
     }
   }
 }

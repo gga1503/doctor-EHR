@@ -7,7 +7,7 @@ import {ZXingScannerModule} from '@zxing/ngx-scanner';
 import {NgQrScannerModule} from 'angular2-qrscanner';
 import {QrScanner} from './pages/qr-scanner/qr-scanner.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {WelcomeComponent} from './pages/welcome/welcome.component';
 import {LoginComponent} from './pages/login/login.component';
@@ -16,15 +16,19 @@ import {CommonModule} from '@angular/common';
 import {SharedModule} from './shared/shared.module';
 import {HttpClientModule} from "@angular/common/http";
 import {ApiService} from "./shared/services/api/api.service";
+import { DiseasesComponent } from './pages/diseases/diseases.component';
 
 
+// @ts-ignore
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
     QrScanner,
     WelcomeComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    DiseasesComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,8 @@ import {ApiService} from "./shared/services/api/api.service";
     FormsModule,
     FontAwesomeModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [ApiService],
   exports: [

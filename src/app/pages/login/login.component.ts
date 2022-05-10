@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../shared/services/api/api.service";
-import {tap} from "rxjs";
+import {FormBuilder} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -9,16 +10,42 @@ import {tap} from "rxjs";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private api: ApiService) {
+  hospital_bc_address = '0x88b05b8A1BEf674b0bE36C23A6Ee6C9bA131BEe8'
+
+  login = this.formBuilder.group({
+    email: 'angeline@gmail.com',
+    password: 'doctor123'
+  })
+
+  constructor(
+    private api: ApiService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {
   }
 
   doctor: any = null
 
   async ngOnInit(): Promise<void> {
-    const url = 'doctors?email=angeline@gmail.com&password=doctor123'
-    const result = await this.api.get(url)
+  }
 
-    console.log(result)
+  async submit() {
+    const target = `doctors?email=${this.login.value.email}&password=${this.login.value.password}`
+
+    this.api.get(target).subscribe(
+      async (doctor) => {
+        localStorage.setItem('doctor', JSON.stringify(doctor));
+
+        this.api.get(`hospitals/login/${this.hospital_bc_address}`).subscribe(
+          hospital => {
+            localStorage.setItem('hospital', JSON.stringify(hospital));
+
+            this.router.navigate(['/dashboard']);
+          }, error => console.error(error)
+        );
+      },
+      error => {console.error(error)}
+    )
   }
 
 

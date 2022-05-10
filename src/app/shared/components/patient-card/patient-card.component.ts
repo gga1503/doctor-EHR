@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../services/api/api.service";
 
 @Component({
@@ -7,24 +7,13 @@ import {ApiService} from "../../services/api/api.service";
   styleUrls: ['./patient-card.component.scss']
 })
 export class PatientCardComponent implements OnInit {
-  @Input() patient = {
-    "_id": "",
-    "data": {
-      "name": "",
-      "bc_address": "",
-      "dob": "",
-      "gender": "",
-      "ecdh_public_key": "",
-      "ed25519_public_key": "",
-      "model": "",
-      "_id": ""
-    },
-    "id": ""
-  }
 
-  constructor(private api: ApiService) { }
+  patient: any
+
+  constructor(private api: ApiService) {
+  }
 
   ngOnInit(): void {
+    this.patient = JSON.parse(<string>sessionStorage.getItem('patient'))
   }
-
 }
