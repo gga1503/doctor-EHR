@@ -8,7 +8,7 @@
       <span class="title">New EHR</span>
     </h1>
     <hr style="border: 0.2rem solid white; border-radius: 0.1rem; color: white;">
-    <div>
+    <div class="mt-4">
       <fieldset disabled>
         <div class="form-group row mt-4 mb-5">
           <label for="staticFullName" class="left-section-title col-sm-2 h5">Patient's Name</label>
@@ -36,13 +36,16 @@
         <label class="left-section-title col-sm-2 h5">EHR</label>
 
         <div class="col-sm-10">
-          <label for="inputEHR" class="right-section-title">Disease</label>
-          <input type="text" class="form-control mt-2" id="inputEHR" placeholder="Disease Name"
-                 formControlName="disease">
+          <label for="inputDisease" class="right-section-title">Disease</label>
+          <input class="form-control mt-2" id="inputDisease" placeholder="Input Disease" list="datalistOptions">
+          <datalist id="datalistOptions">
+            <option value="Covid-19">
+            <option value="Diabetes">
+          </datalist>
 
           <div class="mt-5">
             <label for="inputDiagnose" class="right-section-title">Diagnose</label>
-            <textarea class="form-control mt-2" id="inputDiagnose" rows="3" placeholder="Detail Diagnose"
+            <textarea class="form-control mt-2" id="inputDiagnose" rows="5" placeholder="Detail Diagnose"
                       formControlName="diagnose"></textarea>
           </div>
         </div>

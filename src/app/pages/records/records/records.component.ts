@@ -27,10 +27,10 @@ export class RecordsComponent implements OnInit {
 
   ngOnInit(): void {
     this.get_patient(this.qrResult)
-    // this.get_records()
+    this.get_records()
 
     // this.generateKeys()
-
+    //
     // this.get_patient(this.qrResult)
     //
     // this.get_ciphers(this.patient.bc_address)

@@ -25,6 +25,7 @@ h1{
   font-family: "Arial Rounded MT Bold";
   font-weight: 400;
   text-align: center;
+  color: #013b84;
 }
 
 .table-header{
@@ -45,4 +46,10 @@ h1{
     line-height: 2.5;
     font-family: "Helvetica Neue";
   }
+  &:hover{
+    background: rgba(96,164,245,0.3);
+    cursor: pointer;
+  }
 }
+table {  table-layout:fixed; }
+td { overflow:hidden;white-space:nowrap;  }
