@@ -13,11 +13,12 @@ const routes: Routes = [
   {path: 'scan-qr', component: QrScanner},
   {
     path: 'records',
-    loadChildren: () => import('./pages/records/records.module').then(m => m.RecordsModule)
-  }, {
-    path: 'simulations',
-    loadChildren: () => import('./simulation/simulation.module').then(m => m.SimulationModule)
-  }];
+    loadChildren: () => import('./pages/records/records.module').then(m => m.RecordsModule)}
+  // }, {
+  //   path: 'simulations',
+  //   loadChildren: () => import('./simulation/simulation.module').then(m => m.SimulationModule)
+  // }
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
