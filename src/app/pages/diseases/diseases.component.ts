@@ -44,34 +44,45 @@ export class DiseasesComponent implements OnInit {
       async response => {
         this.diseases.encrypted = response
 
-        // console.log('records:', this.records)
-        // await this.decrypt(this.hospitals[0])
+        await this.decrypt(this.hospitals[0])
       })
   }
 
-  async decrypt(hospital: any) {
-    for (let i = 0; i < this.diseases.encrypted.length; i++) {
-      if (this.diseases.encrypted[i].hospital.bc_address == hospital.bc_address) {
-        const diseases = this.diseases.encrypted[i].diseases
-
-        for (let j = 0; j < diseases.length; j++) {
-          diseases[j].cipher = diseases[j].name //Keep the temporary cipher
-
-          const session_key = await this.Crypto.Hash.SHA512(hospital.ecdh.secret_key + diseases[j].date, true)
-
-          diseases[j].name = this.Crypto.AES.decrypt(
-            diseases[j].name,
-            session_key
-          )
-        }
-
-        this.diseases.decrypted.push({
-          hospital: hospital,
-          diseases: this.diseases.encrypted[i].diseases
-        })
-
-        break;
+  async decrypt(hospital: any): Promise<void> {
+    const i = this.diseases.encrypted.findIndex((e: any) => {
+        return e.hospital.bc_address == hospital.bc_address
       }
+    )
+
+    const ciphers = this.diseases.encrypted[i]
+
+    for (let j = 0; j < ciphers.diseases.length; j++) {
+      const session_key = await this.Crypto.Hash.SHA512(hospital.ecdh.secret_key + ciphers.diseases[j].date, true)
+
+      const disease_name = this.Crypto.AES.decrypt(
+        ciphers.diseases[j].name,
+        session_key,
+        this.patient.iv
+      )
+
+      this.push_decrypted(disease_name, hospital)
+    }
+
+    this.diseases.encrypted.splice(i, 1)
+  }
+
+  push_decrypted(disease_name: string, hospital: any) {
+    let group = this.diseases.decrypted.find((e: any) => {
+      return e.group.disease.name = disease_name
+    })
+
+    if (!group) {
+      group = {
+        disease: {name: disease_name},
+        hospitals: [hospital]
+      }
+
+      this.diseases.decrypted.push(group)
     }
   }
 

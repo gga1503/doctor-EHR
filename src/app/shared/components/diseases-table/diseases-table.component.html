@@ -14,14 +14,14 @@
       </tr>
       </thead>
 
-      <tbody class="table-disease-detail" id="collapseOne">
-      <tr class="table-row" *ngFor="let list of diseases.encrypted">
-        <td class="table-row-detail pt-3" scope="row" style="width: 30%; text-align: left">{{list.hospital.name}}</td>
-        <td class="table-row-detail pt-3" style="width: 30%; text-align: left">{{list.diseases.length}}</td>
+      <tbody class="table-disease-detail">
+      <tr class="table-row" *ngFor="let element of diseases">
+        <td class="table-row-detail pt-3" style="width: 30%; text-align: left">{{element.hospital.name}}</td>
+        <td class="table-row-detail pt-3" style="width: 30%; text-align: left">{{element.diseases.length}}</td>
         <span class="material-icons" style="font-size: 20pt;color: #b22222;margin-top: 12px">lock</span>
 
         <td class="table-row-detail pt-2" style="text-align: center;">
-          <button class="btn btn-sm btn-unlock">Unlock</button>
+          <button class="btn btn-sm btn-unlock" (click)="openQrScanner()">Unlock</button>
         </td>
       </tr>
       </tbody>

@@ -1,9 +1,10 @@
 .box {
-  position: relative;
-  background: rgba(101,199,247,0.7);
   width: 100vw;
   height: 100vh;
+  position: relative;
+  background: rgba(101,199,247,0.7);
 }
+
 .circle {
   background: rgb(41, 128, 185);
   background: linear-gradient(130deg, rgba(0,82,212,0.7) 0%, rgba(109, 213, 250, 0.7) 58%, rgba(255, 255, 255, 0.7) 100%);

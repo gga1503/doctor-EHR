@@ -6,9 +6,8 @@
 
     <div class="content mt-3">
       <app-record-search></app-record-search>
-      <app-unlock-diseases-table></app-unlock-diseases-table>
-
-      <app-diseases-table [diseases]="diseases"></app-diseases-table>
+      <app-unlock-diseases-table [diseases]="diseases.decrypted"></app-unlock-diseases-table>
+      <app-diseases-table [diseases]="diseases.encrypted"></app-diseases-table>
     </div>
   </div>
 </div>

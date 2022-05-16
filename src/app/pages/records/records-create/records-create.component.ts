@@ -53,9 +53,9 @@ export class RecordsCreateComponent implements OnInit {
     return await this.Crypto.Hash.SHA512(secretKey, true)
   }
 
-  generateCipher(secret_key: string, iv: string) {
+  generateCipher(secret_key: string) {
     this.data.cipher = {
-      disease: this.Crypto.AES.encrypt(this.record.value.disease, secret_key, iv),
+      disease: this.Crypto.AES.encrypt(this.record.value.disease, secret_key, this.patient.iv),
       diagnose: this.Crypto.AES.encrypt(this.record.value.diagnose, secret_key)
     }
   }
@@ -74,11 +74,10 @@ export class RecordsCreateComponent implements OnInit {
       )
 
       this.data.date = sessionStorage.getItem('timestamp')
-      this.patient = {iv: "AT8jTu6lyuG+fg=="}
 
       const secret_key = await this.generateSecretKey()
 
-      this.generateCipher(secret_key, this.patient.iv)
+      this.generateCipher(secret_key)
 
       await this.generateMetadata()
 
