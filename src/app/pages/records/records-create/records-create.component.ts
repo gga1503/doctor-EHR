@@ -74,17 +74,17 @@ export class RecordsCreateComponent implements OnInit {
       )
 
       this.data.date = sessionStorage.getItem('timestamp')
-      this.patient.ecdh = {iv: "AT8jTu6lyuG+fg=="}
+      this.patient = {iv: "AT8jTu6lyuG+fg=="}
 
       const secret_key = await this.generateSecretKey()
-      console.log('secret:', secret_key)
-      this.generateCipher(secret_key, this.patient.ecdh.iv)
+
+      this.generateCipher(secret_key, this.patient.iv)
 
       await this.generateMetadata()
 
+      // console.log('data:', this.data)
       this.api.post('records', this.data).subscribe(
         response => {
-          console.log(response)
           this.route.navigate(['/records'])
         }
       )
