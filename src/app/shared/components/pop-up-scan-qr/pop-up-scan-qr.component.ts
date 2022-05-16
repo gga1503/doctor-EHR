@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 
@@ -9,7 +9,8 @@ import {Router} from "@angular/router";
 })
 export class PopUpScanQrComponent implements OnInit {
 
-  constructor(private popUpRef: MatDialogRef<PopUpScanQrComponent>, private router: Router) { }
+  constructor(private popUpRef: MatDialogRef<PopUpScanQrComponent>, private router: Router) {
+  }
 
   ngOnInit(): void {
   }
@@ -18,12 +19,12 @@ export class PopUpScanQrComponent implements OnInit {
     this.popUpRef.close();
   }
 
-  onMovePageClick():void{
+  onMovePageClick(): void {
     this.popUpRef.close('closed');
 
-    this.popUpRef.afterClosed().subscribe((result) => {
+    this.popUpRef.afterClosed().subscribe(async (result) => {
       if (result === 'closed') {
-        this.router.navigate(['scan-qr']);
+        await this.router.navigate(['scan-qr']);
       }
     });
   }
