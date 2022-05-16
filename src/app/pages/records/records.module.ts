@@ -9,7 +9,6 @@ import {RecordsShowComponent} from './records-show/records-show.component';
 import {RouterModule} from "@angular/router";
 import {SharedModule} from '../../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -24,8 +23,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     RouterModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule,
-    MatDialogModule
+    ReactiveFormsModule
   ],
   exports: [
     RecordsComponent,

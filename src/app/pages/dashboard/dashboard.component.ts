@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
       async patient => {
         sessionStorage.setItem('patient', JSON.stringify(patient))
 
-        await this.router.navigate(['records'])
+        await this.router.navigate(['diseases'])
       }
     )
   }
