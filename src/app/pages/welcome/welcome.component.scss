@@ -89,7 +89,6 @@
     margin-bottom: 1.5rem;
     font-weight: 300;
     line-height: 1.2;
-    font-family: "Arial Rounded MT";
     letter-spacing: 0.03em;
   }
   &-text p{
@@ -108,51 +107,51 @@
 }
 
 
-//@media only screen and (max-width: 480px) {
-//  .illustration-img{
-//    width: 70%;
-//  }
-//
-//  .content {
-//    &-text{
-//      flex-shrink: 0;
-//    }
-//  }
-//
-//  .illustration{
-//    flex-shrink: 1;
-//    text-align: center;
-//  }
-//}
-//
-//@media screen and (min-width: 750px) {
-//
-//  .content {
-//    &-text{
-//      flex-shrink: 0;
-//    }
-//  }
-//
-//  .illustration{
-//    flex-shrink: 1;
-//    text-align: center;
-//  }
-//}
-//
-//@media screen and (max-width: 600px) {
-//  .illustration-img{
-//    width: 70%;
-//  }
-//
-//  .content {
-//    &-text{
-//      flex-shrink: 0;
-//    }
-//  }
-//
-//  .illustration{
-//    flex-shrink: 1;
-//    text-align: center;
-//  }
-//}
+@media only screen and (max-width: 480px) {
+  .illustration-img{
+    width: 70%;
+  }
+
+  .content {
+    &-text{
+      flex-shrink: 0;
+    }
+  }
+
+  .illustration{
+    flex-shrink: 1;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 750px) {
+
+  .content {
+    &-text{
+      flex-shrink: 0;
+    }
+  }
+
+  .illustration{
+    flex-shrink: 1;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .illustration-img{
+    width: 70%;
+  }
+
+  .content {
+    &-text{
+      flex-shrink: 0;
+    }
+  }
+
+  .illustration{
+    flex-shrink: 1;
+    text-align: center;
+  }
+}
 
