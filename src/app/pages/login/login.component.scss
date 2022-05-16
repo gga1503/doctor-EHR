@@ -59,7 +59,6 @@
   -webkit-backdrop-filter: blur(4rem);
   border: 0.18rem solid rgba(255, 255, 255, 0.4);
   z-index: 1;
-  height: 60%;
   width: 28%;
   position: absolute;
   padding: 1.5rem;
@@ -75,7 +74,7 @@
     margin-bottom: 5rem;
     text-align: center;
     line-height: 1.2;
-    font-family: "Arial Rounded MT Bold";
+    font-family: "Helvetica";
     letter-spacing: 0.03em;
   }
 }
@@ -102,7 +101,7 @@
   margin-bottom: 0.6rem;
   font-weight: 420;
   letter-spacing: 0.05em;
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica";
 }
 
 .input-field{
@@ -150,15 +149,15 @@
   padding: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.1em;
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica";
 
   &:hover{
     box-shadow: 0 0 11px rgba(5,117,230,100);
     transition-duration: 0.3s;
   }
 }
-
-
+//
+//
 //@media only screen and (max-width: 480px) {
 //  .illustration-img{
 //    width: 70%;
