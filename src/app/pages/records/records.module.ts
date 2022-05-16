@@ -10,15 +10,13 @@ import {RouterModule} from "@angular/router";
 import {SharedModule} from '../../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialogModule} from '@angular/material/dialog';
-import {RecordsDiseaseComponent} from './records-disease/records-disease.component';
 
 
 @NgModule({
   declarations: [
     RecordsComponent,
     RecordsCreateComponent,
-    RecordsShowComponent,
-    RecordsDiseaseComponent
+    RecordsShowComponent
   ],
   imports: [
     CommonModule,
@@ -32,9 +30,9 @@ import {RecordsDiseaseComponent} from './records-disease/records-disease.compone
   exports: [
     RecordsComponent,
     RecordsCreateComponent,
-    RecordsShowComponent,
-    RecordsDiseaseComponent
+    RecordsShowComponent
   ]
 })
+
 export class RecordsModule {
 }
