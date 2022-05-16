@@ -73,3 +73,8 @@ img{
     box-shadow: 0 0 11px rgba(5, 117, 230, 100);
   }
 }
+
+zxing-scanner {
+  max-width: 100%;
+  -webkit-clip-path:inset(6em 26em 8em round 4rem);
+}

@@ -8,20 +8,17 @@ import {MatDialog} from '@angular/material/dialog';
   templateUrl: './diseases-table.component.html',
   styleUrls: ['./diseases-table.component.scss']
 })
-export class DiseasesTableComponent implements OnInit, OnChanges {
+export class DiseasesTableComponent implements OnChanges {
   @Input() diseases: any;
 
   constructor(private popUp: MatDialog) {
   }
 
-  ngOnInit(): void {
-  }
-
   ngOnChanges(changes: SimpleChanges) {
-    console.log(this.diseases)
+
   }
 
-  onOpenDialogClick() {
+  openQrScanner() {
     this.popUp.open(PopUpScanQrComponent);
   }
 }
