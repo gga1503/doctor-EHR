@@ -3,7 +3,7 @@
   <div class="blob-1"></div>
   <div class="circle"></div>
 
-  <div class = "glass">
+  <div class="glass">
     <app-header></app-header>
     <section class="content">
       <div class="content-text">
@@ -17,10 +17,15 @@
         </p>
       </div>
 
-      <a class="btn scan-qr-btn btn-lg" routerLink="/scan-qr" type="submit">Scan QR</a>
-<!--      <div class="content-illustration">-->
-<!--        <img src="../../../assets/images/doctorillustration2.png" alt="doctorIllustration" class="content-illustration-img">-->
-<!--      </div>-->
+      <app-qr-scanner
+        *ngIf="scannerOn"
+        (toggle)="toggleQrScanner()"
+        (qrResult)="showResult($event)"></app-qr-scanner>
+
+      <button class="btn scan-qr-btn btn-lg" (click)="toggleQrScanner()">Scan QR</button>
+      <!--      <div class="content-illustration">-->
+      <!--        <img src="../../../assets/images/doctorillustration2.png" alt="doctorIllustration" class="content-illustration-img">-->
+      <!--      </div>-->
     </section>
   </div>
 </div>

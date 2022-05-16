@@ -1,0 +1,10 @@
+<div class="box">
+  <div class="glass">
+    <zxing-scanner (scanSuccess)="parseResult($event)"></zxing-scanner>
+    <button class="close-button" (click)="close()"></button>
+
+    <div class="instruction">
+      <h1 class="instruction-text">Place the QR Code at the camera</h1>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CryptoService} from '../../../shared/services/crypto/crypto.service';
 import {ApiService} from "../../../shared/services/api/api.service";
 import {FormBuilder} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-records-create',
@@ -24,14 +25,15 @@ export class RecordsCreateComponent implements OnInit {
   }
 
   record = this.formBuilder.group({
-    disease: 'Diabetes',
-    diagnose: 'Kebanyakan gula'
+    disease: 'Covid-19',
+    diagnose: 'Fever and sore throat'
   })
 
   constructor(
     private formBuilder: FormBuilder,
     private api: ApiService,
-    private Crypto: CryptoService) {
+    private Crypto: CryptoService,
+    private route: Router) {
   }
 
   ngOnInit() {
@@ -46,6 +48,7 @@ export class RecordsCreateComponent implements OnInit {
     this.patient.ecdh.publicKey = await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key, "P-256")
 
     const secretKey = await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.privateKey, this.patient.ecdh.publicKey)
+      + this.data.date
 
     return await this.Crypto.Hash.SHA512(secretKey, true)
   }
@@ -66,15 +69,24 @@ export class RecordsCreateComponent implements OnInit {
 
   async submit() {
     if (this.patient) {
+      await this.api.get('time').subscribe(
+        response => sessionStorage.setItem('timestamp', response)
+      )
+
+      this.data.date = sessionStorage.getItem('timestamp')
       this.patient.ecdh = {iv: "AT8jTu6lyuG+fg=="}
 
       const secret_key = await this.generateSecretKey()
+      console.log('secret:', secret_key)
       this.generateCipher(secret_key, this.patient.ecdh.iv)
 
       await this.generateMetadata()
 
       this.api.post('records', this.data).subscribe(
-        response => console.log(response)
+        response => {
+          console.log(response)
+          this.route.navigate(['/records'])
+        }
       )
     }
   }

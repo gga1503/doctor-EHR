@@ -8,8 +8,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {RouterModule} from "@angular/router";
-import { UnlockDiseasesTableComponent } from './components/unlock-diseases-table/unlock-diseases-table.component';
-import { PopUpScanQrComponent } from './components/pop-up-scan-qr/pop-up-scan-qr.component';
+import {UnlockDiseasesTableComponent} from './components/unlock-diseases-table/unlock-diseases-table.component';
+import {PopUpScanQrComponent} from './components/pop-up-scan-qr/pop-up-scan-qr.component';
+import {QrScanner} from "./components/qr-scanner/qr-scanner.component";
+import {ZXingScannerModule} from "@zxing/ngx-scanner";
 
 @NgModule({
   declarations: [
@@ -18,14 +20,15 @@ import { PopUpScanQrComponent } from './components/pop-up-scan-qr/pop-up-scan-qr
     RecordSearchComponent,
     DiseasesTableComponent,
     UnlockDiseasesTableComponent,
-    PopUpScanQrComponent
+    PopUpScanQrComponent,
+    QrScanner
   ], imports: [
     CommonModule,
     MatCardModule,
     MatButtonModule,
     MatTableModule,
     RouterModule,
-
+    ZXingScannerModule,
   ], exports: [
     CommonModule,
     HeaderComponent,
@@ -33,7 +36,8 @@ import { PopUpScanQrComponent } from './components/pop-up-scan-qr/pop-up-scan-qr
     RecordSearchComponent,
     DiseasesTableComponent,
     UnlockDiseasesTableComponent,
-    PopUpScanQrComponent
+    PopUpScanQrComponent,
+    QrScanner
   ]
 })
 export class SharedModule {
