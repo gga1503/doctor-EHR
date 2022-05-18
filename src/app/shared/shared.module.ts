@@ -14,6 +14,7 @@ import {UnlockDiseasesTableComponent} from './components/unlock-diseases-table/u
 import {PopUpScanQrComponent} from './components/pop-up-scan-qr/pop-up-scan-qr.component';
 import {QrScanner} from "./components/qr-scanner/qr-scanner.component";
 import {ZXingScannerModule} from "@zxing/ngx-scanner";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {ZXingScannerModule} from "@zxing/ngx-scanner";
     PopUpScanQrComponent,
     QrScanner
   ], imports: [
+    HttpClientModule,
     CommonModule,
     MatCardModule,
     MatButtonModule,
