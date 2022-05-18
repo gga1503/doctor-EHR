@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit {
   hospital_bc_address = '0x88b05b8A1BEf674b0bE36C23A6Ee6C9bA131BEe8'
 
   login = this.formBuilder.group({
-    email: 'angeline@gmail.com',
-    password: 'doctor123'
+    "password": "doctor123",
+    "email": "doctor@hospital.com"
   })
 
   constructor(
@@ -30,23 +30,27 @@ export class LoginComponent implements OnInit {
   }
 
   async submit() {
-    const target = `doctors?email=${this.login.value.email}&password=${this.login.value.password}`
+    const target = `doctors/login?email=${this.login.value.email}&password=${this.login.value.password}`
 
     this.api.get(target).subscribe(
-      async (doctor) => {
-        localStorage.setItem('doctor', JSON.stringify(doctor));
+      async (response) => {
+        localStorage.setItem('doctor', JSON.stringify(response));
 
         this.api.get(`hospitals/login/${this.hospital_bc_address}`).subscribe(
-          hospital => {
-            localStorage.setItem('hospital', JSON.stringify(hospital));
-
-            this.router.navigate(['/dashboard']);
-          }, error => console.error(error)
-        );
-      },
-      error => {console.error(error)}
+          response => {
+            localStorage.setItem('hospital', JSON.stringify(response));
+          }, err => console.error(err),
+          () => {
+            const hospital = JSON.parse(<string>localStorage.getItem('hospital'))
+            console.log(`${hospital.name} information has been set successfully!`)
+            this.router.navigate(['dashboard']);
+          }
+        )
+      }, err => console.error(err),
+      () => {
+        const doctor = JSON.parse(<string>localStorage.getItem('doctor'))
+        console.log(`dr. ${doctor.name} has logged in successfully!`)
+      }
     )
   }
-
-
 }
