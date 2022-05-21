@@ -12,6 +12,7 @@ import {LoginComponent} from './pages/login/login.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from './shared/shared.module';
+import {HttpClientModule} from "@angular/common/http";
 import {ApiService} from "./shared/services/api/api.service";
 import {DiseasesComponent} from './pages/diseases/diseases.component';
 
@@ -34,6 +35,7 @@ import {DiseasesComponent} from './pages/diseases/diseases.component';
     FormsModule,
     FontAwesomeModule,
     SharedModule,
+    HttpClientModule,
     ReactiveFormsModule
   ],
   providers: [ApiService],
