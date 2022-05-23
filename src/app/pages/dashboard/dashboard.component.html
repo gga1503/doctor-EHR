@@ -20,7 +20,7 @@
       <app-qr-scanner
         *ngIf="scannerOn"
         (toggle)="toggleQrScanner()"
-        (qrResult)="showResult($event)"></app-qr-scanner>
+        (qrResult)="getPatientAddress($event)"></app-qr-scanner>
 
       <button class="btn scan-qr-btn btn-lg" (click)="toggleQrScanner()">Scan QR</button>
       <!--      <div class="content-illustration">-->

@@ -41,8 +41,7 @@ export class RecordsCreateComponent implements OnInit {
 
   async generateSecretKey() {
     this.hospital.ecdh = {
-      privateKey: await this.Crypto.ECDH.importPrivateKey(this.hospital.ecdh_private_key, "P-256"),
-      publicKey: await this.Crypto.ECDH.importPublicKey(this.hospital.ecdh_public_key, "P-256")
+      privateKey: await this.Crypto.ECDH.importPrivateKey(this.hospital.ecdh_private_key, "P-256")
     }
 
     this.patient.ecdh = {
@@ -71,11 +70,13 @@ export class RecordsCreateComponent implements OnInit {
 
   async submit() {
     if (this.patient) {
-      // await this.api.get('time').subscribe(
-      //   response => sessionStorage.setItem('timestamp', response)
-      // )
+      await this.api.get('time').subscribe(
+        response => sessionStorage.setItem('timestamp', response)
+      )
 
-      // this.data.date = sessionStorage.getItem('timestamp')
+      await this.delay(1000)
+
+      this.data.date = sessionStorage.getItem('timestamp')
 
       const secret_key = await this.generateSecretKey()
 
@@ -86,9 +87,13 @@ export class RecordsCreateComponent implements OnInit {
       // console.log('data:', this.data)
       this.api.post('records', this.data).subscribe(
         response => {
-          this.route.navigate(['/records'])
+          this.route.navigate(['/diseases'])
         }
       )
     }
+  }
+
+  delay(time: number) {
+    return new Promise(resolve => setTimeout(resolve, time));
   }
 }

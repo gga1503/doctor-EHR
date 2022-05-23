@@ -16,10 +16,6 @@ export class AES {
   }
 
   decrypt(cipher: string | CryptoJS.lib.CipherParams, secret: string, salt?: string) {
-    console.log('cipher AES', cipher)
-    console.log('secret', secret)
-    console.log('salt', salt)
-
     if (salt) {
       const key = CryptoJS.enc.Hex.parse(secret)
       const iv = CryptoJS.enc.Hex.parse(salt)

@@ -26,16 +26,19 @@ export class DiseasesComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.hospitals[0].ecdh = {
-      secret_key: await this.generateKeys(this.hospitals[0])
+    this.patient.ecdh = {
+      public_key: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key, 'P-256')
     }
 
+    // console.log()
+    await this.generateHospitalKeys(this.hospitals[0])
+    console.log(this.hospitals[0])
     await this.get_records()
 
     await this.check_patient_decrypt()
   }
 
-  get_records(): void {
+  async get_records(): Promise<void> {
     this.api.get(`patients/${this.patient.bc_address}/diseases`).subscribe(
       async response => {
         this.diseases.encrypted = response
@@ -52,14 +55,11 @@ export class DiseasesComponent implements OnInit {
 
     const ciphers = this.diseases.encrypted[i]
 
+    // console.log('hospital', hospital)
     for (let j = 0; j < ciphers.diseases.length; j++) {
-      const session_key = await this.Crypto.Hash.SHA512(hospital.ecdh.secret_key + ciphers.diseases[j].date, true)
-      console.log('hospital secret key:', hospital.ecdh.secret_key)
-      console.log('hospital session key:', session_key)
-      
       const disease_name = this.Crypto.AES.decrypt(
         ciphers.diseases[j].name,
-        session_key,
+        hospital.ecdh.secret_key,
         this.patient.iv
       )
 
@@ -84,19 +84,17 @@ export class DiseasesComponent implements OnInit {
     }
   }
 
-  async generateKeys(hospital: any) {
-    this.patient.ecdh = {
-      public_key: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key, 'P-256')
-    }
-
+  async generateHospitalKeys(hospital: any) {
     hospital.ecdh = {
-      public_key: await this.Crypto.ECDH.importPublicKey(hospital.ecdh_public_key, 'P-256'),
       private_key: await this.Crypto.ECDH.importPrivateKey(hospital.ecdh_private_key, 'P-256')
     }
 
-    return await this.Crypto.ECDH.computeSecret(
-      hospital.ecdh.private_key, this.patient.ecdh.public_key
-    )
+    // console.log('hospital private key', hospital.ecdh.private_key)
+    // console.log('this.hospital private key', this.hospitals[0].ecdh.private_key)
+    const ecdh_secret = await this.Crypto.ECDH.computeSecret(hospital.ecdh.private_key, this.patient.ecdh.public_key)
+    // console.log('this.hospitals', this.hospitals[0])
+    // console.log('hospital', hospital)
+    hospital.ecdh.secret_key = await this.Crypto.Hash.SHA512(ecdh_secret, true)
   }
 
   get_session_key(cipher: any, hospital: String) {
@@ -113,13 +111,11 @@ export class DiseasesComponent implements OnInit {
 
     const hospital = this.hospitals[0]
 
-    hospital.ecdh = {
-      public_key: await this.Crypto.ECDH.importPublicKey(hospital.ecdh_public_key, 'P-256')
-    }
+    hospital.ecdh.public_key = await this.Crypto.ECDH.importPublicKey(hospital.ecdh_public_key, 'P-256')
 
-    const secret_key = await this.Crypto.ECDH.computeSecret(patient.ecdh.private_key, hospital.ecdh.public_key)
-    console.log('secret key from patient:', secret_key)
-    // const session_key =
+    const ecdh_secret = await this.Crypto.ECDH.computeSecret(patient.ecdh.private_key, hospital.ecdh.public_key)
+
+    const secret_key = await this.Crypto.Hash.SHA512(ecdh_secret, true)
   }
 
   // patient_dob(){
@@ -127,4 +123,8 @@ export class DiseasesComponent implements OnInit {
   //   var patientTimezone = date.getTimezoneOffset() * 60000;
   //   new Date(date.getTime() - patientTimezone);
   // }
+
+  delay(time: number) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {QrScanner} from "../../shared/components/qr-scanner/qr-scanner.component";
 import {ApiService} from "../../shared/services/api/api.service";
@@ -9,11 +9,7 @@ import {ApiService} from "../../shared/services/api/api.service";
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  // @Input() qrResult = '0xafeEb9069Aafc36473234829d00061502bB21ED9' // patient's blockchain address
-
   scannerOn = false;
-
-  // scanResult = 0xafeEb9069Aafc36473234829d00061502bB21ED9;
 
   constructor(
     private router: Router,
@@ -24,7 +20,7 @@ export class DashboardComponent implements OnInit {
   async ngOnInit(): Promise<void> {
   }
 
-  showResult(scanResult: string) {
+  getPatientAddress(scanResult: string) {
     this.toggleQrScanner()
 
     this.get_patient(scanResult)
