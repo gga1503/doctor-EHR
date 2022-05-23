@@ -1,10 +1,17 @@
 <div class="box">
-  <div class="glass">
-    <zxing-scanner (scanSuccess)="parseResult($event)"></zxing-scanner>
-    <button class="close-button" (click)="close()"></button>
+  <div class="qr-code-card">
+
+    <zxing-scanner previewFitMode="cover" (scanSuccess)="parseResult($event)"></zxing-scanner>
+    <!--    <button class="close-button" (click)="close()"></button>-->
+
 
     <div class="instruction">
       <h1 class="instruction-text">Place the QR Code at the camera</h1>
     </div>
+
+    <button class="btn btn-lg border-none"(click)="close()">Close</button>
+
+
   </div>
+
 </div>

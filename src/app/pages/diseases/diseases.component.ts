@@ -26,17 +26,13 @@ export class DiseasesComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.generateKeys()
+    this.hospitals[0].ecdh = {
+      secret_key: await this.generateKeys(this.hospitals[0])
+    }
 
     await this.get_records()
 
-    // this.decrypt(this.hospitals[0])
-    // this.get_ciphers(this.patient.bc_address)
-    //
-    // // Append hospitals array with local hospital from local Storage
-    // this.hospitals.push(JSON.parse(<string>localStorage.getItem('hospital')))
-
-    // sessionStorage.setItem('secret_keys', JSON.stringify())
+    await this.check_patient_decrypt()
   }
 
   get_records(): void {
@@ -58,7 +54,9 @@ export class DiseasesComponent implements OnInit {
 
     for (let j = 0; j < ciphers.diseases.length; j++) {
       const session_key = await this.Crypto.Hash.SHA512(hospital.ecdh.secret_key + ciphers.diseases[j].date, true)
-
+      console.log('hospital secret key:', hospital.ecdh.secret_key)
+      console.log('hospital session key:', session_key)
+      
       const disease_name = this.Crypto.AES.decrypt(
         ciphers.diseases[j].name,
         session_key,
@@ -86,25 +84,43 @@ export class DiseasesComponent implements OnInit {
     }
   }
 
-  async generateKeys() {
+  async generateKeys(hospital: any) {
     this.patient.ecdh = {
       public_key: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key, 'P-256')
     }
 
-    this.hospitals[0].ecdh = {
-      public_key: await this.Crypto.ECDH.importPublicKey(this.hospitals[0].ecdh_public_key, 'P-256'),
-      private_key: await this.Crypto.ECDH.importPrivateKey(this.hospitals[0].ecdh_private_key, 'P-256')
+    hospital.ecdh = {
+      public_key: await this.Crypto.ECDH.importPublicKey(hospital.ecdh_public_key, 'P-256'),
+      private_key: await this.Crypto.ECDH.importPrivateKey(hospital.ecdh_private_key, 'P-256')
     }
 
-    this.hospitals[0].ecdh.secret_key = await this.Crypto.ECDH.computeSecret(
-      this.hospitals[0].ecdh.private_key, this.patient.ecdh.public_key
+    return await this.Crypto.ECDH.computeSecret(
+      hospital.ecdh.private_key, this.patient.ecdh.public_key
     )
   }
 
-
-  get_session_key(hospital: String) {
+  get_session_key(cipher: any, hospital: String) {
   }
 
+  async check_patient_decrypt() {
+    const patient = this.patient
+    patient.ecdh_private_key = "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgw+rDCZnzRCNqqhLatYv2LVlAMQHrSmpbkpadE5jfbrahRANCAATyiIVnvpjAcF1diQsyCPK23opmj74dM57iRIyJRgu9N0+PKS+q7qF/+xtxrnBv+x8hKT2vOVwsSVVyEbLRDbFH"
+
+    patient.ecdh = {
+      public_key: await this.Crypto.ECDH.importPublicKey(patient.ecdh_public_key, 'P-256'),
+      private_key: await this.Crypto.ECDH.importPrivateKey(patient.ecdh_private_key, 'P-256')
+    }
+
+    const hospital = this.hospitals[0]
+
+    hospital.ecdh = {
+      public_key: await this.Crypto.ECDH.importPublicKey(hospital.ecdh_public_key, 'P-256')
+    }
+
+    const secret_key = await this.Crypto.ECDH.computeSecret(patient.ecdh.private_key, hospital.ecdh.public_key)
+    console.log('secret key from patient:', secret_key)
+    // const session_key =
+  }
 
   // patient_dob(){
   //   var date = sessionStorage.getItem('patient', 'dob')
