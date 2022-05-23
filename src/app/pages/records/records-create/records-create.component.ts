@@ -45,10 +45,12 @@ export class RecordsCreateComponent implements OnInit {
       publicKey: await this.Crypto.ECDH.importPublicKey(this.hospital.ecdh_public_key, "P-256")
     }
 
-    this.patient.ecdh.publicKey = await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key, "P-256")
+    this.patient.ecdh = {
+      publicKey: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key, "P-256")
+    }
 
     const secretKey = await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.privateKey, this.patient.ecdh.publicKey)
-      + this.data.date
+      // + this.data.date
 
     return await this.Crypto.Hash.SHA512(secretKey, true)
   }
@@ -69,11 +71,11 @@ export class RecordsCreateComponent implements OnInit {
 
   async submit() {
     if (this.patient) {
-      await this.api.get('time').subscribe(
-        response => sessionStorage.setItem('timestamp', response)
-      )
+      // await this.api.get('time').subscribe(
+      //   response => sessionStorage.setItem('timestamp', response)
+      // )
 
-      this.data.date = sessionStorage.getItem('timestamp')
+      // this.data.date = sessionStorage.getItem('timestamp')
 
       const secret_key = await this.generateSecretKey()
 
