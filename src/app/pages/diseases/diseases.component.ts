@@ -32,10 +32,8 @@ export class DiseasesComponent implements OnInit {
 
     // console.log()
     await this.generateHospitalKeys(this.hospitals[0])
-    console.log(this.hospitals[0])
-    await this.get_records()
 
-    await this.check_patient_decrypt()
+    await this.get_records()
   }
 
   async get_records(): Promise<void> {
@@ -91,31 +89,13 @@ export class DiseasesComponent implements OnInit {
 
     // console.log('hospital private key', hospital.ecdh.private_key)
     // console.log('this.hospital private key', this.hospitals[0].ecdh.private_key)
-    const ecdh_secret = await this.Crypto.ECDH.computeSecret(hospital.ecdh.private_key, this.patient.ecdh.public_key)
+    // const ecdh_secret =
     // console.log('this.hospitals', this.hospitals[0])
     // console.log('hospital', hospital)
-    hospital.ecdh.secret_key = await this.Crypto.Hash.SHA512(ecdh_secret, true)
+    hospital.ecdh.secret_key = await this.Crypto.ECDH.computeSecret(hospital.ecdh.private_key, this.patient.ecdh.public_key)
   }
 
   get_session_key(cipher: any, hospital: String) {
-  }
-
-  async check_patient_decrypt() {
-    const patient = this.patient
-    patient.ecdh_private_key = "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgw+rDCZnzRCNqqhLatYv2LVlAMQHrSmpbkpadE5jfbrahRANCAATyiIVnvpjAcF1diQsyCPK23opmj74dM57iRIyJRgu9N0+PKS+q7qF/+xtxrnBv+x8hKT2vOVwsSVVyEbLRDbFH"
-
-    patient.ecdh = {
-      public_key: await this.Crypto.ECDH.importPublicKey(patient.ecdh_public_key, 'P-256'),
-      private_key: await this.Crypto.ECDH.importPrivateKey(patient.ecdh_private_key, 'P-256')
-    }
-
-    const hospital = this.hospitals[0]
-
-    hospital.ecdh.public_key = await this.Crypto.ECDH.importPublicKey(hospital.ecdh_public_key, 'P-256')
-
-    const ecdh_secret = await this.Crypto.ECDH.computeSecret(patient.ecdh.private_key, hospital.ecdh.public_key)
-
-    const secret_key = await this.Crypto.Hash.SHA512(ecdh_secret, true)
   }
 
   // patient_dob(){

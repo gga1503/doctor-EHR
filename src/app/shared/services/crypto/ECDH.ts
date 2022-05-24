@@ -1,5 +1,6 @@
 import {Encoder} from './Encoder';
 import {PEM} from './PEM';
+import {Hash} from './Hash'
 
 export class ECDH {
 
@@ -11,14 +12,14 @@ export class ECDH {
    * @param pem <string> pem format public key.
    * @param curveType <string> ECDH curve type. ```P-256```, ```P-384```, ```P-521```.
    */
-  async importPublicKey(pem: string, curveType: string) {
+  async importPublicKey(pem: string, curveType?: string) {
     const key = Encoder.b64ToAb(pem.replace('-----BEGIN PUBLIC KEY-----', '')
       .replace('-----END PUBLIC KEY-----', ''))
 
     return await window.crypto.subtle.importKey(
       "spki",
       key,
-      {name: "ECDH", namedCurve: curveType},
+      {name: "ECDH", namedCurve: curveType || 'P-256'},
       true,
       []
     );
@@ -29,23 +30,23 @@ export class ECDH {
    * @param pem <string> pem format private key.
    * @param curveType <string> ECDH curve type. ```P-256```, ```P-384```, ```P-521```.
    */
-  async importPrivateKey(pem: string, curveType: string) {
+  async importPrivateKey(pem: string, curveType?: string) {
     const key = Encoder.b64ToAb(pem.replace('-----BEGIN PRIVATE KEY-----', '')
       .replace('-----END PRIVATE KEY-----', ''))
 
     return window.crypto.subtle.importKey(
       "pkcs8",
       key,
-      {name: "ECDH", namedCurve: curveType},
+      {name: "ECDH", namedCurve: curveType || 'P-256'},
       false,
       ["deriveKey", "deriveBits"]
     );
   }
 
   /**
-   * Compute ECDH shared secret key.
-   * @param privateKey <CryptoKey> ECDH private key.
-   * @param publicKey <CryptoKey> ECDH public key.
+   * Return a 256-bit (16-length chars) hashed ECDH shared secret key
+   * @param privateKey
+   * @param publicKey
    */
   async computeSecret(privateKey: any, publicKey: any) {
     const sharedSecret = await window.crypto.subtle.deriveBits(
@@ -54,7 +55,8 @@ export class ECDH {
       256
     )
 
-    return Encoder.abToB64(sharedSecret);
+    const hash = new Hash()
+    return await hash.SHA256(Encoder.abToB64(sharedSecret), true)
   }
 
   async generateKeys() {

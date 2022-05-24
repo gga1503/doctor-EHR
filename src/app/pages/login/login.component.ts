@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   hospital_bc_address = '0x88b05b8A1BEf674b0bE36C23A6Ee6C9bA131BEe8'
 
   login = this.formBuilder.group({
-    email: 'angeline@gmail.com',
+    email: 'doctor@hospital.com',
     password: 'doctor123'
   })
 
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   async submit() {
-    const target = `doctors?email=${this.login.value.email}&password=${this.login.value.password}`
+    const target = `doctors/login?email=${this.login.value.email}&password=${this.login.value.password}`
 
     this.api.get(target).subscribe(
       async (doctor) => {

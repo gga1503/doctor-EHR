@@ -41,17 +41,14 @@ export class RecordsCreateComponent implements OnInit {
 
   async generateSecretKey() {
     this.hospital.ecdh = {
-      privateKey: await this.Crypto.ECDH.importPrivateKey(this.hospital.ecdh_private_key, "P-256")
+      privateKey: await this.Crypto.ECDH.importPrivateKey(this.hospital.ecdh_private_key)
     }
 
     this.patient.ecdh = {
-      publicKey: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key, "P-256")
+      publicKey: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key)
     }
 
-    const secretKey = await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.privateKey, this.patient.ecdh.publicKey)
-      // + this.data.date
-
-    return await this.Crypto.Hash.SHA512(secretKey, true)
+    return await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.privateKey, this.patient.ecdh.publicKey)
   }
 
   generateCipher(secret_key: string) {
@@ -84,7 +81,6 @@ export class RecordsCreateComponent implements OnInit {
 
       await this.generateMetadata()
 
-      // console.log('data:', this.data)
       this.api.post('records', this.data).subscribe(
         response => {
           this.route.navigate(['/diseases'])
