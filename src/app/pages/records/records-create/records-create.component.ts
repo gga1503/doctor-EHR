@@ -26,7 +26,7 @@ export class RecordsCreateComponent implements OnInit {
 
   record = this.formBuilder.group({
     disease: 'Covid-19',
-    diagnose: 'Fever and sore throat'
+    diagnose: 'Test input disease of Covid #1'
   })
 
   constructor(

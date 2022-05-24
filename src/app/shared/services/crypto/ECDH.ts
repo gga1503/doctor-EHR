@@ -56,7 +56,7 @@ export class ECDH {
     )
 
     const hash = new Hash()
-    return await hash.SHA256(Encoder.abToB64(sharedSecret), true)
+    return await hash.SHA512(Encoder.abToB64(sharedSecret), true)
   }
 
   async generateKeys() {
