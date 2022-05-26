@@ -51,11 +51,13 @@ export class RecordsCreateComponent implements OnInit {
     return await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.privateKey, this.patient.ecdh.publicKey)
   }
 
-  generateCipher(secret_key: string) {
+  async generateCipher(secret_key: string) {
     this.data.cipher = {
       disease: this.Crypto.AES.encrypt(this.record.value.disease, secret_key, this.patient.iv),
       diagnose: this.Crypto.AES.encrypt(this.record.value.diagnose, secret_key)
     }
+
+    await this.generateMetadata()
   }
 
   async generateMetadata() {
@@ -63,33 +65,41 @@ export class RecordsCreateComponent implements OnInit {
       disease: await this.Crypto.Hash.SHA512(this.data.cipher.disease, true),
       diagnose: await this.Crypto.Hash.SHA512(this.data.cipher.diagnose, true)
     }
+
+    this.post_record()
   }
 
   async submit() {
-    if (this.patient) {
-      await this.api.get('time').subscribe(
-        response => sessionStorage.setItem('timestamp', response)
-      )
-
-      await this.delay(1000)
-
-      this.data.date = sessionStorage.getItem('timestamp')
-
-      const secret_key = await this.generateSecretKey()
-
-      this.generateCipher(secret_key)
-
-      await this.generateMetadata()
-
-      this.api.post('records', this.data).subscribe(
-        response => {
-          this.route.navigate(['/diseases'])
-        }
-      )
-    }
+    if (this.patient)
+      this.get_timestamp()
   }
 
-  delay(time: number) {
-    return new Promise(resolve => setTimeout(resolve, time));
+  get_timestamp() {
+    let subscription: any;
+
+    const observable = {
+      next: (response: any) => this.data.date = response,
+      error: (err: Error) => console.error(err),
+      complete: async () => {
+        subscription.unsubscribe()
+        const secret_key = await this.generateSecretKey()
+        await this.generateCipher(secret_key)
+      }
+    }
+
+    subscription = this.api.get('time').subscribe(observable)
+  }
+
+  post_record() {
+    const observable = {
+      next: (response: any) => console.log(response),
+      error: (err: Error) => console.error(err),
+      complete: async () => {
+        subscription.unsubscribe()
+        await this.route.navigate(['diseases'])
+      }
+    }
+
+    const subscription = this.api.post('records', this.data).subscribe(observable)
   }
 }

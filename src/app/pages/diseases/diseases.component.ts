@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../shared/services/api/api.service';
 import {CryptoService} from '../../shared/services/crypto/crypto.service';
-import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-diseases',
@@ -18,8 +17,6 @@ export class DiseasesComponent implements OnInit {
   }
 
   secret_keys: any = []
-
-  diseases_subscription: any
 
   diseases: any = {
     encrypted: [],
@@ -39,23 +36,29 @@ export class DiseasesComponent implements OnInit {
 
     await this.get_diseases()
 
-    await this.get_secret_key(this.cathay_hospital)
+    await this.get_session_key(this.cathay_hospital)
   }
 
+  /**
+   * Get patient's diseases from DDB
+   */
   async get_diseases(): Promise<void> {
     const observable = {
       next: (response: any) => this.diseases.encrypted = response,
       error: (err: Error) => console.error(err),
       complete: async () => {
-        this.diseases_subscription.unsubscribe()
+        subscription.unsubscribe()
         await this.decrypt_local_diseases()
       }
     }
 
-    this.diseases_subscription = this.api.get(`patients/${this.patient.bc_address}/diseases`)
+    const subscription = this.api.get(`patients/${this.patient.bc_address}/diseases`)
       .subscribe(observable)
   }
 
+  /**
+   * Decrypt the diseases from local hospital
+   */
   async decrypt_local_diseases() {
     this.current_hospital.ecdh = {
       private_key: await this.Crypto.ECDH.importPrivateKey(this.current_hospital.ecdh_private_key)
@@ -68,7 +71,11 @@ export class DiseasesComponent implements OnInit {
     await this.decrypt(this.current_hospital.bc_address)
   }
 
-  async decrypt(bc_address: any): Promise<void> {
+  /**
+   * Decrypt all diseases in a hospital
+   * @param bc_address Hospital blockchain address
+   */
+  async decrypt(bc_address: string): Promise<void> {
     const i = this.diseases.encrypted.findIndex((e: any) => {
       return e.hospital.bc_address == bc_address
     })
@@ -89,6 +96,12 @@ export class DiseasesComponent implements OnInit {
     this.diseases.encrypted.splice(i, 1)
   }
 
+  /**
+   * Group the hospitals & ciphers by the decrypted diseases name
+   * @param disease_name decrypted disease name
+   * @param hospital hospital object
+   * @param cipher original disease cipher
+   */
   push_decrypted(disease_name: string, hospital: any, cipher: any) {
     let index = this.diseases.decrypted.findIndex((e: any) => {
       return e.disease.name == disease_name
@@ -106,8 +119,7 @@ export class DiseasesComponent implements OnInit {
     }
   }
 
-  async get_secret_key(json: any) {
-    console.log(this.diseases)
+  async get_session_key(json: any) {
     this.add_secret_key(json.bc, json.sk)
 
     // await this.decrypt(bc_address)
@@ -124,13 +136,8 @@ export class DiseasesComponent implements OnInit {
     }
 
     const i = this.diseases.encrypted.findIndex((e: any) => {
-      console.log(e)
-      console.log('address', bc_address)
       return e.hospital.bc_address == bc_address
     })
-
-    // console.log('hospital bc address', bc_address)
-    console.log('index', i)
 
     this.diseases.encrypted[i].hospital.ecdh_secret_key = secret_key
   }
@@ -140,8 +147,4 @@ export class DiseasesComponent implements OnInit {
   //   var patientTimezone = date.getTimezoneOffset() * 60000;
   //   new Date(date.getTime() - patientTimezone);
   // }
-
-  delay(time: number) {
-    return new Promise(resolve => setTimeout(resolve, time));
-  }
 }
