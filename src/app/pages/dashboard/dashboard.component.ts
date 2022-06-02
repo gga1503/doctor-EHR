@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {QrScanner} from "../../shared/components/qr-scanner/qr-scanner.component";
 import {ApiService} from "../../shared/services/api/api.service";
 
 @Component({

@@ -13,7 +13,7 @@ export class DiseasesComponent implements OnInit {
 
   cathay_hospital = {
     bc: "0x721574b0a2a4E8f3b61eAC2edEa4D39Ff831270a",
-    sk: "IVpLqGHSRtW0OHsgrdqA7ZcGJvlkOEXEalQ2I+eslztnLdbeQfZQeZw3rxkJbLUxnmHuC3YeO5wzxdBjQfVrrg=="
+    sk: "qcp3yMr8ClSL8rHNK5aljKoLysooZl6wwCbdpfsj6tlhDoPFA0PeSDQvnknk8pukdI6Y9lh+mYUgZGZI+9uXGw=="
   }
 
   secret_keys: any = []
@@ -36,7 +36,6 @@ export class DiseasesComponent implements OnInit {
 
     await this.get_diseases()
 
-    await this.get_session_key(this.cathay_hospital)
   }
 
   /**

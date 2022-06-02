@@ -80,4 +80,31 @@ export class ECDH {
 
     return CryptoJS.SHA512(temp);
   }
+
+  async testKeys() {
+    const patient: any = {
+      ecdh_private_key: "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgw+rDCZnzRCNqqhLatYv2LVlAMQHrSmpbkpadE5jfbrahRANCAATyiIVnvpjAcF1diQsyCPK23opmj74dM57iRIyJRgu9N0+PKS+q7qF/+xtxrnBv+x8hKT2vOVwsSVVyEbLRDbFH",
+      ecdh_public_key: "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE8oiFZ76YwHBdXYkLMgjytt6KZo++HTOe4kSMiUYLvTdPjykvqu6hf/sbca5wb/sfISk9rzlcLElVchGy0Q2xRw=="
+    }, hospital: any = {
+      ecdh_public_key: "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFSBe8ZNWHS5mvX5+LyY6/epeROby/GvR1RHenybx6tGTMB+RDZcIqAqkZxtQFVx7Faj55CFAlD7Df7mPbgAa8g==",
+      ecdh_private_key: "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgPn9GAA7kBzO+swtJuPjBvh4Kwbl5gPSMbkGEBY8tNbShRANCAAQVIF7xk1YdLma9fn4vJjr96l5E5vL8a9HVEd6fJvHq0ZMwH5ENlwioCqRnG1AVXHsVqPnkIUCUPsN/uY9uABry"
+    }
+
+    patient.ecdh = {
+      private_key: await this.importPrivateKey(patient.ecdh_private_key),
+      public_key: await this.importPublicKey(patient.ecdh_public_key)
+    }
+
+    hospital.ecdh = {
+      private_key: await this.importPrivateKey(hospital.ecdh_private_key),
+      public_key: await this.importPublicKey(hospital.ecdh_public_key)
+    }
+
+    patient.ecdh.secret_key = await this.computeSecret(patient.ecdh.private_key, hospital.ecdh.public_key)
+    hospital.ecdh.secret_key = await this.computeSecret(hospital.ecdh.private_key, patient.ecdh.public_key)
+
+    console.log("Key is symmetric:", patient.ecdh.secret_key == hospital.ecdh.secret_key)
+    console.log('patient', patient)
+    console.log('hospital', hospital)
+  }
 }
