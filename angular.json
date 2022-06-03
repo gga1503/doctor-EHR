@@ -86,7 +86,7 @@
           "options": {
             "sslKey": "./ssl.key",
             "sslCert": "./ssl.cert",
-            "port": 4201
+            "port": 4202
           }
         },
         "extract-i18n": {
