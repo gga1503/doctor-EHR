@@ -8,11 +8,13 @@ import {CryptoService} from "../../../shared/services/crypto/crypto.service";
   styleUrls: ['./records.component.scss']
 })
 export class RecordsComponent implements OnInit {
-
+  diseases: any
   constructor() {
   }
 
   ngOnInit() {
+    this.diseases = JSON.parse(<string>sessionStorage.getItem('diseases'))
+    console.log(this.diseases)
   }
 
 }

@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 export class HeaderComponent implements OnInit {
 
   doctor: any = null
+  hospital: any = null
   lastName: string | undefined
 
   constructor(private router: Router) {
@@ -17,8 +18,10 @@ export class HeaderComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.checkSession()
 
-    this.doctor = JSON.parse(<string>localStorage.getItem('doctor'))
-    this.lastName = this.doctor.name.split(' ').slice(-1)
+    this.hospital = JSON.parse(<string>localStorage.getItem('hospital')).name
+
+    // this.doctor = JSON.parse(<string>localStorage.getItem('doctor'))
+    // this.lastName = this.doctor.name.split(' ').slice(-1)
   }
 
   async checkSession() {
