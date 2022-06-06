@@ -30,12 +30,13 @@ export class DiseasesComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    await this.Crypto.ECDH.testKeys()
+
     this.patient.ecdh = {
       public_key: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key)
     }
 
     await this.get_diseases()
-
   }
 
   /**
@@ -89,7 +90,7 @@ export class DiseasesComponent implements OnInit {
         this.patient.iv
       )
 
-      this.push_decrypted(disease_name, hospital, ciphers[j])
+      this.group_decrypted(disease_name, hospital, ciphers[j])
     }
 
     this.diseases.encrypted.splice(i, 1)
@@ -101,20 +102,20 @@ export class DiseasesComponent implements OnInit {
    * @param hospital hospital object
    * @param cipher original disease cipher
    */
-  push_decrypted(disease_name: string, hospital: any, cipher: any) {
+  group_decrypted(disease_name: string, hospital: any, cipher: any) {
     let index = this.diseases.decrypted.findIndex((e: any) => {
-      return e.disease.name == disease_name
+      return e.name == disease_name
     })
 
     if (index == -1) {
       const group = {
-        disease: {name: disease_name},
-        hospitals: [{hospital, cipher}]
+        name: disease_name,
+        ciphers: [{hospital, cipher}]
       }
 
       this.diseases.decrypted.push(group)
     } else {
-      this.diseases.decrypted[index].hospitals.push({hospital, cipher})
+      this.diseases.decrypted[index].ciphers.push({hospital, cipher})
     }
   }
 

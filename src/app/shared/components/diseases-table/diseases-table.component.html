@@ -21,19 +21,20 @@
         <span class="material-icons" style="font-size: 20pt;color: #b22222;margin-top: 12px">lock</span>
 
         <td class="table-row-detail pt-2" style="text-align: center;">
-          <button class="btn btn-sm btn-unlock" (click)="openQrScanner()">Unlock</button>
-<!--          <app-qr-scanner-->
-<!--            *ngIf="scannerOn"-->
-<!--            (toggle)="toggleQrScanner()"-->
-<!--            (qrResult)="getPatientAddress($event)"></app-qr-scanner>-->
+<!--          <button class="btn btn-sm btn-unlock" (click)="openQrScanner()">Unlock</button>-->
 
-<!--          <button class="btn btn-sm btn-unlock" (click)="toggleQrScanner()">Scan QR</button>-->
+          <button class="btn btn-sm btn-unlock" (click)="toggleQrScanner()">Scan QR</button>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
+
+<app-qr-scanner
+  *ngIf="scannerOn"
+  (toggle)="toggleQrScanner()"
+  (qrResult)="getPatientAddress($event)"></app-qr-scanner>
 
 
 
