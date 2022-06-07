@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DiseasesTableComponent } from './diseases-table.component';
+import { DiseasesTableComponent } from './diseases.table.component';
 
-describe('TableDropdownComponent', () => {
+describe('UnlockDiseasesTableComponent', () => {
   let component: DiseasesTableComponent;
   let fixture: ComponentFixture<DiseasesTableComponent>;
 

@@ -1,3 +1,4 @@
+<script src="ciphers.table.component.ts"></script>
 <div class="table-wrapper mt-5 bg-white p-md-4">
   <div class="table-status mt-2">
     <h1>Locked diseases</h1>
@@ -15,7 +16,7 @@
       </thead>
 
       <tbody class="table-disease-detail">
-      <tr class="table-row" *ngFor="let element of diseases">
+      <tr class="table-row" *ngFor="let element of ciphers">
         <td class="table-row-detail pt-3" style="width: 30%; text-align: left">{{element.hospital.name}}</td>
         <td class="table-row-detail pt-3" style="width: 30%; text-align: left">{{element.diseases.length}}</td>
         <span class="material-icons" style="font-size: 20pt;color: #b22222;margin-top: 12px">lock</span>
@@ -23,19 +24,10 @@
         <td class="table-row-detail pt-2" style="text-align: center;">
 <!--          <button class="btn btn-sm btn-unlock" (click)="openQrScanner()">Unlock</button>-->
 
-          <button class="btn btn-sm btn-unlock" (click)="toggleQrScanner()">Scan QR</button>
+          <button class="btn btn-sm btn-unlock" (click)="triggerScanner()">Scan QR</button>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
-
-<app-qr-scanner
-  *ngIf="scannerOn"
-  (toggle)="toggleQrScanner()"
-  (qrResult)="getPatientAddress($event)"></app-qr-scanner>
-
-
-
-

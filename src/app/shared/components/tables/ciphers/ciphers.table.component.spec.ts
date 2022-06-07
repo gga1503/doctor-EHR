@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopUpScanQrComponent } from './pop-up-scan-qr.component';
+import { CiphersTableComponent } from './ciphers.table.component';
 
-describe('PopUpScanQrComponent', () => {
-  let component: PopUpScanQrComponent;
-  let fixture: ComponentFixture<PopUpScanQrComponent>;
+describe('CiphersTableComponent', () => {
+  let component: CiphersTableComponent;
+  let fixture: ComponentFixture<CiphersTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PopUpScanQrComponent ]
+      declarations: [ CiphersTableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PopUpScanQrComponent);
+    fixture = TestBed.createComponent(CiphersTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

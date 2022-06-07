@@ -1,12 +1,12 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-unlock-diseases-table',
-  templateUrl: './unlock-diseases-table.component.html',
-  styleUrls: ['./unlock-diseases-table.component.scss']
+  selector: 'table-diseases',
+  templateUrl: './diseases.table.component.html',
+  styleUrls: ['./diseases.table.component.scss']
 })
-export class UnlockDiseasesTableComponent {
+export class DiseasesTableComponent {
   @Input() diseases: any
 
   constructor( private router: Router) {

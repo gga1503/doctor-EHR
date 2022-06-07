@@ -11,6 +11,8 @@ export class DiseasesComponent implements OnInit {
   patient = JSON.parse(<string>sessionStorage.getItem('patient'));
   current_hospital = JSON.parse(<string>localStorage.getItem('hospital'));
 
+  scannerToggled = false;
+
   cathay_hospital = {
     bc: "0x721574b0a2a4E8f3b61eAC2edEa4D39Ff831270a",
     sk: "qcp3yMr8ClSL8rHNK5aljKoLysooZl6wwCbdpfsj6tlhDoPFA0PeSDQvnknk8pukdI6Y9lh+mYUgZGZI+9uXGw=="
@@ -66,7 +68,7 @@ export class DiseasesComponent implements OnInit {
 
     const secret_key = await this.Crypto.ECDH.computeSecret(this.current_hospital.ecdh.private_key, this.patient.ecdh.public_key)
 
-    this.add_secret_key(this.current_hospital.bc_address, secret_key)
+    this.pushSessionKey(this.current_hospital.bc_address, secret_key)
 
     await this.decrypt(this.current_hospital.bc_address)
   }
@@ -119,13 +121,15 @@ export class DiseasesComponent implements OnInit {
     }
   }
 
-  async get_session_key(json: any) {
-    this.add_secret_key(json.bc, json.sk)
+  async getSessionKey(qrData: any) {
+    this.toggleQrScanner()
+    const json: any = JSON.parse(<string>qrData)
+    this.pushSessionKey(json.bc, json.sk)
 
-    // await this.decrypt(bc_address)
+    await this.decrypt(json.bc)
   }
 
-  add_secret_key(bc_address: string, secret_key: string) {
+  pushSessionKey(bc_address: string, secret_key: string) {
     const object = {
       bc_address: bc_address,
       secret_key: secret_key
@@ -141,6 +145,11 @@ export class DiseasesComponent implements OnInit {
 
     this.diseases.encrypted[i].hospital.ecdh_secret_key = secret_key
   }
+
+  toggleQrScanner() {
+    this.scannerToggled = !this.scannerToggled;
+  }
+
 
   // patient_dob(){
   //   var date = sessionStorage.getItem('patient', 'dob')

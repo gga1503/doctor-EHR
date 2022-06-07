@@ -5,11 +5,16 @@
 
     <div class="content mt-3">
       <app-record-search></app-record-search>
-      <app-unlock-diseases-table [diseases]="diseases['decrypted']"></app-unlock-diseases-table>
-      <app-diseases-table [diseases]="diseases.encrypted"></app-diseases-table>
+      <table-diseases [diseases]="diseases['decrypted']"></table-diseases>
+      <table-ciphers
+        (toggle)="toggleQrScanner()"
+        [ciphers]="diseases.encrypted">
+      </table-ciphers>
     </div>
   </div>
 </div>
 
-
-
+<app-qr-scanner
+  *ngIf="scannerToggled"
+  (toggle)="toggleQrScanner()"
+  (qrResult)="getSessionKey($event)"></app-qr-scanner>
