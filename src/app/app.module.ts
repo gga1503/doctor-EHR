@@ -17,8 +17,6 @@ import {ApiService} from "./shared/services/api/api.service";
 import {DiseasesComponent} from './pages/diseases/diseases.component';
 
 
-// @ts-ignore
-// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,

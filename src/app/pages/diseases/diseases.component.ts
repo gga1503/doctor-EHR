@@ -13,11 +13,6 @@ export class DiseasesComponent implements OnInit {
 
   scannerToggled = false;
 
-  cathay_hospital = {
-    bc: "0x721574b0a2a4E8f3b61eAC2edEa4D39Ff831270a",
-    sk: "qcp3yMr8ClSL8rHNK5aljKoLysooZl6wwCbdpfsj6tlhDoPFA0PeSDQvnknk8pukdI6Y9lh+mYUgZGZI+9uXGw=="
-  }
-
   secret_keys: any = []
 
   diseases: any = {
@@ -32,8 +27,6 @@ export class DiseasesComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.Crypto.ECDH.testKeys()
-
     this.patient.ecdh = {
       public_key: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key)
     }
