@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 
@@ -13,34 +13,16 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  get(destination: String): Observable<any> {
+  get(destination: String, queries?: any): Observable<any> {
+    if (queries) {
+      const params = new HttpParams({fromObject: queries})
+      return this.http.get<any>(this.root + destination, {params: params})
+    }
+
     return this.http.get<any>(this.root + destination)
   }
 
   post(target: String, data: any): Observable<any> {
     return this.http.post<any>(this.root + target, data);
   }
-
-  // async get(destination: String) {
-  //   let response = null
-  //
-  //   await this.http.get<any>(this.root + destination).toPromise().then(
-  //     resp => response = resp)
-  //
-  //   return response
-  // }
-
-
-  // async post(destination: String, data: any) {
-  //   let response = null
-  //
-  //   await this.http.post(this.root + destination, data).toPromise()
-  //     .then(resp => response = resp)
-  //     .catch((e) => {
-  //         console.error('Function error: on postUserLogin => ' + e);
-  //       }
-  //     );
-  //
-  //   return response;
-  // }
 }

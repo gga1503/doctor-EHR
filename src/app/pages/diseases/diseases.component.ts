@@ -102,15 +102,16 @@ export class DiseasesComponent implements OnInit {
       return e.name == disease_name
     })
 
+    cipher.hospital = hospital
     if (index == -1) {
       const group = {
         name: disease_name,
-        ciphers: [{hospital, cipher}]
+        ciphers: [cipher]
       }
 
       this.diseases.decrypted.push(group)
     } else {
-      this.diseases.decrypted[index].ciphers.push({hospital, cipher})
+      this.diseases.decrypted[index].ciphers.push(cipher)
     }
   }
 
