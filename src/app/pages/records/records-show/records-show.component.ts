@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../../shared/services/api/api.service";
+import {CryptoService} from '../../../shared/services/crypto/crypto.service';
 
 @Component({
   selector: 'app-records-show',
@@ -7,12 +8,15 @@ import {ApiService} from "../../../shared/services/api/api.service";
   styleUrls: ['./records-show.component.scss']
 })
 export class RecordsShowComponent implements OnInit {
-  record: String = "";
+  record = JSON.parse(<string>sessionStorage.getItem('record'))
+  disease = JSON.parse(<string>sessionStorage.getItem('disease'))
 
-  constructor(private api: ApiService) { }
-
-  ngOnInit(): void {
-
+  constructor(
+    private Crypto: CryptoService
+  ) {
   }
 
+  async ngOnInit(): Promise<void> {
+
+  }
 }

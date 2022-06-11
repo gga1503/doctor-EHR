@@ -12,8 +12,9 @@ export class DiseasesTableComponent {
   constructor( private router: Router) {
   }
 
-  async openRecords(diseases: any) {
-    sessionStorage.setItem('diseases', JSON.stringify(diseases))
+  async records(i: number) {
+    sessionStorage.setItem('disease', JSON.stringify(this.diseases[i].name))
+    sessionStorage.setItem('disease-ciphers', JSON.stringify(this.diseases[i].ciphers))
     await this.router.navigate(['records'])
   }
 }
