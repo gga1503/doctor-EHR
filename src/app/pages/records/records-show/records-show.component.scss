@@ -10,7 +10,7 @@
   padding: 2rem;
   backdrop-filter: blur(4rem);
   -webkit-backdrop-filter: blur(4rem);
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.4);
   z-index: 2;
   height: 100%;
   border-radius: 1.5rem;
@@ -18,24 +18,36 @@
   border: 0.18rem solid rgba(255, 255, 255, 0.3);
 }
 
+.illustration-img{
+  width: 14%;
+  right: 5rem;
+  bottom: 2rem;
+  z-index: 1;
+  position: absolute;
+  transform: rotate(-8deg);
+  filter: invert(1);
+  opacity: 70%;
+}
+
 .disease-title{
-  font-size: 40pt;
+  font-size: 50pt;
   line-height: 1.3;
-  font-family: "Nunito";
+  font-family: Helvetica;
   font-weight: 400;
+  color: #013b84;
 }
 
 .left-section-title{
-  font-size: 18pt;
+  font-size: 23pt;
   line-height: 1.3;
-  font-family: "Helvetica";
-  font-weight: 500;
+  font-family: Avenir;
+  font-weight: 600;
 }
 
 .right-section-title{
   font-size: 18pt;
   line-height: 1.3;
-  font-family: "Helvetica";
+  font-family: Helvetica;
   font-weight: 350;
 }
 
