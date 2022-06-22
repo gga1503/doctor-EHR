@@ -53,8 +53,8 @@ export class RecordsCreateComponent implements OnInit {
 
   async generateCipher(secret_key: string) {
     this.data.cipher = {
-      disease: this.Crypto.AES.encrypt(this.record.value.disease, secret_key, this.patient.iv),
-      diagnose: this.Crypto.AES.encrypt(this.record.value.diagnose, secret_key)
+      disease: this.Crypto.AES.encrypt(<string>this.record.value.disease, secret_key, this.patient.iv),
+      diagnose: this.Crypto.AES.encrypt(<string>this.record.value.diagnose, secret_key)
     }
 
     await this.generateMetadata()
