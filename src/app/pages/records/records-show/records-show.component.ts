@@ -12,11 +12,9 @@ export class RecordsShowComponent implements OnInit {
   disease = JSON.parse(<string>sessionStorage.getItem('disease'))
 
   constructor(
-    private Crypto: CryptoService
   ) {
   }
 
   async ngOnInit(): Promise<void> {
-
   }
 }

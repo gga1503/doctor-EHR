@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   getPatientAddress(scanResult: string) {
     this.toggleQrScanner()
 
-    this.get_patient(scanResult)
+    this.get_patient(JSON.parse(<string>scanResult).bc)
   }
 
   toggleQrScanner() {

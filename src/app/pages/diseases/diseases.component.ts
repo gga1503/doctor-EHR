@@ -117,9 +117,10 @@ export class DiseasesComponent implements OnInit {
 
   async getSessionKey(qrData: any) {
     this.toggleQrScanner()
+    console.log(JSON.parse(<string>qrData).bc)
+
     const json: any = JSON.parse(<string>qrData)
     this.pushSessionKey(json.bc, json.sk)
-
     await this.decrypt(json.bc)
   }
 
@@ -132,6 +133,8 @@ export class DiseasesComponent implements OnInit {
     if (this.secret_keys.indexOf(object) == -1) {
       this.secret_keys.push(object)
     }
+
+    sessionStorage.setItem('session-keys', JSON.stringify(this.secret_keys))
 
     const i = this.diseases.encrypted.findIndex((e: any) => {
       return e.hospital.bc_address == bc_address
