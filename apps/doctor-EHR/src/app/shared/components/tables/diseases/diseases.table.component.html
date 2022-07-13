@@ -1,0 +1,30 @@
+<div class="table-wrapper mt-5 bg-white p-md-4">
+  <div class="table-status mt-2">
+    <h1>Unlocked diseases</h1>
+    <i class="material-icons" style="font-size: 25pt; margin-left:0.8rem;color: limegreen;">vpn_key</i>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table mt-4">
+      <thead class="table-header">
+      <tr>
+        <th class="table-header-title" scope="col">Diseases</th>
+        <th class="table-header-title" scope="col">Hospitals Total</th>
+        <th class="table-header-title" scope="col">Status</th>
+      </tr>
+      </thead>
+
+      <tbody class="table-disease-detail" id="collapseOne">
+      <tr class="table-row" *ngFor="let group of diseases; let i = index">
+        <td class="table-row-detail pt-3" style="width: 30%; text-align: left">{{group.name}}</td>
+        <td class="table-row-detail pt-3" style="width: 30%; text-align: left">{{group['ciphers'].length}}</td>
+        <span class="material-icons" style="font-size: 20pt;color: limegreen;margin-top: 12px">lock_open</span>
+
+        <td class="table-row-detail pt-2" style="text-align: center;">
+          <a class="btn btn-sm btn-unlock" role="button" (click)=records(i)>See Details</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

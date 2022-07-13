@@ -2,12 +2,13 @@
   "name": "doctor-ehr",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve --host 0.0.0.0",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "prod": "ng serve --host 0.0.0.0 --ssl true"
+    "ng": "nx",
+    "start": "nx run doctor-EHR:serve --host=0.0.0.0",
+    "build": "nx build",
+    "watch": "nx build --watch --configuration development",
+    "test": "nx test",
+    "prod": "nx serve --host 0.0.0.0 --ssl true",
+    "postinstall": "node ./decorate-angular-cli.js"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +25,7 @@
     "@fortawesome/angular-fontawesome": "^0.10.2",
     "@fortawesome/fontawesome-svg-core": "^6.1.0",
     "@fortawesome/free-solid-svg-icons": "^6.1.0",
+    "@nrwl/angular": "^14.4.2",
     "@types/crypto-js": "^4.1.1",
     "@zxing/ngx-scanner": "^3.5.0",
     "angular2-qrscanner": "^1.0.7",
@@ -48,6 +50,9 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.7.4"
+    "typescript": "~4.7.4",
+    "@nrwl/workspace": "14.4.2",
+    "nx": "14.4.2",
+    "prettier": "^2.6.2"
   }
 }

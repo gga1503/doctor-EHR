@@ -1,0 +1,67 @@
+<div class="box">
+  <div class="blob"></div>
+  <div class="blob-1"></div>
+  <div class="circle"></div>
+
+  <div class="glass">
+
+    <div class="row">
+      <div class="column">
+        <h1 class="title">New Health Record</h1>
+      </div>
+      <div class="column">
+        <img src="../../../assets/images/medicalrecords.png" alt="medicalRecord" class="ehr-img">
+      </div>
+    </div>
+    <hr style="border: 0.2rem solid #013b84; border-radius: 0.3rem; color: #013b84">
+    <div class="mt-4">
+      <fieldset disabled>
+        <div class="form-group row mt-4 mb-5">
+          <label for="staticFullName" class="left-section-title col-sm-2 h5">Patient's Name</label>
+          <div class="col-sm-10">
+            <label for="staticFullName" class="right-section-title">Full Name</label>
+            <input type="text" readonly class="form-control mt-2" id="staticFullName" placeholder="{{patient.name}}" style="background-color:#dcdcdc;">
+            <!--            <input type="text" readonly class="form-control mt-2" id="staticFullName" placeholder={{patients.name}} style="background-color:#b6b6b6;">-->
+          </div>
+        </div>
+      </fieldset>
+      <fieldset disabled>
+        <div class="form-group row mb-5">
+          <label for="staticHospital" class="left-section-title col-sm-2 h5">Hospital</label>
+          <div class="col-sm-10">
+            <label for="staticHospital" class="right-section-title">Name</label>
+            <!--            <input type="text" readonly class="form-control mt-2" id="staticHospital" placeholder="Husada"-->
+            <input type="text" readonly class="form-control mt-2" id="staticHospital" placeholder="{{hospital.name}}"
+                   style="background-color:#dcdcdc;">
+          </div>
+        </div>
+      </fieldset>
+
+      <form [formGroup]="record" (ngSubmit)="submit()" class="form-group row mb-5">
+        <label class="left-section-title col-sm-2 h5">Health Record</label>
+
+        <div class="col-sm-10">
+          <label for="inputDisease" class="right-section-title">Disease</label>
+          <input class="form-control mt-2" id="inputDisease" placeholder="Input Disease" list="diseases"
+                 formControlName="disease">
+          <datalist id="diseases">
+            <option value="Covid-19">
+            <option value="Diabetes">
+          </datalist>
+
+          <div class="mt-5">
+            <label for="inputDiagnose" class="right-section-title">Diagnose</label>
+            <textarea class="form-control mt-2" id="inputDiagnose" rows="5" placeholder="Detail Diagnose"
+                      formControlName="diagnose"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group row mt-5">
+          <div class="col-12 button-box">
+            <button type="submit" class="button btn submit-btn">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
