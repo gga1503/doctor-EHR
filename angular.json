@@ -1,6 +1,6 @@
 {
-  "version": 1,
+  "version": 2,
   "projects": {
-    "doctor-EHR": "apps/doctor-EHR"
+    "doctor-EHR": "./apps/doctor-EHR"
   }
 }

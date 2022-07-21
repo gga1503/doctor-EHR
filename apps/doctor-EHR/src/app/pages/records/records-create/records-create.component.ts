@@ -39,28 +39,32 @@ export class RecordsCreateComponent implements OnInit {
   ngOnInit() {
   }
 
-  async generateSecretKey() {
-    this.hospital.ecdh = {
-      privateKey: await this.Crypto.ECDH.importPrivateKey(this.hospital.ecdh_private_key)
-    }
+  async createKeys() {
+    this.hospital.ecdh = {privateKey: await this.Crypto.ECDH.importPrivateKey(this.hospital.ecdh_private_key)}
 
-    this.patient.ecdh = {
-      publicKey: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key)
-    }
+    this.patient.ecdh = {publicKey: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key)}
 
-    return await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.privateKey, this.patient.ecdh.publicKey)
+    const masterKey = await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.privateKey, this.patient.ecdh.publicKey),
+      nonce = await this.Crypto.Hash.SHA512(this.data.bc_addresses.patient + this.data.bc_addresses.hospital + this.data.date, true),
+      diseaseKey = await this.Crypto.Hash.SHA512(masterKey + nonce, true),
+      diagnoseKey = await this.Crypto.Hash.SHA512(diseaseKey + this.data.date, true)
+
+    return {
+      disease: diseaseKey,
+      diagnose: diagnoseKey
+    }
   }
 
-  async generateCipher(secret_key: string) {
+  async createCipher(keys: any) {
     this.data.cipher = {
-      disease: this.Crypto.AES.encrypt(<string>this.record.value.disease, secret_key, this.patient.iv),
-      diagnose: this.Crypto.AES.encrypt(<string>this.record.value.diagnose, secret_key)
+      disease: this.Crypto.AES.encrypt(<string>this.record.value.disease, keys.disease, this.patient.iv),
+      diagnose: this.Crypto.AES.encrypt(<string>this.record.value.diagnose, keys.diagnose)
     }
 
-    await this.generateMetadata()
+    await this.createMetadata()
   }
 
-  async generateMetadata() {
+  async createMetadata() {
     this.data.metadata = {
       disease: await this.Crypto.Hash.SHA512(this.data.cipher.disease, true),
       diagnose: await this.Crypto.Hash.SHA512(this.data.cipher.diagnose, true)
@@ -82,8 +86,8 @@ export class RecordsCreateComponent implements OnInit {
       error: (err: Error) => console.error(err),
       complete: async () => {
         subscription.unsubscribe()
-        const secret_key = await this.generateSecretKey()
-        await this.generateCipher(secret_key)
+        const keys = await this.createKeys()
+        await this.createCipher(keys)
       }
     }
 
