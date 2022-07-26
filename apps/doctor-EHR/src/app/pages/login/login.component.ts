@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
-  hospital_bc_address = '0x88b05b8A1BEf674b0bE36C23A6Ee6C9bA131BEe8'
+  hospital_bc_address = '0x7E707caAdab81FddD15b549b7e2cd199B5ebe7b5'
 
   login = this.formBuilder.group({
     email: 'doctor@hospital.com',

@@ -13,6 +13,7 @@ export class RecordsComponent implements OnInit {
   ciphers = JSON.parse(<string>sessionStorage.getItem('disease-ciphers'))
   disease = JSON.parse(<string>sessionStorage.getItem('disease'))
   patient = JSON.parse(<string>sessionStorage.getItem('patient'))
+
   records: any
 
   constructor(
@@ -48,17 +49,21 @@ export class RecordsComponent implements OnInit {
   getHospital(record: any) {
     this.ciphers.forEach((cipher: any) => {
       if (cipher._id == record.disease_id) {
+        console.log(record)
+        record.sk_disease = cipher.sk_disease
         record.hospital = {
           name: cipher.hospital.name,
-          secretKey: cipher.hospital.ecdh_secret_key
+          sk_disease: cipher.hospital.ecdh_secret_key
         }
       }
     })
   }
 
   async show(i: any) {
-    const record = this.records[i]
-    record.decipher = this.Crypto.AES.decrypt(record.diagnose, record.hospital.secretKey, this.patient.salt)
+    const record = this.records[i],
+      sk_diagnose = await this.Crypto.Hash.SHA512(record.sk_disease + record.date, true)
+
+    record.decipher = this.Crypto.AES.decrypt(record.diagnose, sk_diagnose, this.patient.salt)
     sessionStorage.setItem('record', JSON.stringify(record))
     await this.router.navigate(['records/show'])
   }

@@ -15,6 +15,7 @@ export class RecordsCreateComponent implements OnInit {
   hospital = JSON.parse(<string>localStorage.getItem('hospital'))
   doctor = JSON.parse(<string>localStorage.getItem('doctor'))
   patient = JSON.parse(<string>sessionStorage.getItem('patient'))
+  nonce = ''
 
   data: any = {
     bc_addresses: {
@@ -39,23 +40,34 @@ export class RecordsCreateComponent implements OnInit {
   ngOnInit() {
   }
 
+  set_nonce(nonce: string) {
+    this.nonce = nonce
+  }
+
   async createKeys() {
     this.hospital.ecdh = {privateKey: await this.Crypto.ECDH.importPrivateKey(this.hospital.ecdh_private_key)}
 
     this.patient.ecdh = {publicKey: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key)}
 
-    const masterKey = await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.privateKey, this.patient.ecdh.publicKey),
-      nonce = await this.Crypto.Hash.SHA512(this.data.bc_addresses.patient + this.data.bc_addresses.hospital + this.data.date, true),
-      diseaseKey = await this.Crypto.Hash.SHA512(masterKey + nonce, true),
-      diagnoseKey = await this.Crypto.Hash.SHA512(diseaseKey + this.data.date, true)
+    const masterKey = await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.privateKey, this.patient.ecdh.publicKey)
+
+    // If nonce has not been set
+    if (this.nonce == '')
+      this.nonce = await this.Crypto.Hash.SHA512(this.data.bc_addresses.patient + this.data.bc_addresses.hospital + this.data.date, true)
+
+    const  sk_disease = await this.Crypto.Hash.SHA512(masterKey + this.nonce, true),
+      sk_diagnose = await this.Crypto.Hash.SHA512(sk_disease + this.data.date, true)
 
     return {
-      disease: diseaseKey,
-      diagnose: diagnoseKey
+      nonce: this.nonce,
+      disease: sk_disease,
+      diagnose: sk_diagnose
     }
   }
 
   async createCipher(keys: any) {
+    this.data.nonce = keys.nonce
+
     this.data.cipher = {
       disease: this.Crypto.AES.encrypt(<string>this.record.value.disease, keys.disease, this.patient.iv),
       diagnose: this.Crypto.AES.encrypt(<string>this.record.value.diagnose, keys.diagnose)
@@ -95,6 +107,7 @@ export class RecordsCreateComponent implements OnInit {
   }
 
   post_record() {
+    console.log(this.data)
     const observable = {
       next: (response: any) => console.log(response),
       error: (err: Error) => console.error(err),
