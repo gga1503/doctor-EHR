@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../shared/services/api/api.service";
 import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -9,8 +10,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  hospital_bc_address = '0x7E707caAdab81FddD15b549b7e2cd199B5ebe7b5'
+  hospital_bc_address = environment.hospital_bc_address
 
   login = this.formBuilder.group({
     email: 'doctor@hospital.com',

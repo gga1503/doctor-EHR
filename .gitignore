@@ -43,3 +43,4 @@ Thumbs.db
 
 # Others
 /src/app/simulation
+/apps/doctor-EHR/src/environments/environment.ts

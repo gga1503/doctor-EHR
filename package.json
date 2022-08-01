@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "nx",
     "start": "nx serve doctor-EHR --host=0.0.0.0",
-    "build": "nx build",
+    "build": "nx build doctor-EHR --base-href ./",
     "watch": "nx build --watch --configuration development",
     "test": "nx test",
     "prod": "nx serve doctor-EHR --host 0.0.0.0 --ssl true",

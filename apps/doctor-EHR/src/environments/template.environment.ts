@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  hospital_bc_address: '' // Insert the hospital blockchain address
 };
 
 /*

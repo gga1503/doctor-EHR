@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../../shared/services/api/api.service";
 import { CryptoService } from "../../shared/services/crypto/crypto.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: "app-diseases",
@@ -117,11 +118,13 @@ export class DiseasesComponent implements OnInit {
     } else {
       this.diseases.decrypted[index].ciphers.push(cipher);
     }
+
+    if (hospital.bc_address != environment.hospital_bc_address)
+      console.log("Alert: Successfully decrypt ")
   }
 
   async getSessionKey(qrData: any) {
     this.toggleQrScanner();
-    console.log(JSON.parse(<string>qrData).bc);
 
     const json: any = JSON.parse(<string>qrData);
     this.pushSessionKey(json.bc, json.sk);

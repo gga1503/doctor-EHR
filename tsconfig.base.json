@@ -19,10 +19,7 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "paths": {},
     "rootDir": "."
   },
@@ -32,9 +29,5 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "exclude": [
-    "./src/app/simulation",
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["./src/app/simulation", "node_modules", "tmp"]
 }
