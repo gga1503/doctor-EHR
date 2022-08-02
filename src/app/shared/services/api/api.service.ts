@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
+import Server from './url.json';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,9 @@ import {catchError, retry} from 'rxjs/operators';
 export class ApiService {
 
   // root = 'http://localhost:3000/'
-  root = 'http://172.20.10.5:3000/'
+  // root = 'http://172.20.10.5:3000/'
+
+  root= Server.http
 
   constructor(private http: HttpClient) {
   }

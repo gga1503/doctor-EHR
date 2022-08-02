@@ -1,0 +1,50 @@
+.alert-title{
+  margin: 1.7rem 0 0 0;
+}
+
+.alert-close-section{
+  width: 100%;
+  position: relative;
+}
+
+.close-button{
+  position: absolute;
+  right: 0px;
+  cursor: pointer;
+}
+
+.material-symbols-outlined{
+  font-weight: 700;
+}
+
+.mat-display-1{
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #5CB85C;
+  text-align: center;
+}
+
+.alert-card{
+  text-align: center;
+  width: 415px;
+  height: 210px;
+  position: relative;
+}
+
+img{
+  width: 16%;
+  filter: invert(57%) sepia(79%) saturate(305%) hue-rotate(71deg) brightness(94%) contrast(91%);
+  transform: rotate(-15deg);
+}
+
+.information{
+  padding: 1rem 4rem 1rem 4rem;
+}
+
+.information p{
+  font-size:12pt;
+  line-height: 1.3;
+  text-align: center;
+  font-family: "Helvetica";
+  letter-spacing: 0.05em;
+}

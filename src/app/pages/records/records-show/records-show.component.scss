@@ -102,3 +102,18 @@ font-size: 25pt;
 .read-ehr{
   padding: 2rem;
 }
+
+.back-btn{
+  background-color: #013b84;
+  color: white;
+  cursor: pointer;
+  border-radius: 0.6rem;
+  transition-duration: 0.3s;
+  width: 160px;
+  height: 40px;
+  margin: 2rem 0 2rem 0;
+
+  &:hover{
+    box-shadow: 0 0 11px rgba(5,117,230,100);
+  }
+}
