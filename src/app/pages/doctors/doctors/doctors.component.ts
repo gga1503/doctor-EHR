@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-import {PopUpService} from "../../../services/pop-up/pop-up.service";
+import {PopUpService} from "../../../shared/services/pop-up/pop-up.service";
 
 @Component({
-  selector: 'app-list-doctor',
-  templateUrl: './list-doctor.component.html',
-  styleUrls: ['./list-doctor.component.scss']
+  selector: 'app-doctors',
+  templateUrl: './doctors.component.html',
+  styleUrls: ['./doctors.component.scss']
 })
-export class ListDoctorComponent implements OnInit {
+export class DoctorsComponent implements OnInit {
 
   constructor(
     private router: Router,

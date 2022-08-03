@@ -3,11 +3,11 @@ import {Location} from "@angular/common";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-create-doctor-account',
-  templateUrl: './create-doctor-account.component.html',
-  styleUrls: ['./create-doctor-account.component.scss']
+  selector: 'app-create-doctor',
+  templateUrl: './create-doctor.component.html',
+  styleUrls: ['./create-doctor.component.scss']
 })
-export class CreateDoctorAccountComponent implements OnInit {
+export class CreateDoctorComponent implements OnInit {
   hide = true;
   constructor(private location: Location, private router: Router) { }
 

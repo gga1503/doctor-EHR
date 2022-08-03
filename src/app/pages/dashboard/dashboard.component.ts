@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {ApiService} from "../../shared/services/api/api.service";
 import {AlertComponent} from "../../shared/components/pop-up/alert/alert.component";
-import {AlertService} from "../../services/alert/alert.service";
+import {AlertService} from "../../shared/services/alert/alert.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+
   }
 
   onOpenAlert(){
