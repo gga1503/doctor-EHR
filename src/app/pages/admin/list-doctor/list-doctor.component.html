@@ -1,0 +1,60 @@
+<div class="box">
+  <nav class="navbar navbar-light">
+    <div class="container-fluid">
+      <a class="btn navbar-brand" routerLink="/dashboard">
+        <img src="../../../assets/images/logodepan.png" alt="logo" width="173" height="65"
+             class="d-inline-block align-text-top">
+      </a>
+
+      <h1>
+        <!--      {{hospital}}-->
+        hospital
+      </h1>
+
+      <div class="d-flex">
+        <button class="btn navbar-login-logout-btn btn-lg border-none" type="submit" (click)="onOpenDialogClick()">
+          Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="content">
+    <div class="title-button mt-2">
+      <h1 class="title">Doctor Account Management</h1>
+      <button type="button" class="col-sm-1 add-acc-btn btn" routerLink="/account">+ Create New Acccount </button>
+    </div>
+    <hr class="mt-3" style="border: 0.13rem solid  #013b84; border-radius: 0.3rem;">
+
+    <div class="table-responsive mt-4">
+      <table class="table " >
+        <thead class="table-header thead-dark" style="width:100%;">
+        <tr>
+          <th class="table-header-title" scope="col">Name</th>
+          <th class="table-header-title" scope="col">Speciality</th>
+          <th class="table-header-title" scope="col">Email</th>
+          <th class="table-header-title" scope="col">Password</th>
+          <th class="table-header-title" scope="col"></th>
+        </tr>
+        </thead>
+
+        <!--      <tbody *ngFor="let disease of diseases" class="table-disease-detail" id="collapseOne">-->
+        <tbody class="table-disease-detail" style="background:#FFFFFF">
+        <tr class="table-row">
+          <td class="table-row-detail pt-1">dr. Angeline Chandra</td>
+          <td class="table-row-detail pt-1">Umum</td>
+          <td class="table-row-detail pt-1">doctor@hospital.com</td>
+          <td class="table-row-detail diagnose-text pt-1 text-truncate"
+              style="text-align: left">*********</td>
+          <td class="table-row-detail pt-2">
+            <span class="material-symbols-outlined">visibility_off</span>
+            <span class="material-symbols-outlined btn-delete">delete</span>
+          </td>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+

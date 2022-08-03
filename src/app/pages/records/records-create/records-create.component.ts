@@ -1,8 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CryptoService} from '../../../shared/services/crypto/crypto.service';
 import {ApiService} from "../../../shared/services/api/api.service";
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
+import {Location} from '@angular/common';
+import {PopUpService} from "../../../services/pop-up/pop-up.service";
+import {AlertService} from "../../../services/alert/alert.service";
 
 @Component({
   selector: 'app-records-create',
@@ -25,18 +28,25 @@ export class RecordsCreateComponent implements OnInit {
   }
 
   record = this.formBuilder.group({
-    disease: 'Covid-19',
-    diagnose: 'Test input disease of Covid #1'
+    disease: '',
+    diagnose: ''
   })
 
   constructor(
     private formBuilder: FormBuilder,
     private api: ApiService,
     private Crypto: CryptoService,
-    private route: Router) {
+    private route: Router,
+    private location: Location,
+    private dialog: PopUpService,
+    private alert: AlertService) {
   }
 
   ngOnInit() {
+  }
+
+  previousPage() {
+    this.location.back();
   }
 
   async generateSecretKey() {
@@ -69,6 +79,18 @@ export class RecordsCreateComponent implements OnInit {
     this.post_record()
   }
 
+  onOpenDialogClick(){
+    this.dialog.confirmationPopUp({
+      title: 'Add New Health Record',
+      instruction: 'Do you want to add new health record? Please make sure you enter the data correctly',
+      cancel: 'No',
+      confirm: 'Yes',
+    })
+      .subscribe((confirmed) => {
+        if (confirmed) this.submit();
+      });
+  }
+
   async submit() {
     if (this.patient)
       this.get_timestamp()
@@ -90,6 +112,19 @@ export class RecordsCreateComponent implements OnInit {
     subscription = this.api.get('time').subscribe(observable)
   }
 
+  onOpenAlert(){
+    this.alert.confirmationAlert({
+      image: "../../../assets/images/check.svg",
+      title: 'Congratulations!',
+      information: 'Health Record has been successfully created ',
+    })
+      .subscribe(_ => {
+        setTimeout(() => {
+          this.alert.close()
+        }, 4000)
+      });
+  }
+
   post_record() {
     const observable = {
       next: (response: any) => console.log(response),
@@ -97,9 +132,11 @@ export class RecordsCreateComponent implements OnInit {
       complete: async () => {
         subscription.unsubscribe()
         await this.route.navigate(['diseases'])
+        await this.onOpenAlert()
       }
     }
 
     const subscription = this.api.post('records', this.data).subscribe(observable)
   }
+
 }

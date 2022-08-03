@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../shared/services/api/api.service';
 import {CryptoService} from '../../shared/services/crypto/crypto.service';
+import {AlertComponent} from "../../shared/components/pop-up/alert/alert.component";
+import {AlertService} from "../../services/alert/alert.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-diseases',
@@ -22,7 +25,8 @@ export class DiseasesComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private Crypto: CryptoService
+    private Crypto: CryptoService,
+    private alert: AlertService
   ) {
   }
 
@@ -32,6 +36,19 @@ export class DiseasesComponent implements OnInit {
     }
 
     await this.get_diseases()
+  }
+
+  onOpenAlert(){
+    this.alert.confirmationAlert({
+      image: "../../../assets/images/lockopen.svg",
+      title: 'Access Accepted!',
+      information: 'Health Record has been successfully unlocked'
+    })
+      .subscribe(_ => {
+        setTimeout(() => {
+          this.alert.close()
+        }, 4000)
+      });
   }
 
   /**
@@ -108,10 +125,14 @@ export class DiseasesComponent implements OnInit {
         name: disease_name,
         ciphers: [cipher]
       }
-
       this.diseases.decrypted.push(group)
     } else {
       this.diseases.decrypted[index].ciphers.push(cipher)
+    }
+
+    if(hospital.bc_address != environment.hospital_bc_address){
+      this.onOpenAlert()
+      console.log('hoho')
     }
   }
 

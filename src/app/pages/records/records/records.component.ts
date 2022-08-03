@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../../shared/services/api/api.service";
 import {Router} from '@angular/router';
 import {CryptoService} from '../../../shared/services/crypto/crypto.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-records',
@@ -18,12 +19,17 @@ export class RecordsComponent implements OnInit {
   constructor(
     private api: ApiService,
     private Crypto: CryptoService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
   }
 
   async ngOnInit() {
     await this.getRecords()
+  }
+
+  previousPage() {
+    this.location.back();
   }
 
   async getRecords() {

@@ -15,6 +15,10 @@ import {SharedModule} from './shared/shared.module';
 import {HttpClientModule} from "@angular/common/http";
 import {ApiService} from "./shared/services/api/api.service";
 import {DiseasesComponent} from './pages/diseases/diseases.component';
+import {MatInputModule} from "@angular/material/input";
+import { ListDoctorComponent } from './pages/admin/list-doctor/list-doctor.component';
+import { CreateDoctorAccountComponent } from './pages/admin/create-doctor-account/create-doctor-account.component';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -23,19 +27,23 @@ import {DiseasesComponent} from './pages/diseases/diseases.component';
     WelcomeComponent,
     LoginComponent,
     DashboardComponent,
-    DiseasesComponent
+    DiseasesComponent,
+    ListDoctorComponent,
+    CreateDoctorAccountComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgQrScannerModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    FontAwesomeModule,
-    SharedModule,
-    HttpClientModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgQrScannerModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        FontAwesomeModule,
+        SharedModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatIconModule
+    ],
   providers: [ApiService],
   exports: [
     CommonModule,
