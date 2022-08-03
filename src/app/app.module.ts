@@ -3,7 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {NgQrScannerModule} from 'angular2-qrscanner';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -28,7 +27,6 @@ import {DiseasesComponent} from './pages/diseases/diseases.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgQrScannerModule,
     BrowserAnimationsModule,
     FormsModule,
     FontAwesomeModule,
