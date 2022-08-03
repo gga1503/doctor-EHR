@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  hospital_bc_address : '0x88b05b8A1BEf674b0bE36C23A6Ee6C9bA131BEe8'
+  hospital_bc_address: '' // Insert the hospital blockchain address
 };
 
 /*

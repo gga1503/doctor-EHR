@@ -8,9 +8,6 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
-        },
-        "@schematics/angular:application": {
-          "strict": true
         }
       },
       "root": "",
@@ -84,9 +81,7 @@
           },
           "defaultConfiguration": "development",
           "options": {
-            "sslKey": "./ssl.key",
-            "sslCert": "./ssl.cert",
-            "port": 4202
+            "port": 4201
           }
         },
         "extract-i18n": {
