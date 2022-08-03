@@ -1,0 +1,56 @@
+.card-title{
+margin: 1.2rem 0 0 0;
+}
+
+.mat-display-1{
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #013b84;
+  text-align: center;
+}
+
+.confirmation-card{
+  text-align: center;
+  width: 415px;
+  height: 210px;
+  position: relative;
+
+}
+
+.instruction{
+  padding: 1rem 2rem 1.5rem 2rem;
+}
+
+.instruction p{
+  font-size:12pt;
+  line-height: 1.3;
+  text-align: center;
+  font-family: "Helvetica";
+  letter-spacing: 0.05em;
+}
+
+.confirmation-btn {
+  width:100%;
+  text-align: center;
+}
+
+.btn{
+  display: inline-block;
+  color: white;
+  cursor: pointer;
+  border-radius: 0.7rem;
+  transition-duration: 0.3s;
+  padding: 0.5rem 2.5rem 0.5rem 2.5rem;
+  background: #013b84;
+
+  &:hover {
+    box-shadow: 0 0 11px rgba(5, 117, 230, 100);
+  }
+}
+
+.first-btn{
+  margin-right:2.5rem;
+  border: 2px solid #013b84;
+  background: #dae7ff;
+  color: #013b84;
+}

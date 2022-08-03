@@ -37,7 +37,7 @@
         </div>
       </fieldset>
 
-      <form [formGroup]="record" (ngSubmit)="submit()" class="form-group row mb-5">
+      <form [formGroup]="record" (ngSubmit)="onOpenDialogClick()" class="form-group row mb-5">
         <label class="left-section-title col-sm-2 h5">Health Record</label>
 
         <div class="col-sm-10">
@@ -59,6 +59,7 @@
         <div class="form-group row mt-5">
           <div class="col-12 button-box">
             <button type="submit" class="button btn submit-btn">Submit</button>
+            <button (click)=previousPage() type="button" class="button-back btn submit-btn">Back</button>
           </div>
         </div>
       </form>

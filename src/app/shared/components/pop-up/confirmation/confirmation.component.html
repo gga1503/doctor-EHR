@@ -1,0 +1,15 @@
+<div class="confirmation-card">
+  <div class="card-title">
+    <h1 class="mat-display-1">{{data.title}}</h1>
+  </div>
+
+  <div class="instruction">
+    <p>{{data.instruction}}</p>
+  </div>
+
+  <div class="confirmation-btn">
+    <a type="submit" [mat-dialog-close]="false" class="btn first-btn">{{data.cancel}}</a>
+    <a type="submit" [mat-dialog-close]="true" class="btn">{{data.confirm}}</a>
+  </div>
+</div>
+

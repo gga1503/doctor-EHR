@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../shared/services/api/api.service";
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {environment} from "../../../environments/environment";
 
@@ -12,6 +12,13 @@ import {environment} from "../../../environments/environment";
 export class LoginComponent implements OnInit {
   hospital_bc_address = environment.hospital_bc_address
 
+  email = new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"), Validators.email]);
+  password = new FormControl('', Validators.compose([
+    Validators.minLength(5),
+    Validators.required,
+    Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+  ]));
+
   login = this.formBuilder.group({
     email: 'doctor@hospital.com',
     password: 'doctor123'
@@ -22,6 +29,14 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
+  }
+
+  getErrorMessage() {
+    if (this.email.hasError('required') && this.password.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
   doctor: any = null

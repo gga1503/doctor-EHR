@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 })
 export class DiseasesTableComponent {
   @Input() diseases: any
+  searchDisease: any;
 
   constructor( private router: Router) {
   }

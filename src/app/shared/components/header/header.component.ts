@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {PopUpService} from "../../../services/pop-up/pop-up.service";
+import {AlertService} from "../../../services/alert/alert.service";
 
 @Component({
   selector: 'app-header',
@@ -12,7 +14,7 @@ export class HeaderComponent implements OnInit {
   hospital: any = null
   lastName: string | undefined
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private dialog: PopUpService, private alert: AlertService) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -30,8 +32,35 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  onOpenDialogClick(){
+    this.dialog.confirmationPopUp({
+      title: 'Hope to see you soon!',
+      instruction: 'Are you sure want to log out from this account?',
+      confirm: 'Log Out',
+      cancel: 'No'
+    })
+      .subscribe((confirmed) => {
+        if (confirmed) this.logout();
+      });
+  }
+
+  onOpenAlert(){
+    this.alert.confirmationAlert({
+      image: "../../../assets/images/check.svg",
+      title: 'Congratulations!',
+      information: 'Your are successfully logged out'
+    })
+      .subscribe(_ => {
+        setTimeout(() => {
+          this.alert.close()
+        }, 4000)
+      });
+  }
+
+
   async logout(){
     localStorage.removeItem('doctor')
-    await this.router.navigate(['/login'])
+    await this.router.navigate(['/welcome'])
+    await this.onOpenAlert()
   }
 }

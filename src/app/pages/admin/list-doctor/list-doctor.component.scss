@@ -1,0 +1,113 @@
+.box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #EEF6FE;
+  background-attachment: fixed;
+}
+
+.navbar{
+  padding: 1.5rem 1.5rem 0 1.5rem;
+
+  &-brand{
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &-login-logout-btn{
+    background-color: #013b84;
+    color: white;
+    cursor: pointer;
+    border-radius: 1rem;
+    transition-duration: 0.3s;
+
+    &:hover{
+      box-shadow: 0 0 11px rgba(5,117,230,100);
+    }
+  }
+}
+
+h1{
+  margin-bottom: 0;
+  font-size: 20pt;
+  font-family: "Helvetica";
+  font-weight: 400;
+  color: #013b84;
+  padding-right: 3.5rem;
+}
+
+.content{
+  padding: 5rem 2.6rem 2rem 2.6rem;
+}
+
+.title-button{
+  display: flex;
+  align-items: center;
+}
+
+.title{
+  font-size: 19pt;
+  font-family: "Helvetica";
+  font-weight: 600;
+  color: #013b84;
+  padding-right: 0;
+  margin-right: 2rem;
+}
+
+.add-acc-btn{
+  border-radius: 0.5rem;
+  color: white;
+  cursor: pointer;
+  font-family: Helvetica;
+  background-color: #013b84;
+  width: 11vw;
+
+  &:hover {
+    box-shadow: 0 0 11px rgba(5,117,230,100);
+    transition-duration: 0.4s;
+  }
+}
+
+.table-header{
+  &-title{
+    font-size: 12pt;
+    line-height: 1.7;
+    font-family: "Helvetica";
+    font-weight: 400;
+    color: white;
+  }
+}
+
+.table-header{
+  background: #003B82;
+}
+
+.table-row {
+  border-radius: 8px;
+
+  &-detail {
+    font-size: 12pt;
+    line-height: 2.5;
+    font-family: "Helvetica";
+  }
+  &:hover{
+    background: rgba(96,164,245,0.3);
+    cursor: pointer;
+  }
+}
+
+
+th,td{
+  padding-left:3rem;
+  padding-right:4rem;
+}
+
+.btn-delete{
+  color: #013b84;
+  float: right;
+}
+
+
+
+

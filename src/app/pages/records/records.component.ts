@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from "../../../shared/services/api/api.service";
+import {ApiService} from "../../shared/services/api/api.service";
 import {Router} from '@angular/router';
-import {CryptoService} from '../../../shared/services/crypto/crypto.service';
+import {CryptoService} from '../../shared/services/crypto/crypto.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-records',
@@ -13,18 +14,22 @@ export class RecordsComponent implements OnInit {
   ciphers = JSON.parse(<string>sessionStorage.getItem('disease-ciphers'))
   disease = JSON.parse(<string>sessionStorage.getItem('disease'))
   patient = JSON.parse(<string>sessionStorage.getItem('patient'))
-
   records: any
 
   constructor(
     private api: ApiService,
     private Crypto: CryptoService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
   }
 
   async ngOnInit() {
     await this.getRecords()
+  }
+
+  previousPage() {
+    this.location.back();
   }
 
   async getRecords() {
@@ -49,21 +54,17 @@ export class RecordsComponent implements OnInit {
   getHospital(record: any) {
     this.ciphers.forEach((cipher: any) => {
       if (cipher._id == record.disease_id) {
-        console.log(record)
-        record.sk_disease = cipher.sk_disease
         record.hospital = {
           name: cipher.hospital.name,
-          sk_disease: cipher.hospital.ecdh_secret_key
+          secretKey: cipher.hospital.ecdh_secret_key
         }
       }
     })
   }
 
   async show(i: any) {
-    const record = this.records[i],
-      sk_diagnose = await this.Crypto.Hash.SHA512(record.sk_disease + record.date, true)
-
-    record.decipher = this.Crypto.AES.decrypt(record.diagnose, sk_diagnose, this.patient.salt)
+    const record = this.records[i]
+    record.decipher = this.Crypto.AES.decrypt(record.diagnose, record.hospital.secretKey, this.patient.salt)
     sessionStorage.setItem('record', JSON.stringify(record))
     await this.router.navigate(['records/show'])
   }
