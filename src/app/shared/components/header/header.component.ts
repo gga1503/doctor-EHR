@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {PopUpService} from "../../../services/pop-up/pop-up.service";
-import {AlertService} from "../../../services/alert/alert.service";
+import {PopUpService} from "../../services/pop-up/pop-up.service";
+import {AlertService} from "../../services/alert/alert.service";
 
 @Component({
   selector: 'app-header',
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.checkSession()
+    await this.checkLocalStorage()
 
     this.hospital = JSON.parse(<string>localStorage.getItem('hospital')).name
 
@@ -26,13 +26,15 @@ export class HeaderComponent implements OnInit {
     // this.lastName = this.doctor.name.split(' ').slice(-1)
   }
 
-  async checkSession() {
+  async checkLocalStorage() {
     if (!localStorage.getItem('doctor')) {
       await this.router.navigate(['/login'])
+    } else if (!sessionStorage.getItem('patient')) {
+      await this.router.navigate(['/dashboard'])
     }
   }
 
-  onOpenDialogClick(){
+  onOpenDialogClick() {
     this.dialog.confirmationPopUp({
       title: 'Hope to see you soon!',
       instruction: 'Are you sure want to log out from this account?',
@@ -44,7 +46,7 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  onOpenAlert(){
+  onOpenAlert() {
     this.alert.confirmationAlert({
       image: "../../../assets/images/check.svg",
       title: 'Congratulations!',
@@ -58,8 +60,9 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  async logout(){
-    localStorage.removeItem('doctor')
+  async logout() {
+    localStorage.clear()
+    sessionStorage.clear()
     await this.router.navigate(['/welcome'])
     await this.onOpenAlert()
   }

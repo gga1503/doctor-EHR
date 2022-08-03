@@ -4,8 +4,8 @@ import {ApiService} from "../../../shared/services/api/api.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Location} from '@angular/common';
-import {PopUpService} from "../../../services/pop-up/pop-up.service";
-import {AlertService} from "../../../services/alert/alert.service";
+import {PopUpService} from "../../../shared/services/pop-up/pop-up.service";
+import {AlertService} from "../../../shared/services/alert/alert.service";
 
 @Component({
   selector: 'app-create-record',
