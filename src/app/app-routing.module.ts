@@ -4,8 +4,7 @@ import {WelcomeComponent} from "./pages/welcome/welcome.component";
 import {LoginComponent} from "./pages/login/login.component";
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 import {DiseasesComponent} from "./pages/diseases/diseases.component";
-import {ListDoctorComponent} from "./pages/admin/list-doctor/list-doctor.component";
-import {CreateDoctorAccountComponent} from "./pages/admin/create-doctor-account/create-doctor-account.component";
+import {CreateDoctorComponent} from "./pages/doctors/create-doctor/create-doctor.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/welcome', pathMatch: 'full'},
@@ -13,11 +12,14 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'diseases', component: DiseasesComponent},
-  {path: 'doctors', component: ListDoctorComponent},
-  {path: 'account', component: CreateDoctorAccountComponent},
+  {path: 'account', component: CreateDoctorComponent},
   {
     path: 'records',
     loadChildren: () => import('./pages/records/records.module').then(m => m.RecordsModule)
+  },
+  {
+    path: 'doctors',
+    loadChildren: () => import('./pages/doctors/doctors.module').then(m => m.DoctorsModule)
   }
 ];
 

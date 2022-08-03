@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {AlertData} from "../../interfaces/alert-data";
-import {AlertComponent} from "../../shared/components/pop-up/alert/alert.component";
+import {AlertData} from "../../../interfaces/alert-data";
+import {AlertComponent} from "../../components/pop-up/alert/alert.component";
 
 @Injectable({
   providedIn: 'root'

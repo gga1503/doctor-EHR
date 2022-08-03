@@ -15,8 +15,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {ApiService} from "./shared/services/api/api.service";
 import {DiseasesComponent} from './pages/diseases/diseases.component';
 import {MatInputModule} from "@angular/material/input";
-import { ListDoctorComponent } from './pages/admin/list-doctor/list-doctor.component';
-import { CreateDoctorAccountComponent } from './pages/admin/create-doctor-account/create-doctor-account.component';
+import { DoctorsComponent } from './pages/doctors/doctors/doctors.component';
+import { CreateDoctorComponent } from './pages/doctors/create-doctor/create-doctor.component';
 import {MatIconModule} from '@angular/material/icon';
 
 
@@ -27,8 +27,8 @@ import {MatIconModule} from '@angular/material/icon';
     LoginComponent,
     DashboardComponent,
     DiseasesComponent,
-    ListDoctorComponent,
-    CreateDoctorAccountComponent
+    DoctorsComponent,
+    CreateDoctorComponent
   ],
     imports: [
         BrowserModule,

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {Observable} from "rxjs";
-import {PopUpData} from "../../interfaces/pop-up-data";
-import {ConfirmationComponent} from "../../shared/components/pop-up/confirmation/confirmation.component";
+import {PopUpData} from "../../../interfaces/pop-up-data";
+import {ConfirmationComponent} from "../../components/pop-up/confirmation/confirmation.component";
 
 
 @Injectable({
