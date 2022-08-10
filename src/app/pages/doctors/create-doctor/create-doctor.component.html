@@ -1,8 +1,7 @@
 <div class="box">
   <div class="left-section">
     <div class="position">
-      <img src="assets/images/doctorprofile.png" alt="illustration"
-           class="illustration">
+      <img src="../../../assets/images/doctorprofile.png" alt="illustration" class="illustration">
       <div class="mt-4">
         <img src="assets/images/logodepan.png" alt="logo" width="173" height="65">
       </div>
@@ -13,41 +12,57 @@
     <h1>Create Doctor New Account</h1>
     <hr class="mt-3" style="border: 0.13rem solid  #013b84; border-radius: 0.3rem;">
 
-    <form class="form-group row mt-5">
+    <form class="form-group row mt-5" [formGroup]="account" (ngSubmit)="onOpenDialogClick()">
       <div class="form-group">
         <label for="inputFullName" class="section-title">Full Name</label>
-        <input class="form-control mt-2" id="inputFullName" placeholder="dr. Agus Narendra"
-               formControlName="name">
+        <input class="form-control mt-2" id="inputFullName" placeholder="dr. Agus Narendra" formControlName="name"
+          name="name" required>
+        <mat-error
+          *ngIf="account.get('name')?.invalid && (account.get('name')?.dirty || account.get('name')?.touched) && account.get('name')?.errors?.['required']">
+          Full name is required!
+        </mat-error>
       </div>
 
       <div class="form-group mt-5">
         <label for="inputSpecialty" class="section-title">Speciality</label>
         <input class="form-control mt-2" id="inputSpecialty" placeholder="Neurologi" list="specialty"
-               formControlName="specialty">
-        <datalist id="specialty">
-          <option value="Anestesi">
-          <option value="Neurologi">
-          <option value="Umum">
-        </datalist>
+          formControlName="speciality" name="speciality" required>
+          <mat-error
+          *ngIf="account.get('speciality')?.invalid && (account.get('speciality')?.dirty || account.get('speciality')?.touched) && account.get('speciality')?.errors?.['required']">
+          Speciality is required!
+        </mat-error>
       </div>
 
       <div class="form-group mt-5">
         <label for="inputEmail" class="section-title">Email</label>
-        <input class="form-control mt-2" id="inputEmail" placeholder="agus.narendra@email.com"
-               formControlName="email" type="email">
+        <input class="form-control mt-2" id="inputEmail" placeholder="agus.narendra@email.com" formControlName="email"
+          type="email" required>
+          <mat-error *ngIf="!account.get('email')?.errors?.['required'] && account.get('email')?.errors?.['pattern']">
+            Please enter your valid email address!
+          </mat-error>
+          <mat-error
+            *ngIf="account.get('email')?.invalid && (account.get('email')?.dirty || account.get('email')?.touched) && account.get('email')?.errors?.['required']">
+            Email is required!
+          </mat-error>
       </div>
 
       <div class="form-group mt-5">
         <label for="inputPassword" class="section-title">Password</label>
-        <input type="password" class="form-control mt-2" id="inputPassword"
-               placeholder="Enter password" formControlName="password">
-        <input onclick="myFunction()" class="mt-3" type="checkbox" name="Show Password" value="something"> Show Password
+        <input type="password" class="form-control mt-2" id="inputPassword" placeholder="Enter password"
+          formControlName="password">
+          <mat-error *ngIf="!account.get('password')?.errors?.['required'] && account.get('password')?.errors?.['pattern']">
+            Please enter your password more than 5 letter!
+          </mat-error>
+          <mat-error
+            *ngIf="account.get('password')?.invalid && (account.get('password')?.dirty || account.get('password')?.touched) && account.get('password')?.errors?.['required']">
+            Password is required!
+          </mat-error><br>
       </div>
 
 
       <div class="form-group mt-5">
         <div class="col-12 button-box">
-          <button type="submit" class="button btn submit-btn">Submit</button>
+          <button type="submit" class="button btn submit-btn" [disabled]="!account.valid">Submit</button>
           <button (click)=previousPage() type="button" class="button-back btn submit-btn">Back</button>
         </div>
       </div>

@@ -28,7 +28,7 @@ import {MatIconModule} from '@angular/material/icon';
     DashboardComponent,
     DiseasesComponent,
     DoctorsComponent,
-    CreateDoctorComponent
+    CreateDoctorComponent,
   ],
     imports: [
         BrowserModule,
