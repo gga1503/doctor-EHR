@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   ]));
 
   login = this.formBuilder.group({
-    email: 'doctor@hospital.com',
+    email: 'graceangeline@gmail.com',
     password: 'doctor123'
   })
 
@@ -45,21 +45,35 @@ export class LoginComponent implements OnInit {
   }
 
   async submit() {
-    const target = `doctors/login?email=${this.login.value.email}&password=${this.login.value.password}`
+     const target = `doctors/login?email=${this.login.value.email}&password=${this.login.value.password}`
+    // // const target2 = `hospitals/login?email=${this.login.value.email}&password=${this.login.value.password}`
 
-    this.api.get(target).subscribe(
-      async (doctor) => {
-        localStorage.setItem('doctor', JSON.stringify(doctor));
+    // this.api.get(target).subscribe(
+    //   async (doctor) => {
+    //     localStorage.setItem('doctor', JSON.stringify(doctor));
 
-        this.api.get(`hospitals/login/${this.hospital_bc_address}`).subscribe(
-          hospital => {
-            localStorage.setItem('hospital', JSON.stringify(hospital));
+    //     this.api.get(`hospitals/login/${this.hospital_bc_address}`).subscribe(
+    //       hospital => {
+    //         localStorage.setItem('hospital', JSON.stringify(hospital));
 
-            this.router.navigate(['/dashboard']);
-          }, error => console.error(error)
-        );
-      },
-      error => {console.error(error)}
-    )
+    //         this.router.navigate(['/dashboard']);
+    //       }, error => console.error(error)
+    //     );
+    //   },
+    //   error => {console.error(error)}
+    // )
+
+    const observable = {
+      next: (response: any) => {
+        localStorage.setItem('doctor', JSON.stringify(response))
+      }, 
+      error: (err: Error) => console.error(err),
+      complete: async () => {
+        subscription.unsubscribe()
+        await this.router.navigate(['/dashboard'])
+      }
+    }
+    
+    const subscription = this.api.get(target).subscribe(observable);
   }
 }
