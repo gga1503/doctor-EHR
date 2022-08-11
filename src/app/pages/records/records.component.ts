@@ -28,7 +28,7 @@ export class RecordsComponent implements OnInit {
     await this.getRecords()
   }
 
-  previousPage() {
+  back() {
     this.location.back();
   }
 
@@ -42,29 +42,29 @@ export class RecordsComponent implements OnInit {
     const observable = {
       next: (response: any) => {
         this.records = response
-        this.records.forEach((record: any) => this.getHospital(record))
+        this.records.forEach((record: any) => this.setHospitalName(record))
       },
       error: (err: Error) => console.error(err),
-      complete: async () => subscription.unsubscribe()
+      complete: () => subscription.unsubscribe()
     }
 
     const subscription = this.api.get(`records`, params).subscribe(observable)
   }
 
-  getHospital(record: any) {
+  setHospitalName(record: any) {
     this.ciphers.forEach((cipher: any) => {
       if (cipher._id == record.disease_id) {
-        record.hospital = {
-          name: cipher.hospital.name,
-          secretKey: cipher.hospital.ecdh_secret_key
-        }
+        record.hospital = {name: cipher.hospital.name}
+        record.disease = {session_key: cipher.sk_disease}
       }
     })
   }
 
   async show(i: any) {
-    const record = this.records[i]
-    record.decipher = this.Crypto.AES.decrypt(record.diagnose, record.hospital.secretKey, this.patient.salt)
+    const record = this.records[i],
+      session_key = await this.Crypto.Hash.SHA512(record.disease.session_key + record.date, true)
+
+    record.decipher = this.Crypto.AES.decrypt(record.diagnose, session_key, this.patient.salt)
     sessionStorage.setItem('record', JSON.stringify(record))
     await this.router.navigate(['records/show'])
   }

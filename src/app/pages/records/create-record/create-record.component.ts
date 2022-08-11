@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CryptoService} from '../../../shared/services/crypto/crypto.service';
 import {ApiService} from "../../../shared/services/api/api.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Location} from '@angular/common';
 import {PopUpService} from "../../../shared/services/pop-up/pop-up.service";
@@ -13,11 +13,10 @@ import {AlertService} from "../../../shared/services/alert/alert.service";
   styleUrls: ['./create-record.component.scss']
 })
 export class CreateRecordComponent implements OnInit {
-  @Input() qrResult: string = '0xafeEb9069Aafc36473234829d00061502bB21ED9'
-
   hospital = JSON.parse(<string>localStorage.getItem('hospital'))
   doctor = JSON.parse(<string>localStorage.getItem('doctor'))
   patient = JSON.parse(<string>sessionStorage.getItem('patient'))
+  diseases = JSON.parse(<string>sessionStorage.getItem('diseases')).local
 
   data: any = {
     bc_addresses: {
@@ -45,11 +44,11 @@ export class CreateRecordComponent implements OnInit {
   ngOnInit() {
   }
 
-  previousPage() {
+  back() {
     this.location.back();
   }
 
-  async generateSecretKey() {
+  async generateSessionKeys() {
     this.hospital.ecdh = {
       privateKey: await this.Crypto.ECDH.importPrivateKey(this.hospital.ecdh_private_key)
     }
@@ -58,13 +57,24 @@ export class CreateRecordComponent implements OnInit {
       publicKey: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key)
     }
 
-    return await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.privateKey, this.patient.ecdh.publicKey)
+    const disease = this.diseases.find((disease: any) => disease.name == this.record.value.disease),
+      nonce = disease ? disease.nonce : await this.Crypto.Hash.SHA512(this.data.bc_addresses.patient + this.data.bc_addresses.hospital + this.data.date, true),
+      masterKey = await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.privateKey, this.patient.ecdh.publicKey),
+      sk_disease = await this.Crypto.Hash.SHA512(masterKey + nonce, true),
+      sk_diagnose = await this.Crypto.Hash.SHA512(sk_disease + this.data.date, true)
+
+    this.data.nonce = nonce
+
+    return {
+      disease: sk_disease,
+      diagnose: sk_diagnose
+    }
   }
 
-  async generateCipher(secret_key: string) {
+  async generateCipher(keys: any) {
     this.data.cipher = {
-      disease: this.Crypto.AES.encrypt(<string>this.record.value.disease, secret_key, this.patient.iv),
-      diagnose: this.Crypto.AES.encrypt(<string>this.record.value.diagnose, secret_key)
+      disease: this.Crypto.AES.encrypt(<string>this.record.value.disease, keys.disease, this.patient.iv),
+      diagnose: this.Crypto.AES.encrypt(<string>this.record.value.diagnose, keys.diagnose)
     }
 
     await this.generateMetadata()
@@ -79,16 +89,20 @@ export class CreateRecordComponent implements OnInit {
     this.post_record()
   }
 
-  onOpenDialogClick(){
-    this.dialog.confirmationPopUp({
+  onOpenDialogClick() {
+    const observable = {
+      next: async (confirmed: boolean) => {
+        if (confirmed) await this.submit();
+      }, error: (err: Error) => console.error(err),
+      complete: () => subscription.unsubscribe()
+    }
+
+    const subscription = this.dialog.confirmationPopUp({
       title: 'Add New Health Record',
       instruction: 'Do you want to add new health record? Please make sure you enter the data correctly',
       cancel: 'No',
       confirm: 'Yes',
-    })
-      .subscribe((confirmed) => {
-        if (confirmed) this.submit();
-      });
+    }).subscribe(observable);
   }
 
   async submit() {
@@ -97,46 +111,42 @@ export class CreateRecordComponent implements OnInit {
   }
 
   get_timestamp() {
-    let subscription: any;
-
     const observable = {
-      next: (response: any) => this.data.date = response,
+      next: async (response: any) => {
+        this.data.date = response
+        const sk_diag = await this.generateSessionKeys()
+        await this.generateCipher(sk_diag)
+      },
       error: (err: Error) => console.error(err),
-      complete: async () => {
-        subscription.unsubscribe()
-        const secret_key = await this.generateSecretKey()
-        await this.generateCipher(secret_key)
-      }
+      complete: () => subscription.unsubscribe()
     }
 
-    subscription = this.api.get('time').subscribe(observable)
+    const subscription = this.api.get('time').subscribe(observable)
   }
 
-  onOpenAlert(){
+  onOpenAlert() {
     this.alert.confirmationAlert({
-      image: "../../../assets/images/check.svg",
+      image: "assets/images/check.svg",
       title: 'Congratulations!',
       information: 'Health Record has been successfully created ',
     })
       .subscribe(_ => {
         setTimeout(() => {
           this.alert.close()
-        }, 4000)
+        }, 2000)
       });
   }
 
   post_record() {
     const observable = {
-      next: (response: any) => console.log(response),
-      error: (err: Error) => console.error(err),
-      complete: async () => {
-        subscription.unsubscribe()
+      next: async (response: any) => {
         await this.route.navigate(['diseases'])
         await this.onOpenAlert()
-      }
+      },
+      error: (err: Error) => console.error(err),
+      complete: () => subscription.unsubscribe()
     }
 
     const subscription = this.api.post('records', this.data).subscribe(observable)
   }
-
 }

@@ -13,7 +13,6 @@
         </tr>
         </thead>
 
-        <!--      <tbody *ngFor="let disease of diseases" class="table-disease-detail" id="collapseOne">-->
         <tbody class="table-disease-detail">
         <tr *ngFor="let record of records; let i = index" class="table-row" (click)="show(i)">
           <td class="table-row-detail pt-1">{{i + 1}}.</td>
@@ -23,7 +22,8 @@
               style="text-align: left">{{record.doctor.name}}</td>
         </tbody>
       </table>
-      <button (click)=previousPage() type="button" class="btn back-btn">Back</button>
+
+      <button (click)=back() type="button" class="btn back-btn">Back</button>
     </div>
   </div>
 </div>

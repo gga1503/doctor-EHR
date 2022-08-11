@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
 
   onOpenAlert() {
     this.alert.confirmationAlert({
-      image: "../../../assets/images/check.svg",
+      image: "assets/images/check.svg",
       title: 'Congratulations!',
       information: 'Your are successfully logged out'
     })

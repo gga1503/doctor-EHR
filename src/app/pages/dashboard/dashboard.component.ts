@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   onOpenAlert(){
     this.alert.confirmationAlert({
-      image: "../../../assets/images/lockopen.svg",
+      image: "assets/images/lockopen.svg",
       title: 'Access Accepted!',
       information: 'Health Record has been successfully unlocked'
     })

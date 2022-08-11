@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../shared/services/api/api.service';
 import {CryptoService} from '../../shared/services/crypto/crypto.service';
-import {AlertComponent} from "../../shared/components/pop-up/alert/alert.component";
 import {AlertService} from "../../shared/services/alert/alert.service";
-import {environment} from "../../../environments/environment";
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-diseases',
@@ -12,7 +11,7 @@ import {environment} from "../../../environments/environment";
 })
 export class DiseasesComponent implements OnInit {
   patient = JSON.parse(<string>sessionStorage.getItem('patient'));
-  current_hospital = JSON.parse(<string>localStorage.getItem('hospital'));
+  hospital = JSON.parse(<string>localStorage.getItem('hospital'));
 
   scannerToggled = false;
 
@@ -35,12 +34,12 @@ export class DiseasesComponent implements OnInit {
       public_key: await this.Crypto.ECDH.importPublicKey(this.patient.ecdh_public_key)
     }
 
-    await this.get_diseases()
+    await this.getDiseases()
   }
 
-  onOpenAlert(){
+  onOpenAlert() {
     this.alert.confirmationAlert({
-      image: "../../../assets/images/lockopen.svg",
+      image: "assets/images/lockopen.svg",
       title: 'Access Accepted!',
       information: 'Health Record has been successfully unlocked'
     })
@@ -49,38 +48,6 @@ export class DiseasesComponent implements OnInit {
           this.alert.close()
         }, 4000)
       });
-  }
-
-  /**
-   * Get patient's diseases from DDB
-   */
-  async get_diseases(): Promise<void> {
-    const observable = {
-      next: (response: any) => this.diseases.encrypted = response,
-      error: (err: Error) => console.error(err),
-      complete: async () => {
-        subscription.unsubscribe()
-        await this.decrypt_local_diseases()
-      }
-    }
-
-    const subscription = this.api.get(`patients/${this.patient.bc_address}/diseases`)
-      .subscribe(observable)
-  }
-
-  /**
-   * Decrypt the diseases from local hospital
-   */
-  async decrypt_local_diseases() {
-    this.current_hospital.ecdh = {
-      private_key: await this.Crypto.ECDH.importPrivateKey(this.current_hospital.ecdh_private_key)
-    }
-
-    const secret_key = await this.Crypto.ECDH.computeSecret(this.current_hospital.ecdh.private_key, this.patient.ecdh.public_key)
-
-    this.pushSessionKey(this.current_hospital.bc_address, secret_key)
-
-    await this.decrypt(this.current_hospital.bc_address)
   }
 
   /**
@@ -96,49 +63,95 @@ export class DiseasesComponent implements OnInit {
     const hospital = this.diseases.encrypted[i].hospital
 
     for (let j = 0; j < ciphers.length; j++) {
-      const disease_name = this.Crypto.AES.decrypt(
-        ciphers[j].name,
-        hospital.ecdh_secret_key,
-        this.patient.iv
-      )
+      const sk_disease = await this.Crypto.Hash.SHA512(hospital.ecdh_secret_key + ciphers[j].nonce, true),
+        diseaseName = this.Crypto.AES.decrypt(
+          ciphers[j].name,
+          sk_disease,
+          this.patient.iv
+        )
 
-      this.group_decrypted(disease_name, hospital, ciphers[j])
+      // ciphers[j].sk_disease = sk_disease
+      this.groupDecrypted(diseaseName, hospital, ciphers[j])
     }
 
     this.diseases.encrypted.splice(i, 1)
   }
 
   /**
+   * Get patient's diseases from DDB
+   */
+  async getDiseases(): Promise<void> {
+    const observable = {
+      next: async (response: any) => {
+        if (response.length > 0) {
+          this.diseases.encrypted = response
+          await this.decryptLocalDiseases()
+        } else {
+          sessionStorage.setItem('diseases', JSON.stringify({'local': []}))
+        }
+      },
+      error: (err: Error) => console.error(err),
+      complete: () => subscription.unsubscribe()
+    }
+
+    const subscription = this.api.get(`patients/${this.patient.bc_address}/diseases`)
+      .subscribe(observable)
+  }
+
+  /**
+   * Decrypt the diseases from local hospital
+   */
+  async decryptLocalDiseases() {
+    this.hospital.ecdh = {
+      private_key: await this.Crypto.ECDH.importPrivateKey(this.hospital.ecdh_private_key)
+    }
+
+    const secret_key = await this.Crypto.ECDH.computeSecret(this.hospital.ecdh.private_key, this.patient.ecdh.public_key)
+
+    this.pushSessionKey(this.hospital.bc_address, secret_key)
+
+    await this.decrypt(this.hospital.bc_address)
+
+    const diseases = []
+    for (let disease of this.diseases.decrypted) {
+      diseases.push({
+        name: disease.name,
+        cipher: disease.ciphers[0].name,
+        nonce: disease.ciphers[0].nonce,
+        _id: disease.ciphers[0]._id
+      })
+    }
+    sessionStorage.setItem('diseases', JSON.stringify({'local': diseases}))
+  }
+
+  /**
    * Group the hospitals & ciphers by the decrypted diseases name
-   * @param disease_name decrypted disease name
+   * @param diseaseName decrypted disease name
    * @param hospital hospital object
    * @param cipher original disease cipher
    */
-  group_decrypted(disease_name: string, hospital: any, cipher: any) {
+  groupDecrypted(diseaseName: string, hospital: any, cipher: any) {
     let index = this.diseases.decrypted.findIndex((e: any) => {
-      return e.name == disease_name
+      return e.name == diseaseName
     })
 
     cipher.hospital = hospital
     if (index == -1) {
-      const group = {
-        name: disease_name,
+      this.diseases.decrypted.push({
+        name: diseaseName,
         ciphers: [cipher]
-      }
-      this.diseases.decrypted.push(group)
+      })
     } else {
       this.diseases.decrypted[index].ciphers.push(cipher)
     }
 
-    if(hospital.bc_address != environment.hospital_bc_address){
+    if (hospital.bc_address != environment.hospital_bc_address) {
       this.onOpenAlert()
-      console.log('hoho')
     }
   }
 
   async getSessionKey(qrData: any) {
     this.toggleQrScanner()
-    console.log(JSON.parse(<string>qrData).bc)
 
     const json: any = JSON.parse(<string>qrData)
     this.pushSessionKey(json.bc, json.sk)
@@ -167,11 +180,4 @@ export class DiseasesComponent implements OnInit {
   toggleQrScanner() {
     this.scannerToggled = !this.scannerToggled;
   }
-
-
-  // patient_dob(){
-  //   var date = sessionStorage.getItem('patient', 'dob')
-  //   var patientTimezone = date.getTimezoneOffset() * 60000;
-  //   new Date(date.getTime() - patientTimezone);
-  // }
 }

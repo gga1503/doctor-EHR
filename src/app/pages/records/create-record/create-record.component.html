@@ -10,7 +10,7 @@
         <h1 class="title">New Health Record</h1>
       </div>
       <div class="column">
-        <img src="../../../assets/images/medicalrecords.png" alt="medicalRecord" class="ehr-img">
+        <img src="assets/images/medicalrecords.png" alt="medicalRecord" class="ehr-img">
       </div>
     </div>
     <hr style="border: 0.2rem solid #013b84; border-radius: 0.3rem; color: #013b84">
@@ -43,10 +43,10 @@
         <div class="col-sm-10">
           <label for="inputDisease" class="right-section-title">Disease</label>
           <input class="form-control mt-2" id="inputDisease" placeholder="Input Disease" list="diseases"
-                 formControlName="disease">
+                 formControlName="disease" autocomplete="off">
+
           <datalist id="diseases">
-            <option value="Covid-19">
-            <option value="Diabetes">
+            <option *ngFor="let disease of diseases" value="{{disease['name']}}">
           </datalist>
 
           <div class="mt-5">
@@ -59,7 +59,7 @@
         <div class="form-group row mt-5">
           <div class="col-12 button-box">
             <button type="submit" class="button btn submit-btn">Submit</button>
-            <button (click)=previousPage() type="button" class="button-back btn submit-btn">Back</button>
+            <button (click)=back() type="button" class="button-back btn submit-btn">Back</button>
           </div>
         </div>
       </form>
