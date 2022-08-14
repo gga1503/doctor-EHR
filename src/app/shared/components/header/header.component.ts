@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit {
   async logout() {
     localStorage.clear()
     sessionStorage.clear()
-    await this.router.navigate(['/welcome'])
+    await this.router.navigate(['/login'])
     await this.onOpenAlert()
   }
 }

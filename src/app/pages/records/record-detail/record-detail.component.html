@@ -21,14 +21,14 @@
       <div class="row mt-3 mb-5">
         <label class="left-section-title col-sm-3">Hospital:</label>
         <div class="col-sm-9">
-          <h2 readonly="" class="right-section-title">{{record.hospital.name}}</h2>
+          <h2 readonly="" class="right-section-title">{{record['hospital'].name}}</h2>
         </div>
       </div>
 
       <div class="row mb-5">
         <label class="left-section-title col-sm-3">Doctor:</label>
         <div class="col-sm-9">
-          <h2 readonly class="right-section-title">{{record.doctor.name}}</h2>
+          <h2 readonly class="right-section-title">{{record['doctor'].name}}</h2>
         </div>
       </div>
 
@@ -42,15 +42,15 @@
       <div class="row mb-5">
         <label class="left-section-title col-sm-3">Diagnose:</label>
         <div class="col-sm-7">
-          <h2 readonly class="right-section-title">{{record.decipher}}</h2>
+          <h2 readonly class="right-section-title">{{record['decipher']}}</h2>
         </div>
       </div>
 
       <div class="row mb-5">
         <label class="left-section-title col-sm-3">Verification:</label>
         <div class="col-sm-7">
-          <h2 *ngIf="record.verified" readonly class="right-section-title" style="color: green">Verified with Blockchain!</h2>
-          <h2 *ngIf="record.verified == false" readonly class="right-section-title" style="color: red">Blockchain verification failed!</h2>
+          <h2 *ngIf="record['verified']" readonly class="right-section-title" style="color: green">Verified with Blockchain!</h2>
+          <h2 *ngIf="record['verified'] == false" readonly class="right-section-title" style="color: red">Blockchain verification failed!</h2>
         </div>
       </div>
 

@@ -70,7 +70,7 @@ export class DiseasesComponent implements OnInit {
           this.patient.iv
         )
 
-      // ciphers[j].sk_disease = sk_disease
+      ciphers[j].sk_disease = sk_disease
       this.groupDecrypted(diseaseName, hospital, ciphers[j])
     }
 

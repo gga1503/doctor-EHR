@@ -10,18 +10,15 @@ import {environment} from "../../../environments/environment";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  hospital_bc_address = environment.hospital_bc_address
-
-  email = new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"), Validators.email]);
-  password = new FormControl('', Validators.compose([
-    Validators.minLength(5),
-    Validators.required,
-    Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
-  ]));
-
-  login = this.formBuilder.group({
-    email: 'doctor@hospital.com',
-    password: 'doctor123'
+  doctor = this.formBuilder.group({
+    email: new FormControl('doctor@hospital.com', [
+      Validators.required,
+      Validators.email]),
+    password: new FormControl('doctor123', Validators.compose([
+      Validators.required,
+      Validators.minLength(5),
+      // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+    ]))
   })
 
   constructor(
@@ -31,35 +28,34 @@ export class LoginComponent implements OnInit {
   ) {
   }
 
-  getErrorMessage() {
-    if (this.email.hasError('required') && this.password.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
-
-  doctor: any = null
-
   async ngOnInit(): Promise<void> {
   }
 
-  async submit() {
-    const target = `doctors/login?email=${this.login.value.email}&password=${this.login.value.password}`
+  submit() {
+    const observable = {
+      next: (response: any) => {
+        if(response) {
+          localStorage.setItem('doctor', JSON.stringify(response));
+          this.getHospital()
+        }
+      }, error: (err: Error) => console.error(err),
+      complete: () => subscription.unsubscribe()
+    }
 
-    this.api.get(target).subscribe(
-      async (doctor) => {
-        localStorage.setItem('doctor', JSON.stringify(doctor));
+    const subscription = this.api.get(
+      `doctors/login?email=${this.doctor.value.email}&password=${this.doctor.value.password}`)
+      .subscribe(observable)
+  }
 
-        this.api.get(`hospitals/login/${this.hospital_bc_address}`).subscribe(
-          hospital => {
-            localStorage.setItem('hospital', JSON.stringify(hospital));
+  getHospital() {
+    const observable = {
+      next: async (response: any) => {
+        localStorage.setItem('hospital', JSON.stringify(response));
+        await this.router.navigate(['/dashboard']);
+      }, error: (err: Error) => console.error(err),
+      complete: () => subscription.unsubscribe()
+    }
 
-            this.router.navigate(['/dashboard']);
-          }, error => console.error(error)
-        );
-      },
-      error => {console.error(error)}
-    )
+    const subscription = this.api.get(`hospitals/login/${environment.hospital_bc_address}`).subscribe(observable)
   }
 }

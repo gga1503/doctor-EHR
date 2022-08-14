@@ -12,26 +12,37 @@
       <div class="content-text">
         <h1 class="title">LOG IN</h1>
 
-        <form [formGroup]="login" (ngSubmit)="submit()">
+        <form [formGroup]="doctor" (ngSubmit)="submit()">
           <div class="mb-3 input-content">
-            <label for="inputEmail" class="form-label input-label">Email</label>
+            <label for="email" class="form-label input-label">Email</label>
             <div class="input-field">
-             <i class="material-icons icon">person</i>
-              <input type="email" class="form-control shadow-none" id="inputEmail"
+              <i class="material-icons icon">person</i>
+              <input type="email" name="email" class="form-control shadow-none" id="email"
                      placeholder="Enter your email address" formControlName="email" required>
+
+              <div *ngIf="doctor.controls.email.invalid && (doctor.controls.email.dirty || doctor.controls.email.touched)">
+                <mat-error *ngIf="doctor.controls.email.errors?.['required']">This field is required!</mat-error>
+                <mat-error *ngIf="doctor.controls.email.errors?.['email']">Email format is wrong!</mat-error>
+              </div>
             </div>
           </div>
 
           <div class="mb-3 input-content">
-            <label for="inputPassword" class="form-label input-label">Password</label>
+            <label for="password" class="form-label input-label">Password</label>
             <div class="input-field">
               <i class="material-icons icon">lock</i>
-              <input type="password" class="form-control shadow-none" id="inputPassword"
+              <input type="password" class="form-control shadow-none" id="password"
                      placeholder="Enter your password" formControlName="password" required>
+              <div *ngIf="doctor.controls.password.invalid && (doctor.controls.password.dirty || doctor.controls.password.touched)">
+                <mat-error *ngIf="doctor.controls.password.errors?.['required']">This field is required!</mat-error>
+                <mat-error *ngIf="doctor.controls.password.errors?.['minLength']">Min. length is 5 characters!</mat-error>
+<!--                <mat-error *ngIf="doctor.controls.password.errors?.['pattern']">Password format is wrong!</mat-error>-->
+              </div>
             </div>
           </div>
 
-          <button class="btn login-btn btn-lg" type="submit">Login</button>
+          <button *ngIf="!doctor.invalid" class="btn login-btn btn-lg" type="submit">Login</button>
+          <button *ngIf="doctor.invalid" disabled class="btn login-btn btn-lg" type="submit">Login</button>
         </form>
       </div>
     </section>
