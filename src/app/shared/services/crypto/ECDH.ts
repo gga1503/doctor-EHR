@@ -73,6 +73,8 @@ export class ECDH {
       privateKey: await PEM.privateKey(keys.privateKey),
       publicKey: await PEM.publicKey(keys.publicKey)
     }
+
+
   }
 
   async generateSessionKey(master_key: string, hash: string) {

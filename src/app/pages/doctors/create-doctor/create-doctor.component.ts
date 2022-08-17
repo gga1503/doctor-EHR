@@ -41,7 +41,7 @@ export class CreateDoctorComponent implements OnInit {
 
   onOpenDialogClick(){
     this.dialog.confirmationPopUp({
-      title: 'Add New Doctor Account',
+      title: 'Create Doctor Account',
       instruction: 'Do you want to add new doctor account? Please make sure you enter the data correctly',
       cancel: 'No',
       confirm: 'Yes',
@@ -53,9 +53,9 @@ export class CreateDoctorComponent implements OnInit {
 
   onOpenAlert(){
     this.alert.confirmationAlert({
-      image: "../../../assets/images/check.svg",
+      image: "assets/images/check.svg",
       title: 'Congratulations!',
-      information: 'Account has been successfully created ',
+      information: 'Doctor new account has been successfully created',
     })
       .subscribe(_ => {
         setTimeout(() => {
@@ -84,7 +84,7 @@ export class CreateDoctorComponent implements OnInit {
         await this.onOpenAlert()
       }
     }
-    
+
     this.fillFormData()
     const subscription = this.api.post('doctors', this.data).subscribe(observable)
   }

@@ -30,41 +30,34 @@ export class LoginComponent implements OnInit {
   ) {
   }
 
-  doctor: any = null
-
   async ngOnInit(): Promise<void> {
   }
 
-  async submit() {
-     const target = `doctors/login?email=${this.login.value.email}&password=${this.login.value.password}`
-    // // const target2 = `hospitals/login?email=${this.login.value.email}&password=${this.login.value.password}`
-
-    // this.api.get(target).subscribe(
-    //   async (doctor) => {
-    //     localStorage.setItem('doctor', JSON.stringify(doctor));
-
-    //     this.api.get(`hospitals/login/${this.hospital_bc_address}`).subscribe(
-    //       hospital => {
-    //         localStorage.setItem('hospital', JSON.stringify(hospital));
-
-    //         this.router.navigate(['/dashboard']);
-    //       }, error => console.error(error)
-    //     );
-    //   },
-    //   error => {console.error(error)}
-    // )
-
+  submit() {
     const observable = {
       next: (response: any) => {
-        localStorage.setItem('doctor', JSON.stringify(response))
-      }, 
-      error: (err: Error) => console.error(err),
-      complete: async () => {
-        subscription.unsubscribe()
-        await this.router.navigate(['/dashboard'])
-      }
+        if(response) {
+          localStorage.setItem('doctor', JSON.stringify(response));
+          this.getHospital()
+        }
+      }, error: (err: Error) => console.error(err),
+      complete: () => subscription.unsubscribe()
     }
-    
-    const subscription = this.api.get(target).subscribe(observable);
+
+    const subscription = this.api.get(
+      `doctors/login?email=${this.doctor.value.email}&password=${this.doctor.value.password}`)
+      .subscribe(observable)
+  }
+
+  getHospital() {
+    const observable = {
+      next: async (response: any) => {
+        localStorage.setItem('hospital', JSON.stringify(response));
+        await this.router.navigate(['/dashboard']);
+      }, error: (err: Error) => console.error(err),
+      complete: () => subscription.unsubscribe()
+    }
+
+    const subscription = this.api.get(`hospitals/login/${environment.hospital_bc_address}`).subscribe(observable)
   }
 }

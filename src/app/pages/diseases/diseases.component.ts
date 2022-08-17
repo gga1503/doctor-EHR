@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../shared/services/api/api.service';
 import {CryptoService} from '../../shared/services/crypto/crypto.service';
-import {AlertComponent} from "../../shared/components/pop-up/alert/alert.component";
 import {AlertService} from "../../shared/services/alert/alert.service";
 import {environment} from "../../../environments/environment";
 

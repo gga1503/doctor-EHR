@@ -1,5 +1,5 @@
 <a class="app-logo" href="#">
-  <img src="../../../assets/images/logodepan.png" alt="logo" height="65" class="d-inline-block align-text-top">
+  <img src="assets/images/logodepan.png" alt="logo" height="65" class="d-inline-block align-text-top">
 </a>
 
 <div class="box">
@@ -12,7 +12,7 @@
       <div class="content-text">
         <h1 class="title">LOG IN</h1>
 
-        <form [formGroup]="login" (ngSubmit)="submit()">
+        <form [formGroup]="doctor" (ngSubmit)="submit()">
           <div class="mb-3 input-content">
             <label for="inputEmail" class="form-label input-label">Email</label>
             <div class="input-field">
@@ -39,6 +39,7 @@
                 *ngIf="login.get('password')?.invalid && (login.get('password')?.dirty || login.get('password')?.touched) && login.get('password')?.errors?.['required']">
                 Password is required
               </mat-error>
+                     placeholder="Enter your password" formControlName="password" required>
             </div>
           </div>
 
