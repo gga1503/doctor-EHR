@@ -34,13 +34,21 @@ export class LoginComponent implements OnInit {
   submit() {
     const observable = {
       next: (response: any) => {
-        if(response) {
+        if(response.model == 'Doctor') {
           localStorage.setItem('doctor', JSON.stringify(response));
+          this.getHospital();
+          this.router.navigate(['/dashboard']);
+        }
+        else if (response.model == 'Hospital'){
+          localStorage.setItem('hospital', JSON.stringify(response));
           this.getHospital()
+          this.router.navigate(['/doctors'])
         }
       }, error: (err: Error) => console.error(err),
       complete: () => subscription.unsubscribe()
     }
+
+
 
     const subscription = this.api.get(
       `doctors/login?email=${this.doctor.value.email}&password=${this.doctor.value.password}`)
@@ -51,7 +59,6 @@ export class LoginComponent implements OnInit {
     const observable = {
       next: async (response: any) => {
         localStorage.setItem('hospital', JSON.stringify(response));
-        await this.router.navigate(['/dashboard']);
       }, error: (err: Error) => console.error(err),
       complete: () => subscription.unsubscribe()
     }

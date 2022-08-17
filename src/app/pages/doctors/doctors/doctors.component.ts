@@ -9,8 +9,7 @@ import {ApiService} from "../../../shared/services/api/api.service";
   styleUrls: ['./doctors.component.scss']
 })
 export class DoctorsComponent implements OnInit {
-
-  hospital = JSON.parse(<string>sessionStorage.getItem('hospital'))
+  hospital = JSON.parse(<string>localStorage.getItem('hospital'))
   doctors: any
 
   hide = true;
@@ -38,7 +37,7 @@ export class DoctorsComponent implements OnInit {
   }
 
   async getDoctors() {
-    this.api.get('doctors/Siloam Hospital').subscribe(
+    this.api.get('doctors/' + this.hospital.name).subscribe(
       async doctors => {
         this.doctors = doctors;
       }
