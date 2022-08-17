@@ -8,6 +8,7 @@ import {PEM} from './PEM';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CryptoService {
   AES: AES = new AES();
   RSA: RSA = new RSA();

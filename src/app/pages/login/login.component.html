@@ -1,5 +1,5 @@
 <a class="app-logo" href="#">
-  <img src="../../../assets/images/logodepan.png" alt="logo" height="65" class="d-inline-block align-text-top">
+  <img src="assets/images/logodepan.png" alt="logo" height="65" class="d-inline-block align-text-top">
 </a>
 
 <div class="box">
@@ -12,14 +12,14 @@
       <div class="content-text">
         <h1 class="title">LOG IN</h1>
 
-        <form [formGroup]="login" (ngSubmit)="submit()">
+        <form [formGroup]="doctor" (ngSubmit)="submit()">
           <div class="mb-3 input-content">
             <label for="inputEmail" class="form-label input-label">Email</label>
             <div class="input-field">
              <i class="material-icons icon">person</i>
               <input type="email" class="form-control shadow-none" id="inputEmail"
                      placeholder="Enter your email address" formControlName="email" required>
-<!--              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>-->
+<!--              <mat-error *ngIf="doctor.invalid">{{getErrorMessage()}}</mat-error>-->
             </div>
           </div>
 
@@ -29,7 +29,7 @@
               <i class="material-icons icon">lock</i>
               <input type="password" class="form-control shadow-none" id="inputPassword"
                      placeholder="Enter your password" formControlName="password" required>
-<!--              <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>-->
+<!--              <mat-error *ngIf="doctor.invalid">{{getErrorMessage()}}</mat-error>-->
             </div>
           </div>
 
