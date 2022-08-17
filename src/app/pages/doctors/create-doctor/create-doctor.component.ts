@@ -12,6 +12,7 @@ import {PopUpService} from "../../../shared/services/pop-up/pop-up.service";
   styleUrls: ['./create-doctor.component.scss']
 })
 export class CreateDoctorComponent implements OnInit {
+  hospital = JSON.parse(<string>localStorage.getItem('hospital'))
   hide = true;
   // account = this.formBuilder.group({
   //   name: '',
@@ -23,6 +24,7 @@ export class CreateDoctorComponent implements OnInit {
   account = new FormGroup({
     name: new FormControl('', [Validators.required]),
     speciality: new FormControl('', [Validators.required]),
+    dob: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"), Validators.email]),
     password: new FormControl('', [Validators.required,Validators.pattern("[a-z0-9._%+-].{4,}")])
   });
@@ -66,11 +68,11 @@ export class CreateDoctorComponent implements OnInit {
 
   data: any = {
     name: this.account.value.name,
-    bc_address: '0xc8f8Bb2E550D8163a3964Fb0A65c92a04646B579',
+    bc_address: '0x28A5440536ab0e3F7C251b64da216F69fA568ce0',
     email: this.account.value.email,
     password: this.account.value.password,
-    hospital: 'Siloam Hospital',
-    dob: '1999-05-15',
+    hospital: this.hospital.name,
+    dob: this.account.value.dob,
     speciality: this.account.value.speciality
   }
 
@@ -92,6 +94,7 @@ export class CreateDoctorComponent implements OnInit {
   async fillFormData() {
     this.data.name = this.account.value.name
     this.data.email = this.account.value.email
+    this.data.dob = this.account.value.dob
     this.data.password = this.account.value.password
     this.data.speciality = this.account.value.speciality
   }

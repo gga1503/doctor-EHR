@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {PopUpService} from "../../../shared/services/pop-up/pop-up.service";
 import {ApiService} from "../../../shared/services/api/api.service";
+import {AlertService} from "../../../shared/services/alert/alert.service";
+
 
 @Component({
   selector: 'app-doctors',
@@ -17,7 +19,8 @@ export class DoctorsComponent implements OnInit {
   constructor(
     private api: ApiService,
     private router: Router,
-    private dialog: PopUpService
+    private dialog: PopUpService,
+    private alert: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +47,19 @@ export class DoctorsComponent implements OnInit {
     )
   }
 
+  onOpenAlert() {
+    this.alert.confirmationAlert({
+      image: "../../../assets/images/check.svg",
+      title: 'Congratulations!',
+      information: 'Your are successfully logged out'
+    })
+      .subscribe(_ => {
+        setTimeout(() => {
+          this.alert.close()
+        }, 3000)
+      });
+  }
+
   deleteClick(){
     this.dialog.confirmationPopUp({
       title: 'Delete Account',
@@ -60,8 +76,9 @@ export class DoctorsComponent implements OnInit {
   }
 
   async logout(){
-    // localStorage.removeItem('doctor')
+    localStorage.clear();
     await this.router.navigate(['/login'])
+    await this.onOpenAlert()
   }
 
 

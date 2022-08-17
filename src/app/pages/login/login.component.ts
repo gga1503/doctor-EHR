@@ -12,15 +12,13 @@ import {environment} from "../../../environments/environment";
 export class LoginComponent implements OnInit {
   hospital_bc_address = environment.hospital_bc_address
 
-  login = new FormGroup({
+  doctor = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"), Validators.email]),
     password: new FormControl('', Validators.compose([
       Validators.minLength(5),
       Validators.required
     ]))
   })
-  
-
 
 
   constructor(

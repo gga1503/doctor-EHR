@@ -19,11 +19,11 @@
               <i class="material-icons icon">person</i>
               <input type="email" class="form-control shadow-none" id="inputEmail"
                 placeholder="Enter your email address" formControlName="email" required>
-              <mat-error *ngIf="!login.get('email')?.errors?.['required'] && login.get('email')?.errors?.['pattern']">
+              <mat-error *ngIf="!doctor.get('email')?.errors?.['required'] && doctor.get('email')?.errors?.['pattern']">
                 Please enter your valid email address!
               </mat-error>
               <mat-error
-                *ngIf="login.get('email')?.invalid && (login.get('email')?.dirty || login.get('email')?.touched) && login.get('email')?.errors?.['required']">
+                *ngIf="doctor.get('email')?.invalid && (doctor.get('email')?.dirty || doctor.get('email')?.touched) && doctor.get('email')?.errors?.['required']">
                 Email is required
               </mat-error>
             </div>
@@ -36,14 +36,13 @@
               <input type="password" class="form-control shadow-none" id="inputPassword"
                 placeholder="Enter your password" formControlName="password" required>
               <mat-error
-                *ngIf="login.get('password')?.invalid && (login.get('password')?.dirty || login.get('password')?.touched) && login.get('password')?.errors?.['required']">
+                *ngIf="doctor.get('password')?.invalid && (doctor.get('password')?.dirty || doctor.get('password')?.touched) && doctor.get('password')?.errors?.['required']">
                 Password is required
               </mat-error>
-                     placeholder="Enter your password" formControlName="password" required>
             </div>
           </div>
 
-          <button class="btn login-btn btn-lg" type="submit" [disabled]="!login.valid">Login</button>
+          <button class="btn login-btn btn-lg" type="submit" [disabled]="!doctor.valid">Login</button>
         </form>
       </div>
     </section>
