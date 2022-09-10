@@ -14,12 +14,6 @@ import {PopUpService} from "../../../shared/services/pop-up/pop-up.service";
 export class CreateDoctorComponent implements OnInit {
   hospital = JSON.parse(<string>localStorage.getItem('hospital'))
   hide = true;
-  // account = this.formBuilder.group({
-  //   name: '',
-  //   speciality: '',
-  //   email: '',
-  //   password: ''
-  // })
 
   account = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -68,7 +62,7 @@ export class CreateDoctorComponent implements OnInit {
 
   data: any = {
     name: this.account.value.name,
-    bc_address: '0x28A5440536ab0e3F7C251b64da216F69fA568ce0',
+    bc_address: '0x5f00Bce9DCab10f3D70766d349F0E7A94D3B5e89',
     email: this.account.value.email,
     password: this.account.value.password,
     hospital: this.hospital.name,

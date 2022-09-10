@@ -58,7 +58,7 @@
 
       <div class="form-group mt-5">
         <label for="inputPassword" class="section-title">Password</label>
-        <input type="password" class="form-control mt-2" id="inputPassword" placeholder="Enter password"
+        <input [type]="hide ? 'password' : 'text'"  type="password" class="form-control mt-2" id="inputPassword" placeholder="Enter password"
           formControlName="password">
           <mat-error *ngIf="!account.get('password')?.errors?.['required'] && account.get('password')?.errors?.['pattern']">
             Please enter your password more than 5 letter!
@@ -67,6 +67,11 @@
             *ngIf="account.get('password')?.invalid && (account.get('password')?.dirty || account.get('password')?.touched) && account.get('password')?.errors?.['required']">
             Password is required!
           </mat-error><br>
+        <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" mat-icon-button
+                matSuffix>
+          <mat-icon>{{hide ? 'check_box_outline_blank' : 'check_box'}}</mat-icon>
+          <label for="inputPassword" class="section-title">Visible</label>
+        </button>
       </div>
 
 
