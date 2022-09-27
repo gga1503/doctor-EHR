@@ -25,6 +25,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.0",
     "@fortawesome/free-solid-svg-icons": "^6.1.0",
     "@types/crypto-js": "^4.1.1",
+    "@types/file-saver": "^2.0.5",
     "@zxing/browser": "^0.1.1",
     "@zxing/library": "^0.19.1",
     "@zxing/ngx-scanner": "^3.5.0",

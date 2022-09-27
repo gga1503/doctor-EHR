@@ -18,7 +18,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "crypto-js"
+              "crypto-js",
+              "file-saver"
             ],
             "outputPath": "dist/doctor-ehr",
             "index": "src/index.html",

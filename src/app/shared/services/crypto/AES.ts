@@ -19,9 +19,9 @@ export class AES {
     if (salt) {
       const key = CryptoJS.enc.Hex.parse(secret)
       const iv = CryptoJS.enc.Hex.parse(salt)
-      const decrypted = CryptoJS.AES.decrypt(cipher, key, {iv: iv})
+      const decrypted = CryptoJS.AES.decrypt(cipher, key, {iv: iv}).toString(CryptoJS.enc.Utf8)
 
-      return CryptoJS.enc.Utf8.stringify(decrypted)
+      return decrypted
     }
 
     const decrypted = CryptoJS.AES.decrypt(cipher, secret)
